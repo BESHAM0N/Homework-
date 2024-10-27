@@ -3,31 +3,13 @@ using UnityEngine;
 
 namespace ShootEmUp
 {
-    public sealed class BulletController : MonoBehaviour
+    public sealed class BulletManager : MonoBehaviour
     {
-        [SerializeField] private Bullet _bulletPrefab;
         [SerializeField] private Transform _worldTransform;
         [SerializeField] private LevelBounds _levelBounds;
-        [SerializeField] private Transform _container;
-
-        private BulletCreator _bulletCreator;
+        [SerializeField] private BulletPool _bulletPool;
         private readonly HashSet<Bullet> _activeBullets = new();
-        private readonly Queue<Bullet> _bulletPool = new();
         private readonly List<Bullet> _cache = new();
-
-        private void Awake()
-        {
-            _bulletCreator = new BulletCreator(_bulletPrefab, _container, _bulletPool);
-            GenerateBulletPool(10);
-        }
-
-        private void GenerateBulletPool(int poolSize)
-        {
-            for (var i = 0; i < poolSize; i++)
-            {
-                _bulletPool.Enqueue(_bulletCreator.GetBullet());
-            }
-        }
 
         private void FixedUpdate()
         {
@@ -36,16 +18,16 @@ namespace ShootEmUp
 
             foreach (var bullet in _cache)
             {
-                if (!_levelBounds.InBounds(bullet.transform.position))                
+                if (!_levelBounds.InBounds(bullet.Position))                
                     RemoveBullet(bullet);                
             }
         }
 
-        public void SpawnBullet(Vector2 position, Color color, int physicsLayer, int damage, bool isPlayer, Vector2 velocity)
+        public void SpawnBullet(Vector2 position, Color color, int physicsLayer, int damage, Vector2 velocity)
         {
-            var bullet = _bulletCreator.GetBullet();
-            bullet.transform.SetParent(_worldTransform);
-            bullet.transform.position = position;
+            var bullet = _bulletPool.GetObject();
+            bullet.SetParent(_worldTransform);
+            bullet.Position = position;
             bullet.Initialize(color, physicsLayer, damage, velocity);
 
             if (_activeBullets.Add(bullet))
@@ -56,7 +38,6 @@ namespace ShootEmUp
 
         private void OnBulletCollision(Bullet bullet, Collision2D collision)
         {
-            bullet.HandleCollision(collision);
             RemoveBullet(bullet);
         }
 
@@ -65,7 +46,7 @@ namespace ShootEmUp
             if (_activeBullets.Remove(bullet))
             {
                 bullet.OnCollisionEntered -= OnBulletCollision;
-                _bulletCreator.ReturnBullet(bullet);
+                _bulletPool.ReturnObject(bullet);
             }
         }
 

@@ -5,14 +5,18 @@ namespace ShootEmUp
     public class AttackBehavior
     {
         private Transform _firePoint;
-        private Enemy _enemy;
-        private float _countdown = 1f;
+        private readonly float _countdown = 1f;
         private float _currentTime;
+        private int _damage;
+        private BulletManager _bulletManager;
+        private readonly int _valueVelosity = 2;
+        private readonly Color _bulletColor = Color.red;
 
-        public AttackBehavior(Enemy enemy, Transform firePoint)
+        public AttackBehavior(Transform firePoint, BulletManager bulletManager, int damage)
         {
-            _enemy = enemy;
             _firePoint = firePoint;
+            _bulletManager = bulletManager;
+            _damage = damage;
             ResetAttackTimer();
         }
 
@@ -30,7 +34,7 @@ namespace ShootEmUp
         {
             Vector2 startPosition = _firePoint.position;
             var direction = ((Vector2)target.transform.position - startPosition).normalized;
-            _enemy.RequestAttack(_firePoint.position, direction);
+            _bulletManager.SpawnBullet(_firePoint.position, _bulletColor, (int)PhysicsLayer.ENEMY_BULLET, _damage, direction * _valueVelosity);
         }
 
         private void ResetAttackTimer()
@@ -38,5 +42,4 @@ namespace ShootEmUp
             _currentTime = _countdown;
         }
     }
-
 }

@@ -9,6 +9,8 @@ namespace ShootEmUp
         private Rigidbody2D _rigidbody;
         private float _speed;
         private Vector2 _destination;
+        
+        private const float MAGNITUDE_VALUE = 0.25f;
 
         public MovementBehavior(Rigidbody2D rigidbody, float speed)
         {
@@ -22,14 +24,13 @@ namespace ShootEmUp
             IsPointReached = false;
         }
 
-        public void Move(Vector2 targetPosition)
+        public void Move()
         {
             var vector = _destination - _rigidbody.position;
 
-            if (vector.magnitude <= 0.25f)
+            if (vector.magnitude <= MAGNITUDE_VALUE)
             {
                 IsPointReached = true;
-                Debug.Log($"IsPointReached: {IsPointReached}");
                 return;
             }
 

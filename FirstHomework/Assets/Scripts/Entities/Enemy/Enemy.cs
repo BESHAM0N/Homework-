@@ -2,20 +2,17 @@ using UnityEngine;
 
 namespace ShootEmUp
 {
-    public sealed class Enemy : MonoBehaviour, IDamageable
+    public sealed class Enemy : Ship
     {
-        public delegate void FireHandler(Vector2 position, Vector2 direction);
-        public event FireHandler OnFire;
-
-        public int Health => _health;
-
-        [SerializeField] private Transform _firePoint;
-        [SerializeField] private float _speed = 5.0f;
+        public Vector2 Position
+        {
+            set => transform.position = value;
+        }
 
         private Player _target;
         private Vector2 _destination;
-        private Rigidbody2D _rigidbody;
-        private int _health = 1;
+        private BulletManager _bulletManager;
+        
         private MovementBehavior _movementBehavior;
         private AttackBehavior _attackBehavior;
 
@@ -23,11 +20,6 @@ namespace ShootEmUp
         {
             _rigidbody = GetComponent<Rigidbody2D>();
             _movementBehavior = new MovementBehavior(_rigidbody, _speed);
-            _attackBehavior = new AttackBehavior(this, _firePoint);
-        }
-
-        private void Start()
-        {
             SetTarget();
         }
 
@@ -37,7 +29,7 @@ namespace ShootEmUp
             if (obj != null)
                 _target = obj.GetComponent<Player>();
             else
-                Debug.Log("Player не найден");
+                Debug.Log("Player not found");
         }
 
         private void FixedUpdate()
@@ -47,41 +39,29 @@ namespace ShootEmUp
                 if (_movementBehavior.IsPointReached)
                     _attackBehavior.Attack(_target);
                 else
-                    _movementBehavior.Move(_target.transform.position);
+                    _movementBehavior.Move();
             }
         }
 
-        public void RequestAttack(Vector2 position, Vector2 direction)
+        public void Activate(Vector2 destination, BulletManager bulletManager)
         {
-            OnFire?.Invoke(position, direction);
-        }
-
-        public void Activate(Vector2 destination)
-        {
-            _health = 1;
+            _health = _maxHealth;
             _movementBehavior.SetDestination(destination);
+            _bulletManager = bulletManager;
+            _attackBehavior = new AttackBehavior(_firePoint, _bulletManager, _damage);
             gameObject.SetActive(true);
         }
 
-        public void TakeDamage(int amount)
+        public void SetParent(Transform parent)
         {
-            _health -= amount;
-
-            if (_health <= 0)
-                gameObject.SetActive(false);
+            transform.parent = parent;
         }
 
         public void ResetEnemy()
         {
-            _health = 1;
+            _health = _maxHealth;
             SetTarget();
             gameObject.SetActive(true);
         }
     }
 }
-
-
-
-
-
-
