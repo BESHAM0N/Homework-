@@ -25,10 +25,18 @@ namespace ShootEmUp
 
         public void SpawnBullet(Vector2 position, Color color, int physicsLayer, int damage, Vector2 velocity)
         {
+            //var bullet = _bulletPool.GetObject();
+            //bullet.SetParent(_worldTransform);
+            //bullet.Position = position;
+            //bullet.Initialize(color, physicsLayer, damage, velocity);
+
+            //if (_activeBullets.Add(bullet))
+            //{
+            //    bullet.OnCollisionEntered += OnBulletCollision;
+            //}
+
             var bullet = _bulletPool.GetObject();
-            bullet.SetParent(_worldTransform);
-            bullet.Position = position;
-            bullet.Initialize(color, physicsLayer, damage, velocity);
+            bullet.Spawn(position, color, physicsLayer, damage, velocity, _worldTransform);
 
             if (_activeBullets.Add(bullet))
             {

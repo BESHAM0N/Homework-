@@ -25,6 +25,13 @@ namespace ShootEmUp
             _rigidbody2D.velocity = velocity;
         }
 
+        public void Spawn(Vector2 position, Color color, int physicsLayer, int damage, Vector2 velocity, Transform parent)
+        {
+            SetParent(parent);
+            Position = position;
+            Initialize(color, physicsLayer, damage, velocity);
+        }
+
         public void SetParent(Transform parent)
         {
             transform.parent = parent;
