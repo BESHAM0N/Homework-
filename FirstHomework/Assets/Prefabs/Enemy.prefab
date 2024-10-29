@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5568771391735819375}
   - component: {fileID: 659620479434099170}
   - component: {fileID: 102605417607457000}
+  - component: {fileID: 8336051311094187707}
   m_Layer: 11
   m_Name: Enemy
   m_TagString: Untagged
@@ -162,12 +163,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e09a324f54d94d6e84681731f36566c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemyShip: {fileID: 8336051311094187707}
+--- !u!114 &8336051311094187707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 559606060570185700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22da8114db0871c4dafa6d29430acfc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bulletManager: {fileID: 0}
   _firePoint: {fileID: 3195880656587174614}
   _speed: 5
   _damage: 1
   _isEnemy: 1
   _health: 1
   _maxHealth: 1
+  _bulletColor: {r: 1, g: 0, b: 0, a: 1}
+  _valueVelocity: 2
+  _physicsLayer: 13
 --- !u!1 &2239154907127902911
 GameObject:
   m_ObjectHideFlags: 0

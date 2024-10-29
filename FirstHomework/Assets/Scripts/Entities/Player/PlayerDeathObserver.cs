@@ -3,10 +3,10 @@ using UnityEngine;
 
 public sealed class PlayerDeathObserver : MonoBehaviour
 {
-    [SerializeField] private Player _player;
+    [SerializeField] private Ship _playerShip;
     private void OnEnable()
     {
-        _player.OnHealthEmpty += GameOver;
+        _playerShip.OnHealthEmpty += GameOver;
     }
     
     private  void GameOver()
@@ -16,6 +16,6 @@ public sealed class PlayerDeathObserver : MonoBehaviour
 
     private void OnDisable()
     {
-        _player.OnHealthEmpty -= GameOver;
+        _playerShip.OnHealthEmpty -= GameOver;
     }
 }

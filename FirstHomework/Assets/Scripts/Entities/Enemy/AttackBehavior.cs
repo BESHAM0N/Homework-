@@ -4,23 +4,17 @@ namespace ShootEmUp
 {
     public class AttackBehavior
     {
-        private Transform _firePoint;
         private readonly float _countdown = 1f;
         private float _currentTime;
-        private int _damage;
-        private BulletManager _bulletManager;
-        private readonly int _valueVelosity = 2;
-        private readonly Color _bulletColor = Color.red;
+        private Ship _ship;
 
-        public AttackBehavior(Transform firePoint, BulletManager bulletManager, int damage)
+        public AttackBehavior(Ship ship)
         {
-            _firePoint = firePoint;
-            _bulletManager = bulletManager;
-            _damage = damage;
+            _ship = ship;            
             ResetAttackTimer();
         }
 
-        public void Attack(Player target)
+        public void Attack(Ship target)
         {
             _currentTime -= Time.fixedDeltaTime;
             if (_currentTime <= 0)
@@ -30,11 +24,11 @@ namespace ShootEmUp
             }
         }
 
-        private void Fire(Player target)
+        private void Fire(Ship target)
         {
-            Vector2 startPosition = _firePoint.position;
+            Vector2 startPosition = _ship.FirePoint.position;
             var direction = ((Vector2)target.transform.position - startPosition).normalized;
-            _bulletManager.SpawnBullet(_firePoint.position, _bulletColor, (int)PhysicsLayer.ENEMY_BULLET, _damage, direction * _valueVelosity);
+            _ship.Attack(direction);            
         }
 
         private void ResetAttackTimer()

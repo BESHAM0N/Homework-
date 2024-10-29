@@ -6,16 +6,14 @@ namespace ShootEmUp
     {
         public bool IsPointReached { get; private set; }
 
-        private Rigidbody2D _rigidbody;
-        private float _speed;
+        private Ship _ship;
         private Vector2 _destination;
-        
+
         private const float MAGNITUDE_VALUE = 0.25f;
 
-        public MovementBehavior(Rigidbody2D rigidbody, float speed)
+        public MovementBehavior(Ship ship)
         {
-            _rigidbody = rigidbody;
-            _speed = speed;
+            _ship = ship;
         }
 
         public void SetDestination(Vector2 destination)
@@ -26,7 +24,7 @@ namespace ShootEmUp
 
         public void Move()
         {
-            var vector = _destination - _rigidbody.position;
+            var vector = _destination - _ship.Rigidbody.position;
 
             if (vector.magnitude <= MAGNITUDE_VALUE)
             {
@@ -35,8 +33,8 @@ namespace ShootEmUp
             }
 
             var direction = vector.normalized * Time.fixedDeltaTime;
-            var nextPosition = _rigidbody.position + direction * _speed;
-            _rigidbody.MovePosition(nextPosition);
+            var nextPosition = _ship.Rigidbody.position + direction * _ship.Speed;
+            _ship.Move(nextPosition);
         }
     }
 }

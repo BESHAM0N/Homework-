@@ -820,7 +820,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c57ed31af8d94ec3b11df7e2b588d40f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player: {fileID: 4414282821800802405}
+  _playerShip: {fileID: 4414282821800802398}
 --- !u!1 &61006797492197339
 GameObject:
   m_ObjectHideFlags: 0
@@ -1267,6 +1267,11 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5304112463754588103, guid: 9699e7e809fd44b2bbf3d30c951ecbd2,
+        type: 3}
+      propertyPath: _bulletManager
+      value: 
+      objectReference: {fileID: 363245577}
     - target: {fileID: 6799125967610205483, guid: 9699e7e809fd44b2bbf3d30c951ecbd2,
         type: 3}
       propertyPath: _health
@@ -1292,7 +1297,8 @@ PrefabInstance:
       propertyPath: _bulletController
       value: 
       objectReference: {fileID: 363245577}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6799125967610205483, guid: 9699e7e809fd44b2bbf3d30c951ecbd2, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -1402,16 +1408,16 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 3926786964592264468}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4414282821800802405 stripped
+--- !u!114 &4414282821800802398 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6799125967610205483, guid: 9699e7e809fd44b2bbf3d30c951ecbd2,
+  m_CorrespondingSourceObject: {fileID: 5304112463754588103, guid: 9699e7e809fd44b2bbf3d30c951ecbd2,
     type: 3}
   m_PrefabInstance: {fileID: 3926786964592264468}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 558b312fd53c491ab69f3e55255aae3c, type: 3}
+  m_Script: {fileID: 11500000, guid: 22da8114db0871c4dafa6d29430acfc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &4788406047096451828
@@ -1756,7 +1762,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ad7b96ef254d1a4bae60e38523307ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player: {fileID: 4414282821800802405}
+  _playerShip: {fileID: 4414282821800802398}
 --- !u!4 &8300918414904818790
 Transform:
   m_ObjectHideFlags: 0

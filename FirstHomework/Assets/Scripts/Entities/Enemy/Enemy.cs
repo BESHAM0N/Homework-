@@ -2,32 +2,31 @@ using UnityEngine;
 
 namespace ShootEmUp
 {
-    public sealed class Enemy : Ship
+    public sealed class Enemy : MonoBehaviour
     {
+        public int Health => _enemyShip.Health;
         public Vector2 Position
         {
             set => transform.position = value;
         }
 
-        private Player _target;
-        private Vector2 _destination;
-        private BulletManager _bulletManager;
-        
+        [SerializeField] private Ship _enemyShip;
+
+        private Ship _target;        
         private MovementBehavior _movementBehavior;
         private AttackBehavior _attackBehavior;
 
         private void Awake()
-        {
-            _rigidbody = GetComponent<Rigidbody2D>();
-            _movementBehavior = new MovementBehavior(_rigidbody, _speed);
-            SetTarget();
-        }
+        {           
+            _movementBehavior = new MovementBehavior(_enemyShip);            
+            SetTarget();           
+        }        
 
         private void SetTarget()
         {
             var obj = GameObject.FindGameObjectWithTag("Player");
             if (obj != null)
-                _target = obj.GetComponent<Player>();
+                _target = obj.GetComponent<Ship>();
             else
                 Debug.Log("Player not found");
         }
@@ -44,12 +43,11 @@ namespace ShootEmUp
         }
 
         public void Activate(Vector2 destination, BulletManager bulletManager)
-        {
-            _health = _maxHealth;
+        {           
+            _enemyShip.SetBulletManager(bulletManager);
+            _enemyShip.ResetShip();
             _movementBehavior.SetDestination(destination);
-            _bulletManager = bulletManager;
-            _attackBehavior = new AttackBehavior(_firePoint, _bulletManager, _damage);
-            gameObject.SetActive(true);
+            _attackBehavior = new AttackBehavior(_enemyShip);           
         }
 
         public void SetParent(Transform parent)
@@ -59,7 +57,7 @@ namespace ShootEmUp
 
         public void ResetEnemy()
         {
-            _health = _maxHealth;
+            _enemyShip.ResetShip();
             SetTarget();
             gameObject.SetActive(true);
         }

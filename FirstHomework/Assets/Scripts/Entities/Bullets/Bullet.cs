@@ -15,7 +15,14 @@ namespace ShootEmUp
 
         [SerializeField] private Rigidbody2D _rigidbody2D;
         [SerializeField] private SpriteRenderer _spriteRenderer;
-        private int _damage;
+        private int _damage;        
+
+        public void Spawn(Vector2 position, Color color, int physicsLayer, int damage, Vector2 velocity, Transform parent)
+        {
+            SetParent(parent);
+            Position = position;
+            Initialize(color, physicsLayer, damage, velocity);            
+        }
 
         public void Initialize(Color color, int physicsLayer, int damage, Vector2 velocity)
         {
@@ -23,13 +30,6 @@ namespace ShootEmUp
             gameObject.layer = physicsLayer;
             _damage = damage;
             _rigidbody2D.velocity = velocity;
-        }
-
-        public void Spawn(Vector2 position, Color color, int physicsLayer, int damage, Vector2 velocity, Transform parent)
-        {
-            SetParent(parent);
-            Position = position;
-            Initialize(color, physicsLayer, damage, velocity);
         }
 
         public void SetParent(Transform parent)
