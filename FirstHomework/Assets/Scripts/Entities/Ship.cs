@@ -7,16 +7,8 @@ namespace ShootEmUp
     {
         public Action OnHealthEmpty;
         [SerializeField] private BulletManager _bulletManager;
-
         public int Health => _health;
-        public int Damage => _damage;
-        public float Speed => _speed;
-        public Transform FirePoint => _firePoint;
-        public Color BulletColor => _bulletColor;
-        public int ValueVelocity => _valueVelocity;
-        public PhysicsLayer PhysicsLayer => _physicsLayer;
-        public Rigidbody2D Rigidbody => _rigidbody;
-
+        
         [SerializeField] protected Transform _firePoint;
         [SerializeField] protected float _speed = 5.0f;
         [SerializeField] protected int _damage = 1;
@@ -36,7 +28,6 @@ namespace ShootEmUp
         public void SetBulletManager(BulletManager bulletManager)
         {
             _bulletManager = bulletManager;
-            Debug.Log("bulletManager назначен");
         }
 
         public void TakeDamage(int amount)
@@ -51,14 +42,30 @@ namespace ShootEmUp
             }
         }
 
-        public virtual void Move(Vector2 targetPosition)
-        {            
-            _rigidbody.MovePosition(targetPosition); 
+        public virtual void Move(Vector2 direction)
+        {             
+            if (direction.magnitude > 0)
+            {
+                var moveStep = direction.normalized * Time.fixedDeltaTime * _speed;
+                var targetPosition = _rigidbody.position + moveStep;
+                _rigidbody.MovePosition(targetPosition);
+            }
         }
 
+        public virtual void AttackAt(Vector2 targetPosition)
+        {
+            var vector = targetPosition - (Vector2)_firePoint.position;
+            Attack(vector.normalized);
+        }
+        
         public virtual void Attack(Vector2 direction)
         {
             _bulletManager.SpawnBullet(_firePoint.position, _bulletColor, (int)_physicsLayer, _damage, direction * _valueVelocity);
+        }
+        
+        public Vector2 CalculateDirectionTo(Vector2 target)
+        {
+            return target - _rigidbody.position;
         }
 
         public void ResetShip()
@@ -66,6 +73,5 @@ namespace ShootEmUp
             _health = _maxHealth;
             gameObject.SetActive(true);
         }
-        
     }
 }

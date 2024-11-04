@@ -10,6 +10,8 @@ namespace ShootEmUp
             set => transform.position = value;
         }
 
+        public Ship Ship => _enemyShip;
+
         [SerializeField] private Ship _enemyShip;
 
         private Ship _target;        
@@ -42,9 +44,8 @@ namespace ShootEmUp
             }
         }
 
-        public void Activate(Vector2 destination, BulletManager bulletManager)
+        public void Activate(Vector2 destination)
         {           
-            _enemyShip.SetBulletManager(bulletManager);
             _enemyShip.ResetShip();
             _movementBehavior.SetDestination(destination);
             _attackBehavior = new AttackBehavior(_enemyShip);           

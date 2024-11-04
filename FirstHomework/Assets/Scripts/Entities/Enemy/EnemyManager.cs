@@ -9,7 +9,6 @@ namespace ShootEmUp
         public int ActiveEnemiesCount => _activeEnemies.Count;
         [SerializeField] private PointService _pointService;
         [SerializeField] private EnemyPool _enemyPool;
-        [SerializeField] private BulletManager _bulletManager;
 
         private readonly HashSet<Enemy> _activeEnemies = new();
 
@@ -17,8 +16,9 @@ namespace ShootEmUp
         {
             var spawnPosition = _pointService.GiveRandomSpawnPoint();
             var attackPosition = _pointService.GiveRandomAttackPoint();
-            var enemy = _enemyPool.GetOrCreateEnemy(spawnPosition.position);
-            enemy.Activate(attackPosition.position, _bulletManager);
+            var enemy = _enemyPool.GetObject();
+            enemy.Position = spawnPosition.position;
+            enemy.Activate(attackPosition.position);
             _activeEnemies.Add(enemy);
         }
 
@@ -28,7 +28,7 @@ namespace ShootEmUp
             {
                 if (enemy.Health <= 0)
                 {
-                    _enemyPool.ReturnEnemy(enemy);
+                    _enemyPool.ReturnObject(enemy);
                     _activeEnemies.Remove(enemy);
                 }
             }

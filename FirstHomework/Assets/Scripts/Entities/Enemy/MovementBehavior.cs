@@ -24,17 +24,13 @@ namespace ShootEmUp
 
         public void Move()
         {
-            var vector = _destination - _ship.Rigidbody.position;
-
-            if (vector.magnitude <= MAGNITUDE_VALUE)
+            var direction = _ship.CalculateDirectionTo(_destination);
+            if (direction.magnitude <= MAGNITUDE_VALUE)
             {
                 IsPointReached = true;
                 return;
             }
-
-            var direction = vector.normalized * Time.fixedDeltaTime;
-            var nextPosition = _ship.Rigidbody.position + direction * _ship.Speed;
-            _ship.Move(nextPosition);
+            _ship.Move(direction);
         }
     }
 }

@@ -5,20 +5,14 @@ namespace ShootEmUp
     public sealed class EnemyPool : ObjectPool<Enemy>
     {
         [SerializeField] private Transform _worldTransform;
+        [SerializeField] private BulletManager _bulletManager;
 
-        public Enemy GetOrCreateEnemy(Vector2 spawnPosition)
+        protected override void OnGetObject(Enemy enemy)
         {
-            Enemy enemy = GetObject();
+            enemy.Ship.SetBulletManager(_bulletManager);
             enemy.SetParent(_worldTransform);
-            enemy.Position = spawnPosition;
             enemy.ResetEnemy();
             enemy.gameObject.SetActive(true);
-            return enemy;
-        }
-
-        public void ReturnEnemy(Enemy enemy)
-        {
-            ReturnObject(enemy);
         }
     }
 }

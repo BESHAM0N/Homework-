@@ -26,9 +26,7 @@ namespace ShootEmUp
 
         private void Fire(Ship target)
         {
-            Vector2 startPosition = _ship.FirePoint.position;
-            var direction = ((Vector2)target.transform.position - startPosition).normalized;
-            _ship.Attack(direction);            
+            _ship.AttackAt(target.transform.position);            
         }
 
         private void ResetAttackTimer()

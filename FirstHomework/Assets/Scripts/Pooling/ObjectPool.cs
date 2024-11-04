@@ -23,7 +23,14 @@ public class ObjectPool<T> : MonoBehaviour where T : MonoBehaviour
 
     public T GetObject()
     {
-        return _pool.Count > 0 ? _pool.Dequeue() : CreateNewObject();
+        var obj =_pool.Count > 0 ? _pool.Dequeue() : CreateNewObject();
+        OnGetObject(obj);
+        return obj;
+    }
+
+    protected virtual void OnGetObject(T obj)
+    {
+        
     }
 
     private T CreateNewObject()

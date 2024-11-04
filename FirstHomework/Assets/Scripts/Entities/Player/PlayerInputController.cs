@@ -1,11 +1,13 @@
 using UnityEngine;
+using Vector2 = UnityEngine.Vector2;
+using Vector3 = UnityEngine.Vector3;
 
 namespace ShootEmUp
 {
     public sealed class PlayerController : MonoBehaviour
     {        
         [SerializeField] private Ship _playerShip;
-        private float moveDirection;        
+        private float _moveDirection;        
 
         private void Update()
         {
@@ -16,19 +18,15 @@ namespace ShootEmUp
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                var direction = _playerShip.FirePoint.rotation * Vector3.up;                    
-                _playerShip.Attack(direction);
+                _playerShip.Attack(Vector3.up);
             }
 
-            moveDirection = Input.GetKey(KeyCode.LeftArrow) ? -1 :
+            _moveDirection = Input.GetKey(KeyCode.LeftArrow) ? -1 :
                 Input.GetKey(KeyCode.RightArrow) ? 1 : 0;
 
-            if (moveDirection != 0)
+            if (_moveDirection != 0)
             {
-                var direction = new Vector2(moveDirection, 0);
-                var moveStep = direction * Time.fixedDeltaTime * _playerShip.Speed;
-                var targetPosition = _playerShip.Rigidbody.position + moveStep;
-                _playerShip.Move(targetPosition);
+                _playerShip.Move(new Vector2(_moveDirection, 0));
             }
         }
     }

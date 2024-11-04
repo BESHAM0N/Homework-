@@ -19,22 +19,13 @@ namespace ShootEmUp
 
         public void Spawn(Vector2 position, Color color, int physicsLayer, int damage, Vector2 velocity, Transform parent)
         {
-            SetParent(parent);
+            transform.parent = parent;
             Position = position;
-            Initialize(color, physicsLayer, damage, velocity);            
-        }
-
-        public void Initialize(Color color, int physicsLayer, int damage, Vector2 velocity)
-        {
+            
             _spriteRenderer.color = color;
             gameObject.layer = physicsLayer;
             _damage = damage;
             _rigidbody2D.velocity = velocity;
-        }
-
-        public void SetParent(Transform parent)
-        {
-            transform.parent = parent;
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
