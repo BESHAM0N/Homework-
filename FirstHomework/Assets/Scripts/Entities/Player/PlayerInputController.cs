@@ -7,7 +7,7 @@ namespace ShootEmUp
     public sealed class PlayerController : MonoBehaviour
     {        
         [SerializeField] private Ship _playerShip;
-        private float _moveDirection;        
+        private Vector2 _moveDirection;        
 
         private void Update()
         {
@@ -21,12 +21,14 @@ namespace ShootEmUp
                 _playerShip.Attack(Vector3.up);
             }
 
-            _moveDirection = Input.GetKey(KeyCode.LeftArrow) ? -1 :
+            var horizontal = Input.GetKey(KeyCode.LeftArrow) ? -1 :
                 Input.GetKey(KeyCode.RightArrow) ? 1 : 0;
 
-            if (_moveDirection != 0)
+            _moveDirection = new Vector2(horizontal, 0);
+
+            if (_moveDirection != Vector2.zero)
             {
-                _playerShip.Move(new Vector2(_moveDirection, 0));
+                _playerShip.Move(_moveDirection);
             }
         }
     }
