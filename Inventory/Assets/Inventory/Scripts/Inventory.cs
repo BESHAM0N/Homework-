@@ -24,7 +24,7 @@ namespace Inventories
         {
             if (width <= 0 || height <= 0)
             {
-                throw new ArgumentException("ширина и высота не могут быть отрицательными или равны 0");
+                throw new ArgumentException("Ширина и высота не могут быть отрицательными или равны 0");
             }
 
             Width = width;
@@ -36,26 +36,26 @@ namespace Inventories
         public Inventory(in int width, in int height, params KeyValuePair<Item, Vector2Int>[] items) : this(width,
             height)
         {
-            if (items == null) throw new ArgumentException("список айтемов не может быть пустым", nameof(items));
+            if (items == null) throw new ArgumentException("Список айтемов не может быть пустым", nameof(items));
             AddItemsWithPosition(items);
         }
 
         public Inventory(in int width, in int height, params Item[] items) : this(width, height)
         {
-            if (items == null) throw new ArgumentException("список айтемов не может быть пустым", nameof(items));
+            if (items == null) throw new ArgumentException("Список айтемов не может быть пустым", nameof(items));
             AddItemsWithoutPosition(items);
         }
 
         public Inventory(in int width, in int height, in IEnumerable<KeyValuePair<Item, Vector2Int>> items) : this(
             width, height)
         {
-            if (items == null) throw new ArgumentException("список айтемов не может быть пустым", nameof(items));
+            if (items == null) throw new ArgumentException("Список айтемов не может быть пустым", nameof(items));
             AddItemsWithPosition(items);
         }
 
         public Inventory(in int width, in int height, in IEnumerable<Item> items) : this(width, height)
         {
-            if (items == null) throw new ArgumentException("список айтемов не может быть пустым", nameof(items));
+            if (items == null) throw new ArgumentException("Список айтемов не может быть пустым", nameof(items));
             AddItemsWithoutPosition(items);
         }
 
@@ -64,14 +64,10 @@ namespace Inventories
             foreach (var item in items)
             {
                 if (item.Key == null)
-                {
-                    throw new ArgumentException("айтем не может быть пустым");
-                }
+                    throw new ArgumentException("Айтем не может быть пустым");
 
                 if (!CanAddItem(item.Key, item.Value.x, item.Value.y))
-                {
-                    throw new ArgumentException("недопустимый айтем или позиция.");
-                }
+                    throw new ArgumentException("Недопустимый айтем или позиция.");
 
                 AddItem(item.Key, item.Value);
             }
@@ -81,10 +77,8 @@ namespace Inventories
         {
             foreach (var item in items)
             {
-                if (!FindFreePosition(item, out var position))
-                {
-                    throw new ArgumentException("невозможно поместить айтем в инвентарь");
-                }
+                if (!FindFreePosition(item.Size, out var position))
+                    throw new ArgumentException("Невозможно поместить айтем в инвентарь");
 
                 AddItem(item, position);
             }
@@ -95,225 +89,127 @@ namespace Inventories
         /// </summary>
         public bool CanAddItem(in Item item, in Vector2Int position)
         {
-            if (item == null)
-            {
+            if (!IsValidItem(item) || Contains(item) || !IsPositionWithinBounds(position, item.Size))
                 return false;
-            }
 
-            if (item.Size.x <= 0 || item.Size.y <= 0)
-            {
-                throw new ArgumentException("размер айтема должен быть положительным и больше нуля");
-            }
-
-            // Проверка границ инвентаря
-            if (position.x < 0 || position.y < 0 || position.x + item.Size.x > Width || position.y + item.Size.y > Height)
-            {
-                Debug.Log("Координаты за пределами инвентаря.");
-                return false;
-            }
-
-            // Проверка каждой ячейки, чтобы убедиться, что позиции свободны
-            for (int x = position.x; x < position.x + item.Size.x; x++)
-            {
-                for (int y = position.y; y < position.y + item.Size.y; y++)
-                {
-                    if (IsOccupied(x, y) && _grid[x, y] != item)
-                    {
-                        return false;
-                    }
-                }
-            }
-
-            Debug.Log("Все проверенные ячейки свободны, элемент можно добавить.");
-            return true;
+            return IsAreaFree(position, item.Size);
         }
-        
-        public bool CanAddItem(in Item item, in int posX, in int posY)
+
+        private bool CanAddItem(in Item item, in int posX, in int posY)
         {
-            if (item == null)
-            {
-                throw new ArgumentNullException(nameof(item), "Элемент не может быть пустым");
-            }
-        
-            if (item.Size.x <= 0 || item.Size.y <= 0)
-            {
-                throw new ArgumentException("Размер айтема должен быть положительным и больше нуля");
-            }
-           
-            if (posX < 0 || posY < 0 || posX + item.Size.x > Width || posY + item.Size.y > Height)
-            {
-                Debug.Log("Координаты за пределами инвентаря.");
+            if (!IsValidItem(item) || Contains(item))
                 return false;
-            }
-            
-            if (Contains(item))
-            {
-                return false;
-            }
-          
-            for (int x = posX; x < posX + item.Size.x; x++)
-            {
-                for (int y = posY; y < posY + item.Size.y; y++)
-                {
-                    if (IsOccupied(x, y))
-                    {
-                        if (IsOccupied(x, y) && _grid[x, y] != item)
-                        {
-                            return false;
-                        }
-                    }
-                }
-            }
-            
-            Debug.Log("Все проверенные ячейки свободны, элемент можно добавить.");
-            return true;
+
+            return IsPositionWithinBounds(new Vector2Int(posX, posY), item.Size) &&
+                   IsAreaFree(new Vector2Int(posX, posY), item.Size);
         }
-        
+
         /// <summary>
         /// Adds an item on a specified position if not exists
         /// </summary>
         public bool AddItem(in Item item, in Vector2Int position)
         {
             if (item == null || Contains(item) || !CanAddItem(item, position))
-            {
                 return false;
-            }
-           
-            _items.Add(item);
-            for (int x = position.x; x < position.x + item.Size.x; x++)
-            {
-                for (int y = position.y; y < position.y + item.Size.y; y++)
-                {
-                    _grid[x, y] = item;
-                }
-            }
-        
+
+            PlaceItemInGrid(item, position);
             OnAdded?.Invoke(item, position);
             return true;
         }
-        
+
         public bool AddItem(in Item item, in int posX, in int posY)
         {
-            if (item == null)
-            {
-                return false;
-            }
-        
-            if (Contains(item))
-            {
-                return false;
-            }
-        
-            if (posX < 0 || posY < 0 || posX + item.Size.x > Width || posY + item.Size.y > Height)
-            {
-                return false;
-            }
-        
-            for (int x = posX; x < posX + item.Size.x; x++)
-            {
-                for (int y = posY; y < posY + item.Size.y; y++)
-                {
-                    if (IsOccupied(x, y))
-                    {
-                        return false;
-                    }
-                }
-            }
-        
+            return AddItem(item, new Vector2Int(posX, posY));
+        }
+
+        private void PlaceItemInGrid(Item item, Vector2Int position)
+        {
             _items.Add(item);
-            for (int x = posX; x < posX + item.Size.x; x++)
+            for (var x = position.x; x < position.x + item.Size.x; x++)
             {
-                for (int y = posY; y < posY + item.Size.y; y++)
+                for (var y = position.y; y < position.y + item.Size.y; y++)
                 {
                     _grid[x, y] = item;
                 }
             }
-        
-            OnAdded?.Invoke(item, new Vector2Int(posX, posY));
+        }
+
+        private bool IsValidItem(Item item)
+        {
+            if (item == null)
+                return false;
+
+            if (item.Size.x <= 0 || item.Size.y <= 0)
+                throw new ArgumentException("Размер айтема должен быть положительным и больше нул");
+
             return true;
         }
-        
+
+        private bool IsPositionWithinBounds(Vector2Int position, Vector2Int size)
+        {
+            return position.x >= 0 && position.y >= 0 &&
+                   position.x + size.x <= Width && position.y + size.y <= Height;
+        }
+
         /// <summary>
         /// Checks for adding an item on a free position
         /// </summary>
         public bool CanAddItem(in Item item)
         {
-            if (item == null)
-            {
+            if (item == null || Contains(item))
                 return false;
-            }
-            
-            if (Contains(item))
-            {
-                return false;
-            }
-        
+
             if (item.Size.x <= 0 || item.Size.y <= 0)
-            {
-                throw new ArgumentException("размер айтема должен быть положительным и больше нуля");
-            }
-        
-            return FindFreePosition(item, out _);
+                throw new ArgumentException("Размер айтема должен быть положительным и больше нуля");
+
+            return FindFreePosition(item.Size, out _);
         }
-        
+
         /// <summary>
         /// Adds an item on a free position
         /// </summary>
-        public bool AddItem(in Item item)
+        public bool AddItem(in Item item, bool triggerEvent = true)
         {
-            if (item == null)
-            {
+            if (item == null || Contains(item))
                 return false;
-            }
 
             if (item.Size.x <= 0 || item.Size.y <= 0)
-            {
-                throw new ArgumentException("размер айтема должен быть положительным и больше нуля");
-            }
+                throw new ArgumentException("Размер айтема должен быть положительным и больше нуля");
 
-            if (!FindFreePosition(item, out var position))
-            {
+            if (!FindFreePosition(item.Size, out var position))
                 return false;
-            }
 
-            // Добавление элемента в список и установка его позиций в grid
             _items.Add(item);
-            for (int x = position.x; x < position.x + item.Size.x; x++)
+            for (var x = position.x; x < position.x + item.Size.x; x++)
             {
-                for (int y = position.y; y < position.y + item.Size.y; y++)
+                for (var y = position.y; y < position.y + item.Size.y; y++)
                 {
                     _grid[x, y] = item;
                 }
             }
 
-            // Вызов события после добавления
-            OnAdded?.Invoke(item, position);
+            if (triggerEvent)
+                OnAdded?.Invoke(item, position);
+
             return true;
         }
 
         /// <summary>
         /// Returns a free position for a specified item
         /// </summary>
-        public bool FindFreePosition(in Item item, out Vector2Int freePosition)
+        public bool FindFreePosition(in Vector2Int size, out Vector2Int freePosition)
         {
-            if (item == null)
+            if (size.x <= 0 || size.y <= 0)
             {
-                throw new ArgumentNullException(nameof(item),
-                    "ошибка при проверке возможности добавления айтема в указанную позицию");
+                throw new ArgumentException("Размер должен быть положительным и больше нуля", nameof(size));
             }
 
-            if (item.Size.x <= 0 || item.Size.y <= 0)
+            for (var y = 0; y <= Height - size.y; y++)
             {
-                throw new ArgumentException("размер айтема должен быть положительным и больше нуля");
-            }
-
-            for (int y = 0; y <= Height - item.Size.y; y++)
-            {
-                for (int x = 0; x <= Width - item.Size.x; x++)
+                for (var x = 0; x <= Width - size.x; x++)
                 {
-                    // Создаем объект Vector2Int и вызываем перегрузку CanAddItem, принимающую Vector2Int
                     var position = new Vector2Int(x, y);
-                    if (CanAddItem(item, position))
+                    if (IsAreaFree(position, size))
                     {
                         freePosition = position;
                         return true;
@@ -325,43 +221,26 @@ namespace Inventories
             return false;
         }
 
-        public bool FindFreePosition(in Vector2Int size, out Vector2Int freePosition) =>
-            FindFreePosition(new Item(size), out freePosition);
-
-        public bool FindFreePosition(in int sizeX, int sizeY, out Vector2Int freePosition) =>
-            FindFreePosition(new Vector2Int(sizeX, sizeY), out freePosition);
-
         /// <summary>
         /// Checks if a specified item exists
         /// </summary>
         public bool Contains(in Item item)
         {
             if (item == null)
-            {
                 return false;
-            }
 
-            try
-            {
-                return _items.Contains(item);
-            }
-            catch (Exception ex)
-            {
-                throw new ArgumentException("ошибка при проверке наличия айтема в инвентаре", ex);
-            }
+            return _items.Contains(item);
         }
 
         /// <summary>
         /// Checks if a specified position is occupied
         /// </summary>
-        public bool IsOccupied(in Vector2Int position) => IsOccupied(position.x, position.y);
+        private bool IsOccupied(in Vector2Int position) => IsOccupied(position.x, position.y);
 
         public bool IsOccupied(in int x, in int y)
         {
             if (x < 0 || x >= Width || y < 0 || y >= Height)
-            {
-                throw new IndexOutOfRangeException("позиция за пределами инвентаря");
-            }
+                throw new IndexOutOfRangeException("Позиция за пределами инвентаря");
 
             return _grid[x, y] != null;
         }
@@ -373,72 +252,66 @@ namespace Inventories
 
         public bool IsFree(in int x, in int y)
         {
-            try
+            return !IsOccupied(x, y);
+        }
+
+        private bool IsAreaFree(Vector2Int position, Vector2Int size)
+        {
+            for (var x = position.x; x < position.x + size.x; x++)
             {
-                return !IsOccupied(x, y);
+                for (var y = position.y; y < position.y + size.y; y++)
+                {
+                    if (IsOccupied(x, y) && _grid[x, y] != null)
+                        return false;
+                }
             }
-            catch (Exception ex)
-            {
-                throw new ArgumentException("ошибка при проверке, свободна ли позиция", ex);
-            }
+
+            return true;
         }
 
         /// <summary>
         /// Removes a specified item if exists
         /// </summary>
-        public bool RemoveItem(in Item item)
+        private bool RemoveItem(in Item item)
         {
-            return RemoveItemInternal(item, out _);
+            return RemoveItemFromGrid(item, out _);
         }
 
         public bool RemoveItem(in Item item, out Vector2Int position)
         {
-            try
-            {
-                return RemoveItemInternal(item, out position);
-            }
-            catch (Exception ex)
-            {
-                throw new InvalidOperationException("ошибка при удалении айтема из инвентаря", ex);
-            }
+            var removeItem = RemoveItemFromGrid(item, out position);
+            if (removeItem)
+                OnRemoved?.Invoke(item, position);
+
+            return removeItem;
         }
 
-        private bool RemoveItemInternal(in Item item, out Vector2Int position)
+        private bool RemoveItemFromGrid(in Item item, out Vector2Int position)
         {
             position = default;
 
             if (item == null || !_items.Contains(item))
-            {
                 return false;
-            }
 
-            try
+            var found = false;
+            for (var x = 0; x < Width; x++)
             {
-                bool found = false;
-                for (int x = 0; x < Width; x++)
+                for (var y = 0; y < Height; y++)
                 {
-                    for (int y = 0; y < Height; y++)
+                    if (_grid[x, y] == item)
                     {
-                        if (_grid[x, y] == item)
+                        _grid[x, y] = null;
+                        if (!found)
                         {
-                            _grid[x, y] = null;
-                            if (!found)
-                            {
-                                position = new Vector2Int(x, y);
-                                found = true;
-                            }
+                            position = new Vector2Int(x, y);
+                            found = true;
                         }
                     }
                 }
+            }
 
-                _items.Remove(item);
-                OnRemoved?.Invoke(item, position);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                throw new InvalidOperationException("ошибка в процессе удаления айтема из инвентаря", ex);
-            }
+            _items.Remove(item);
+            return true;
         }
 
         /// <summary>
@@ -446,30 +319,18 @@ namespace Inventories
         /// </summary>
         public Item GetItem(in Vector2Int position)
         {
-            try
-            {
-                if (position.x < 0 || position.y < 0 || position.x >= Width || position.y >= Height)
-                {
-                    throw new IndexOutOfRangeException("позиция за пределами инвентаря");
-                }
+            ValidatePositionInBounds(position);
 
-                return _grid[position.x, position.y] ??
-                       throw new NullReferenceException("В указанной позиции не найден ни один айтем.");
-            }
-            catch (Exception ex)
-            {
-                throw new InvalidOperationException("ошибка при получении айтема в указанной позиции", ex);
-            }
+            var item = _grid[position.x, position.y];
+            return item ?? throw new NullReferenceException("В указанной позиции не найден ни один айтем");
         }
 
         public Item GetItem(in int x, in int y)
         {
-            if (x < 0 || x >= Width || y < 0 || y >= Height)
-            {
-                throw new IndexOutOfRangeException("позиция за пределами инвентаря");
-            }
+            ValidatePositionInBounds(x, y);
 
-            return _grid[x, y] ?? throw new NullReferenceException("В указанной позиции не найден ни один айтем.");
+            var item = _grid[x, y];
+            return item ?? throw new NullReferenceException("В указанной позиции не найден ни один айтем");
         }
 
         public bool TryGetItem(in Vector2Int position, out Item item)
@@ -479,7 +340,7 @@ namespace Inventories
 
         public bool TryGetItem(int x, int y, out Item item)
         {
-            if (x < 0 || x >= Width || y < 0 || y >= Height)
+            if (!IsPositionInBounds(x, y))
             {
                 item = null;
                 return false;
@@ -489,58 +350,55 @@ namespace Inventories
             return item != null;
         }
 
+        private void ValidatePositionInBounds(Vector2Int position)
+        {
+            ValidatePositionInBounds(position.x, position.y);
+        }
+
+        private void ValidatePositionInBounds(int x, int y)
+        {
+            if (!IsPositionInBounds(x, y))
+                throw new IndexOutOfRangeException("Позиция за пределами инвентаря.");
+        }
+
+        private bool IsPositionInBounds(int x, int y)
+        {
+            return x >= 0 && x < Width && y >= 0 && y < Height;
+        }
+
         /// <summary>
         /// Returns matrix positions of a specified item 
         /// </summary>
         public Vector2Int[] GetPositions(in Item item)
         {
-            if (item == null)
-            {
-                throw new NullReferenceException("айтем не может быть пустым");
-            }
+            if (!TryGetPositions(item, out var positions))
+                throw item == null
+                    ? new NullReferenceException("Айтем не может быть пустым")
+                    : new KeyNotFoundException("Айтем не найден в инвентаре");
 
-            if (!_items.Contains(item))
-            {
-                throw new KeyNotFoundException("айтем не найден в инвенторе");
-            }
-
-            var positions = new List<Vector2Int>();
-            for (int x = 0; x < Width; x++)
-            {
-                for (int y = 0; y < Height; y++)
-                {
-                    if (_grid[x, y] == item)
-                    {
-                        positions.Add(new Vector2Int(x, y));
-                    }
-                }
-            }
-
-            return positions.ToArray();
+            return positions;
         }
 
         public bool TryGetPositions(in Item item, out Vector2Int[] positions)
         {
-            try
-            {
-                if (item == null)
-                {
-                    throw new NullReferenceException("айтем не может быть пустым");
-                }
+            positions = null;
 
-                positions = GetPositions(item);
-                return true;
-            }
-            catch (NullReferenceException)
-            {
-                positions = null;
+            if (item == null || !_items.Contains(item))
                 return false;
-            }
-            catch (KeyNotFoundException)
+
+            var result = new List<Vector2Int>();
+
+            for (var x = 0; x < Width; x++)
             {
-                positions = null;
-                return false;
+                for (var y = 0; y < Height; y++)
+                {
+                    if (_grid[x, y] == item)
+                        result.Add(new Vector2Int(x, y));
+                }
             }
+
+            positions = result.ToArray();
+            return true;
         }
 
         /// <summary>
@@ -548,18 +406,11 @@ namespace Inventories
         /// </summary>
         public void Clear()
         {
-            try
+            if (_items.Count > 0)
             {
-                if (_items.Count > 0)
-                {
-                    Array.Clear(_grid, 0, _grid.Length);
-                    _items.Clear();
-                    OnCleared?.Invoke();
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new InvalidOperationException("ошибка при очистке инвентаря", ex);
+                Array.Clear(_grid, 0, _grid.Length);
+                _items.Clear();
+                OnCleared?.Invoke();
             }
         }
 
@@ -568,14 +419,7 @@ namespace Inventories
         /// </summary>
         public int GetItemCount(string name)
         {
-            try
-            {
-                return _items.Count(i => i.Name == name);
-            }
-            catch (Exception ex)
-            {
-                throw new InvalidOperationException("ошибка при подсчете айтемов с указанным именем", ex);
-            }
+            return _items.Count(i => i.Name == name);
         }
 
         /// <summary>
@@ -584,43 +428,23 @@ namespace Inventories
         public bool MoveItem(in Item item, in Vector2Int position)
         {
             if (item == null)
-            {
-                throw new ArgumentNullException(nameof(item), "айтем не может быть пустым");
-            }
+                throw new ArgumentNullException(nameof(item), "Айтем не может быть пустым");
 
-            // Проверка, находится ли элемент в инвентаре
-            if (!Contains(item))
-            {
-                Debug.Log("айтем не найден в инвенторе");
+            if (!Contains(item) || !RemoveItem(item))
                 return false;
-            }
 
-            // Попытка удалить элемент перед перемещением
-            if (!RemoveItem(item, out _))
-            {
-                Debug.LogError("Не удалось удалить айтем перед перемещением");
-                return false;
-            }
-
-            // Проверка возможности добавления элемента на новую позицию
             if (!CanAddItem(item, position))
             {
-                // Восстановление оригинальных позиций при невозможности перемещения
                 AddItem(item);
-                Debug.Log("Перемещение не удалось, айтем возвращен на исходные позиции");
                 return false;
             }
-            //
-            // // Добавление элемента на новую позицию
-            // if (!AddItem(item, position))
-            // {
-            //     // Восстановление оригинальных позиций при неудаче добавления
-            //     AddItem(item);
-            //     Debug.LogError("Не удалось добавить айтем на новую позицию, айтем возвращен на исходные позиции");
-            //     return false;
-            // }
 
-            // Вызов события успешного перемещения
+            if (!AddItem(item, false))
+            {
+                AddItem(item);
+                return false;
+            }
+
             OnMoved?.Invoke(item, position);
             return true;
         }
@@ -630,27 +454,17 @@ namespace Inventories
         /// </summary>
         public void ReorganizeSpace()
         {
-            try
-            {
-                var sortedItems =
-                    _items.OrderByDescending(item => item.Size.x * item.Size.y)
-                        .ToList();
-                Clear();
+            var sortedItems = _items.OrderByDescending(item => item.Size.x * item.Size.y).ToList();
+            Clear();
 
-                foreach (var item in sortedItems)
+            foreach (var item in sortedItems)
+            {
+                if (!FindFreePosition(item.Size, out var position))
                 {
-                    if (!FindFreePosition(item, out var position))
-                    {
-                        throw new InvalidOperationException(
-                            "ошибка при реорганизации пространства. Невозможно добавить товар");
-                    }
-
-                    AddItem(item, position);
+                    throw new ArgumentException("Ошибка при реорганизации пространства. Невозможно добавить айтем");
                 }
-            }
-            catch (Exception ex)
-            {
-                throw new InvalidOperationException("ошибка при реорганизации инвентарного пространства", ex);
+
+                AddItem(item, position);
             }
         }
 
@@ -660,18 +474,14 @@ namespace Inventories
         public void CopyTo(in Item[,] matrix)
         {
             if (matrix == null)
-            {
-                throw new ArgumentNullException(nameof(matrix), "матрица не может быть пустой");
-            }
+                throw new ArgumentNullException(nameof(matrix), "Матрица не может быть пустой");
 
             if (matrix.GetLength(0) != Width || matrix.GetLength(1) != Height)
-            {
                 throw new ArgumentException("Размер матрицы не соответствует размерам");
-            }
 
-            for (int x = 0; x < Width; x++)
+            for (var x = 0; x < Width; x++)
             {
-                for (int y = 0; y < Height; y++)
+                for (var y = 0; y < Height; y++)
                 {
                     matrix[x, y] = _grid[x, y];
                 }
