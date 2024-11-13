@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace Inventories
@@ -14,7 +13,7 @@ namespace Inventories
         public event Action OnCleared;
 
         private readonly Item[,] _grid;
-        private readonly List<Item> _items;
+        private Dictionary<Item, Vector2Int> _items;
 
         public int Width { get; }
         public int Height { get; }
@@ -24,38 +23,38 @@ namespace Inventories
         {
             if (width <= 0 || height <= 0)
             {
-                throw new ArgumentException("Ширина и высота не могут быть отрицательными или равны 0");
+                throw new ArgumentException("Width and height cannot be negative or equal to 0");
             }
 
             Width = width;
             Height = height;
             _grid = new Item[width, height];
-            _items = new List<Item>();
+            _items = new Dictionary<Item, Vector2Int>();
         }
 
         public Inventory(in int width, in int height, params KeyValuePair<Item, Vector2Int>[] items) : this(width,
             height)
         {
-            if (items == null) throw new ArgumentException("Список айтемов не может быть пустым", nameof(items));
+            if (items == null) throw new ArgumentException("The list of items cannot be empty", nameof(items));
             AddItemsWithPosition(items);
         }
 
         public Inventory(in int width, in int height, params Item[] items) : this(width, height)
         {
-            if (items == null) throw new ArgumentException("Список айтемов не может быть пустым", nameof(items));
+            if (items == null) throw new ArgumentException("The list of items cannot be empty", nameof(items));
             AddItemsWithoutPosition(items);
         }
 
         public Inventory(in int width, in int height, in IEnumerable<KeyValuePair<Item, Vector2Int>> items) : this(
             width, height)
         {
-            if (items == null) throw new ArgumentException("Список айтемов не может быть пустым", nameof(items));
+            if (items == null) throw new ArgumentException("The list of items cannot be empty", nameof(items));
             AddItemsWithPosition(items);
         }
 
         public Inventory(in int width, in int height, in IEnumerable<Item> items) : this(width, height)
         {
-            if (items == null) throw new ArgumentException("Список айтемов не может быть пустым", nameof(items));
+            if (items == null) throw new ArgumentException("The list of items cannot be empty", nameof(items));
             AddItemsWithoutPosition(items);
         }
 
@@ -64,10 +63,10 @@ namespace Inventories
             foreach (var item in items)
             {
                 if (item.Key == null)
-                    throw new ArgumentException("Айтем не может быть пустым");
+                    throw new ArgumentException("Item cannot be null");
 
                 if (!CanAddItem(item.Key, item.Value.x, item.Value.y))
-                    throw new ArgumentException("Недопустимый айтем или позиция.");
+                    throw new ArgumentException("Invalid item or position.");
 
                 AddItem(item.Key, item.Value);
             }
@@ -78,7 +77,7 @@ namespace Inventories
             foreach (var item in items)
             {
                 if (!FindFreePosition(item.Size, out var position))
-                    throw new ArgumentException("Невозможно поместить айтем в инвентарь");
+                    throw new ArgumentException("Cannot place item in inventory");
 
                 AddItem(item, position);
             }
@@ -107,13 +106,15 @@ namespace Inventories
         /// <summary>
         /// Adds an item on a specified position if not exists
         /// </summary>
-        public bool AddItem(in Item item, in Vector2Int position)
+        public bool AddItem(in Item item, in Vector2Int position, bool triggerEvent = true)
         {
             if (item == null || Contains(item) || !CanAddItem(item, position))
                 return false;
 
             PlaceItemInGrid(item, position);
-            OnAdded?.Invoke(item, position);
+            _items[item] = position;
+            if (triggerEvent)
+                OnAdded?.Invoke(item, position);
             return true;
         }
 
@@ -124,7 +125,7 @@ namespace Inventories
 
         private void PlaceItemInGrid(Item item, Vector2Int position)
         {
-            _items.Add(item);
+            _items[item] = position;
             for (var x = position.x; x < position.x + item.Size.x; x++)
             {
                 for (var y = position.y; y < position.y + item.Size.y; y++)
@@ -140,7 +141,7 @@ namespace Inventories
                 return false;
 
             if (item.Size.x <= 0 || item.Size.y <= 0)
-                throw new ArgumentException("Размер айтема должен быть положительным и больше нул");
+                throw new ArgumentException("Item size must be positive and greater than zero");
 
             return true;
         }
@@ -160,7 +161,7 @@ namespace Inventories
                 return false;
 
             if (item.Size.x <= 0 || item.Size.y <= 0)
-                throw new ArgumentException("Размер айтема должен быть положительным и больше нуля");
+                throw new ArgumentException("Item size must be positive and greater than zero");
 
             return FindFreePosition(item.Size, out _);
         }
@@ -174,12 +175,12 @@ namespace Inventories
                 return false;
 
             if (item.Size.x <= 0 || item.Size.y <= 0)
-                throw new ArgumentException("Размер айтема должен быть положительным и больше нуля");
+                throw new ArgumentException("Item size must be positive and greater than zero");
 
             if (!FindFreePosition(item.Size, out var position))
                 return false;
 
-            _items.Add(item);
+            _items[item] = position;
             for (var x = position.x; x < position.x + item.Size.x; x++)
             {
                 for (var y = position.y; y < position.y + item.Size.y; y++)
@@ -201,7 +202,7 @@ namespace Inventories
         {
             if (size.x <= 0 || size.y <= 0)
             {
-                throw new ArgumentException("Размер должен быть положительным и больше нуля", nameof(size));
+                throw new ArgumentException("The size must be positive and greater than zero", nameof(size));
             }
 
             for (var y = 0; y <= Height - size.y; y++)
@@ -226,10 +227,7 @@ namespace Inventories
         /// </summary>
         public bool Contains(in Item item)
         {
-            if (item == null)
-                return false;
-
-            return _items.Contains(item);
+            return item != null && _items.ContainsKey(item);
         }
 
         /// <summary>
@@ -240,7 +238,7 @@ namespace Inventories
         public bool IsOccupied(in int x, in int y)
         {
             if (x < 0 || x >= Width || y < 0 || y >= Height)
-                throw new IndexOutOfRangeException("Позиция за пределами инвентаря");
+                throw new IndexOutOfRangeException("Position outside of inventory");
 
             return _grid[x, y] != null;
         }
@@ -290,23 +288,15 @@ namespace Inventories
         {
             position = default;
 
-            if (item == null || !_items.Contains(item))
+            if (item == null || !_items.TryGetValue(item, out position))
                 return false;
 
-            var found = false;
-            for (var x = 0; x < Width; x++)
+            var itemSize = item.Size;
+            for (var x = position.x; x < position.x + itemSize.x; x++)
             {
-                for (var y = 0; y < Height; y++)
+                for (var y = position.y; y < position.y + itemSize.y; y++)
                 {
-                    if (_grid[x, y] == item)
-                    {
-                        _grid[x, y] = null;
-                        if (!found)
-                        {
-                            position = new Vector2Int(x, y);
-                            found = true;
-                        }
-                    }
+                    _grid[x, y] = null;
                 }
             }
 
@@ -322,7 +312,7 @@ namespace Inventories
             ValidatePositionInBounds(position);
 
             var item = _grid[position.x, position.y];
-            return item ?? throw new NullReferenceException("В указанной позиции не найден ни один айтем");
+            return item ?? throw new NullReferenceException("No item was found at the specified position");
         }
 
         public Item GetItem(in int x, in int y)
@@ -330,7 +320,7 @@ namespace Inventories
             ValidatePositionInBounds(x, y);
 
             var item = _grid[x, y];
-            return item ?? throw new NullReferenceException("В указанной позиции не найден ни один айтем");
+            return item ?? throw new NullReferenceException("No item was found at the specified position");
         }
 
         public bool TryGetItem(in Vector2Int position, out Item item)
@@ -358,7 +348,7 @@ namespace Inventories
         private void ValidatePositionInBounds(int x, int y)
         {
             if (!IsPositionInBounds(x, y))
-                throw new IndexOutOfRangeException("Позиция за пределами инвентаря.");
+                throw new IndexOutOfRangeException("Position outside of inventory");
         }
 
         private bool IsPositionInBounds(int x, int y)
@@ -373,8 +363,8 @@ namespace Inventories
         {
             if (!TryGetPositions(item, out var positions))
                 throw item == null
-                    ? new NullReferenceException("Айтем не может быть пустым")
-                    : new KeyNotFoundException("Айтем не найден в инвентаре");
+                    ? new NullReferenceException("Item cannot be empty")
+                    : new KeyNotFoundException("Item not found in inventory");
 
             return positions;
         }
@@ -383,17 +373,17 @@ namespace Inventories
         {
             positions = null;
 
-            if (item == null || !_items.Contains(item))
+            if (item == null || !_items.TryGetValue(item, out var startPosition))
                 return false;
 
             var result = new List<Vector2Int>();
+            var itemSize = item.Size;
 
-            for (var x = 0; x < Width; x++)
+            for (var x = 0; x < itemSize.x; x++)
             {
-                for (var y = 0; y < Height; y++)
+                for (var y = 0; y < itemSize.y; y++)
                 {
-                    if (_grid[x, y] == item)
-                        result.Add(new Vector2Int(x, y));
+                    result.Add(new Vector2Int(startPosition.x + x, startPosition.y + y));
                 }
             }
 
@@ -404,13 +394,14 @@ namespace Inventories
         /// <summary>
         /// Clears all inventory items
         /// </summary>
-        public void Clear()
+        public void Clear(bool triggerEvent = true)
         {
             if (_items.Count > 0)
             {
                 Array.Clear(_grid, 0, _grid.Length);
                 _items.Clear();
-                OnCleared?.Invoke();
+                if (triggerEvent)
+                    OnCleared?.Invoke();
             }
         }
 
@@ -419,7 +410,18 @@ namespace Inventories
         /// </summary>
         public int GetItemCount(string name)
         {
-            return _items.Count(i => i.Name == name);
+            var count = 0;
+            var itemsArray = new Item[_items.Keys.Count];
+            _items.Keys.CopyTo(itemsArray, 0);
+    
+            for (var i = 0; i < itemsArray.Length; i++)
+            {
+                if (itemsArray[i].Name == name)
+                {
+                    count++;
+                }
+            }
+            return count;
         }
 
         /// <summary>
@@ -428,7 +430,7 @@ namespace Inventories
         public bool MoveItem(in Item item, in Vector2Int position)
         {
             if (item == null)
-                throw new ArgumentNullException(nameof(item), "Айтем не может быть пустым");
+                throw new ArgumentNullException(nameof(item), "Item cannot be empty");
 
             if (!Contains(item) || !RemoveItem(item))
                 return false;
@@ -454,17 +456,19 @@ namespace Inventories
         /// </summary>
         public void ReorganizeSpace()
         {
-            var sortedItems = _items.OrderByDescending(item => item.Size.x * item.Size.y).ToList();
-            Clear();
+            var sortedItems = new List<Item>(_items.Keys);
+            sortedItems.Sort((a, b) => (b.Size.x * b.Size.y).CompareTo(a.Size.x * a.Size.y));
 
+            Clear(false);
+           
             foreach (var item in sortedItems)
             {
                 if (!FindFreePosition(item.Size, out var position))
                 {
-                    throw new ArgumentException("Ошибка при реорганизации пространства. Невозможно добавить айтем");
+                    throw new ArgumentException("Error reorganizing space. Cannot add item.");
                 }
 
-                AddItem(item, position);
+                AddItem(item, position, false);
             }
         }
 
@@ -474,21 +478,15 @@ namespace Inventories
         public void CopyTo(in Item[,] matrix)
         {
             if (matrix == null)
-                throw new ArgumentNullException(nameof(matrix), "Матрица не может быть пустой");
+                throw new ArgumentNullException(nameof(matrix), "The matrix cannot be empty");
 
             if (matrix.GetLength(0) != Width || matrix.GetLength(1) != Height)
-                throw new ArgumentException("Размер матрицы не соответствует размерам");
+                throw new ArgumentException("The matrix size does not match the dimensions");
 
-            for (var x = 0; x < Width; x++)
-            {
-                for (var y = 0; y < Height; y++)
-                {
-                    matrix[x, y] = _grid[x, y];
-                }
-            }
+            Array.Copy(_grid, matrix, _grid.Length);
         }
 
-        public IEnumerator<Item> GetEnumerator() => _items.GetEnumerator();
+        public IEnumerator<Item> GetEnumerator() => _items.Keys.GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }

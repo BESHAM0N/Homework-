@@ -13,8 +13,6 @@ namespace Inventories
      {
          [TestCase(5, 10)]
          [TestCase(3, 2)]
-         [TestCase(0, 10)]
-         [TestCase(10, 0)]
          public void Instantiate(int width, int height)
          {
              //Act:
@@ -61,6 +59,8 @@ namespace Inventories
          [TestCase(2, -1)]
          [TestCase(-10, -100)]
          [TestCase(0, 0)]
+         [TestCase(0, 10)]
+         [TestCase(10, 0)]
          public void WhenInvalidSizeThenException(int width, int height)
          {
              //Assert:
