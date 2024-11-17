@@ -106,15 +106,14 @@ namespace Inventories
         /// <summary>
         /// Adds an item on a specified position if not exists
         /// </summary>
-        public bool AddItem(in Item item, in Vector2Int position, bool triggerEvent = true)
+        public bool AddItem(in Item item, in Vector2Int position)
         {
             if (item == null || Contains(item) || !CanAddItem(item, position))
                 return false;
 
             PlaceItemInGrid(item, position);
             _items[item] = position;
-            if (triggerEvent)
-                OnAdded?.Invoke(item, position);
+            OnAdded?.Invoke(item, position);
             return true;
         }
 
@@ -376,32 +375,31 @@ namespace Inventories
             if (item == null || !_items.TryGetValue(item, out var startPosition))
                 return false;
 
-            var result = new List<Vector2Int>();
+            positions = new Vector2Int[item.CellSize];
             var itemSize = item.Size;
+            var i = 0;
 
             for (var x = 0; x < itemSize.x; x++)
             {
                 for (var y = 0; y < itemSize.y; y++)
                 {
-                    result.Add(new Vector2Int(startPosition.x + x, startPosition.y + y));
+                    positions[i++] = new Vector2Int(startPosition.x + x, startPosition.y + y);
                 }
             }
 
-            positions = result.ToArray();
             return true;
         }
 
         /// <summary>
         /// Clears all inventory items
         /// </summary>
-        public void Clear(bool triggerEvent = true)
+        public void Clear()
         {
             if (_items.Count > 0)
             {
                 Array.Clear(_grid, 0, _grid.Length);
                 _items.Clear();
-                if (triggerEvent)
-                    OnCleared?.Invoke();
+                OnCleared?.Invoke();
             }
         }
 
@@ -411,16 +409,15 @@ namespace Inventories
         public int GetItemCount(string name)
         {
             var count = 0;
-            var itemsArray = new Item[_items.Keys.Count];
-            _items.Keys.CopyTo(itemsArray, 0);
-    
-            for (var i = 0; i < itemsArray.Length; i++)
+
+            foreach (var item in _items.Keys)
             {
-                if (itemsArray[i].Name == name)
+                if (item.Name == name)
                 {
                     count++;
                 }
             }
+
             return count;
         }
 
@@ -457,10 +454,10 @@ namespace Inventories
         public void ReorganizeSpace()
         {
             var sortedItems = new List<Item>(_items.Keys);
-            sortedItems.Sort((a, b) => (b.Size.x * b.Size.y).CompareTo(a.Size.x * a.Size.y));
+            sortedItems.Sort((a, b) => (b.CellSize).CompareTo(a.CellSize));
 
-            Clear(false);
-           
+            Array.Clear(_grid, 0, _grid.Length);
+
             foreach (var item in sortedItems)
             {
                 if (!FindFreePosition(item.Size, out var position))
@@ -468,7 +465,7 @@ namespace Inventories
                     throw new ArgumentException("Error reorganizing space. Cannot add item.");
                 }
 
-                AddItem(item, position, false);
+               PlaceItemInGrid(item, position);
             }
         }
 
