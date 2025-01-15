@@ -34,7 +34,7 @@ namespace SnakeGame
             this.Container.BindInterfacesAndSelfTo<SnakeExpandObserver>().AsSingle().NonLazy();;
             this.Container.BindInterfacesAndSelfTo<SnakeSpeedObserver>().AsSingle().NonLazy();;
             this.Container.BindInterfacesAndSelfTo<SnakeSelfColliderObserver>().AsSingle().NonLazy();;
-            this.Container.BindInterfacesAndSelfTo<SnakePickUpCoinsObserver>().AsSingle().NonLazy();
+            this.Container.BindInterfacesAndSelfTo<SnakeMovementAndPickupObserver>().AsSingle().NonLazy();
         }
     }
 }

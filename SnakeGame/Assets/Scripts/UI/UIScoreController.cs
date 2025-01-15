@@ -4,12 +4,12 @@ using Modules;
 
 namespace SnakeGame
 {
-    public sealed class UIScoreObserver : IInitializable, IDisposable
+    public sealed class UIScoreController : IInitializable, IDisposable
     {
         private IScore _score;
         private IGameUI _gameUI;
 
-        public UIScoreObserver(IScore score, IGameUI gameUI)
+        public UIScoreController(IScore score, IGameUI gameUI)
         {
             _score = score;
             _gameUI = gameUI;
@@ -18,6 +18,7 @@ namespace SnakeGame
         public void Initialize()
         {
             _score.OnStateChanged += UpdateScore;
+            StartSetScore();
         }
         
         public void Dispose()
@@ -27,6 +28,11 @@ namespace SnakeGame
         private void UpdateScore(int score)
         {
             _gameUI.SetScore(score.ToString());
+        }
+
+        private void StartSetScore()
+        {
+            _gameUI.SetScore(_score.Current.ToString());
         }
     }
 }

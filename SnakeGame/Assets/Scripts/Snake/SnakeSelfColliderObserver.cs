@@ -27,7 +27,7 @@ namespace SnakeGame
         
         private void OnSelfCollider()
         {
-            _gameCycle.OnGameOver(false);
+            _gameCycle.FinishGame(false);
         }
     }
 }

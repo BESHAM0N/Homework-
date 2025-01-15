@@ -8,8 +8,7 @@ namespace SnakeGame
     public sealed class CoinManager
     {
         public event Action<ICoin> OnCoinPickedUp;
-        public event Action OnLevelCompleted;
-        public event Action<bool> OnGameOver;
+        public event Action OnAllCoinsCollected;
         
         private readonly IWorldBounds _worldBounds;
         private readonly ICoinSpawner _coinPool;
@@ -45,14 +44,8 @@ namespace SnakeGame
             _activeCoins.Add(coin);
         }
 
-        public void PickUp(Vector2Int position)
+        public bool TryPickUp(Vector2Int position)
         {
-            if (!_worldBounds.IsInBounds(position))
-            {
-                OnGameOver?.Invoke(false);
-                return;
-            }
-
             foreach (var coin in _activeCoins.ToArray())
             {
                 if (coin.Position != position) continue;
@@ -64,11 +57,12 @@ namespace SnakeGame
 
                 if (_activeCoins.Count == 0)
                 {
-                     OnLevelCompleted?.Invoke();
+                     OnAllCoinsCollected?.Invoke();
                 }
 
-                break;
+                return true;
             }
+            return false;
         }
     }
 }

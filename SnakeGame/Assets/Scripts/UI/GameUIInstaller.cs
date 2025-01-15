@@ -1,15 +1,17 @@
+using UnityEngine;
 using Zenject;
 
 namespace SnakeGame
 {
-    public class GameUIInstaller : Installer<GameUIInstaller>
+    
+    [CreateAssetMenu(fileName = "GameUIInstaller", menuName = "UI/New GameUIInstaller")]
+    public class GameUIInstaller : ScriptableObjectInstaller
     {
         public override void InstallBindings()
         {
             Container.Bind<IGameUI>().FromComponentInHierarchy().AsSingle().NonLazy();
-            Container.BindInterfacesAndSelfTo<GameUIInitializer>().AsSingle();
-            Container.BindInterfacesAndSelfTo<UILevelObserver>().AsSingle();
-            Container.BindInterfacesAndSelfTo<UIScoreObserver>().AsSingle();
+            Container.BindInterfacesAndSelfTo<UILevelController>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<UIScoreController>().AsSingle().NonLazy();
         }
     }
 }

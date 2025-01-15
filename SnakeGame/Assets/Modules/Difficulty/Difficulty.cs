@@ -16,7 +16,7 @@ namespace Modules
         public Difficulty(int max)
         {
             _max = max;
-            _current = 1;
+            _current = 0;
         }
 
         public bool Next(out int difficulty)

@@ -1,8 +1,13 @@
-﻿namespace SnakeGame
+﻿using System;
+
+namespace SnakeGame
 {
     public interface IGameCycle
     {
-        public void CheckLevelCompletion();
-        public void OnGameOver(bool win);
+        event Action OnStarted;
+        event Action<bool> OnFinished;
+        
+        public void StartGame();
+        public void FinishGame(bool win);
     }
 }

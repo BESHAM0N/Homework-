@@ -14,15 +14,20 @@ namespace SnakeGame
             _snake = snake;
             _difficulty = difficulty;
         }
-        
+
         public void Initialize()
         {
-            _difficulty.OnStateChanged += () => _snake.SetSpeed(_difficulty.Current);
+            _difficulty.OnStateChanged += OnDifficultyChanged;
         }
 
         public void Dispose()
         {
-            _difficulty.OnStateChanged -= () => _snake.SetSpeed(_difficulty.Current);
+            _difficulty.OnStateChanged -= OnDifficultyChanged;
+        }
+
+        private void OnDifficultyChanged()
+        {
+            _snake.SetSpeed(_difficulty.Current);
         }
     }
 }
