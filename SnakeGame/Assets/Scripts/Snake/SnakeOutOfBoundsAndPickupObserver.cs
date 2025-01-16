@@ -5,14 +5,14 @@ using Zenject;
 
 namespace SnakeGame
 {
-    public sealed class SnakeMovementAndPickupObserver : IInitializable, IDisposable
+    public sealed class SnakeOutOfBoundsAndPickupObserver : IInitializable, IDisposable
     {
         private readonly ISnake _snake;
         private readonly CoinManager _coinManager;
         private readonly GameCycle _gameCycle;
         private readonly IWorldBounds _worldBounds;
 
-        public SnakeMovementAndPickupObserver(ISnake snake, CoinManager coinManager, GameCycle gameCycle, IWorldBounds worldBounds)
+        public SnakeOutOfBoundsAndPickupObserver(ISnake snake, CoinManager coinManager, GameCycle gameCycle, IWorldBounds worldBounds)
         {
             _snake = snake;
             _coinManager = coinManager;
