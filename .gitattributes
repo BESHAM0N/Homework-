@@ -1,0 +1,14 @@
+# Текстовые файлы — храним с LF
+*.cs        text eol=lf
+*.shader    text eol=lf
+*.meta      text eol=lf
+*.txt       text eol=lf
+*.json      text eol=lf
+
+# Двоичные файлы (картинки и т.д.)
+*.png       binary
+*.jpg       binary
+*.fbx       binary
+*.prefab    binary
+*.unity     binary
+*.asset     binary

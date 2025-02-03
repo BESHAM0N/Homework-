@@ -1,0 +1,93 @@
+﻿using System;
+using UnityEngine;
+using Modules.Planets;
+using Unity.VisualScripting;
+
+namespace Game.Planets
+{
+    public class PlanetPopupPresenter : IPlanetPopupPresenter, IDisposable, IInitializable
+    {
+        public event Action OnStateChanged;
+        
+        public string PlanetName => _planet != null ? _planet.Name : string.Empty;
+        public string Population => _planet != null ? _planet.Population.ToString() : string.Empty;
+        public Sprite Icon => _planet?.GetIcon(_planet.Unlock());
+        public string CurrentLevel => _planet != null ? _planet.Level.ToString() : string.Empty;
+        public string MaxLevel => _planet != null ? _planet.MaxLevel.ToString() : string.Empty;
+        public string UpgradePrice => _planet != null ? _planet.Price.ToString() : string.Empty;
+        public string Income => _planet != null ? _planet.MinuteIncome.ToString() : string.Empty;
+        public bool IsUnlock => _planet?.IsUnlocked ?? false; 
+        public bool IsNewUpgrade => _planet?.CanUpgrade ?? false; 
+        
+         private readonly IMoneyAdapter _moneyAdapter;
+         private Planet _planet;
+        
+         public PlanetPopupPresenter(IMoneyAdapter moneyAdapter)
+         {
+             _moneyAdapter = moneyAdapter;
+         }
+        
+         public void ChangePlanet(Planet planet)
+         {
+             if (_planet != null)
+             {
+                 UnsubscribeFromPlanetEvents();
+             }
+
+             _planet = planet;
+
+             if (_planet != null)
+             {
+                 SubscribeToPlanetEvents();
+             }
+
+             OnStateChanged?.Invoke();
+         }
+
+         void IInitializable.Initialize() { }
+
+         void IDisposable.Dispose()
+         {
+             if (_planet != null)
+             {
+                 UnsubscribeFromPlanetEvents();
+             }
+         }
+
+         private void SubscribeToPlanetEvents()
+         {
+             _planet.OnUnlocked += OnPlanetStateChanged;
+             _planet.OnUpgraded += OnPlanetStateChanged;
+         }
+
+         private void UnsubscribeFromPlanetEvents()
+         {
+             _planet.OnUnlocked -= OnPlanetStateChanged;
+             _planet.OnUpgraded -= OnPlanetStateChanged;
+         }
+
+         private void OnPlanetStateChanged(int _)
+         {
+             OnStateChanged?.Invoke();
+         }
+
+         private void OnPlanetStateChanged()
+         {
+             OnStateChanged?.Invoke();
+         }
+
+         public bool CanUpgrade()
+         {
+             return _planet != null && _planet.CanUpgrade;
+         }
+
+         public void Upgrade()
+         {
+             if (_planet != null && _planet.CanUpgrade)
+             {
+                 _planet.Upgrade();
+                 OnStateChanged?.Invoke();
+             }
+         }
+    }
+}
