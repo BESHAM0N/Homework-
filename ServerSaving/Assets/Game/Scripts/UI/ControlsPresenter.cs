@@ -1,5 +1,4 @@
 using System;
-using Game.Scripts.App;
 using Game.Scripts.Observers;
 using Zenject;
 
@@ -7,24 +6,18 @@ namespace Game.Gameplay
 {
     public sealed class ControlsPresenter : IControlsPresenter
     {
-        private readonly SaveGameObserver _saveObserver;
-        private readonly LoadGameObserver _loadObserver;
-        private readonly GameVersionManager _gameVersionManager;
+        private readonly GameSaveLoader _gameSaveLoader;
 
         [Inject]
-        public ControlsPresenter(SaveGameObserver saveObserver, LoadGameObserver loadObserver,
-            GameVersionManager gameVersionManager)
+        public ControlsPresenter(GameSaveLoader gameSaveLoader)
         {
-            _saveObserver = saveObserver;
-            _loadObserver = loadObserver;
-            _gameVersionManager = gameVersionManager;
+            _gameSaveLoader = gameSaveLoader;
         }
 
         public async void Save(Action<bool, int> callback)
         {
-            var success = await _saveObserver.Save();
-            var version = success ? _gameVersionManager.GetLastVersion() : -1;
-            callback?.Invoke(success, version);
+            var result = await _gameSaveLoader.Save();
+            callback?.Invoke(result.Success, result.Version);
         }
 
         public async void Load(string versionText, Action<bool, int> callback)
@@ -35,7 +28,7 @@ namespace Game.Gameplay
                 return;
             }
 
-            var success = await _loadObserver.Load(version);
+            var success = await _gameSaveLoader.Load(version);
             callback?.Invoke(success, version);
         }
     }

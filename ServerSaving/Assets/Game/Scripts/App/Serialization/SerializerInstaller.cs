@@ -6,7 +6,7 @@ namespace Game.Scripts.Serialization
     {
         public override void InstallBindings()
         {
-            Container.BindInterfacesAndSelfTo<JsonGameSerializer>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<EntityWorldSerializer>().AsSingle().NonLazy();
         }
     }
 }
