@@ -4,6 +4,7 @@ using System.Reflection;
 using Game.Gameplay.Attributes;
 using Modules.Entities;
 using Newtonsoft.Json;
+using SampleGame.Gameplay;
 using UnityEngine;
 
 namespace Game.Scripts.Serialization
@@ -42,6 +43,11 @@ namespace Game.Scripts.Serialization
                             data.Components[field.Name] = value;
                         }
                     }
+
+                    if (component is TargetObject { Value: { } targetValue })
+                    {
+                        data.Components["TargetObject"] = new TargetObjectData { EntityId = targetValue.Id };
+                    }
                 }
 
                 entityList.Add(data);
@@ -55,6 +61,7 @@ namespace Game.Scripts.Serialization
             var entities = JsonConvert.DeserializeObject<List<EntityData>>(json);
 
             _entityWorld.DestroyAll();
+            Dictionary<int, TargetObject> pendingTargets = new();
 
             foreach (var entityData in entities)
             {
@@ -71,6 +78,25 @@ namespace Game.Scripts.Serialization
                             field.SetValue(component, value);
                         }
                     }
+
+                    if (component is TargetObject targetObject &&
+                        entityData.Components.TryGetValue("TargetObject", out var targetData) &&
+                        targetData is TargetObjectData parsedTargetData)
+                    {
+                        pendingTargets[parsedTargetData.EntityId] = targetObject;
+                    }
+                }
+            }
+
+            foreach (var (entityId, targetObject) in pendingTargets)
+            {
+                if (_entityWorld.TryGet(entityId, out var targetEntity))
+                {
+                    targetObject.Value = targetEntity;
+                }
+                else
+                {
+                    Debug.LogWarning($"[EntityWorldSerializer] Nor found Entity с ID {entityId} by TargetObject.");
                 }
             }
         }

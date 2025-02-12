@@ -11,6 +11,6 @@ namespace Modules.Entities
         public string Name;
         public SerializedVector3 Position;
         public SerializedVector3 Rotation;
-        public Dictionary<string, float> Components = new();
+        public Dictionary<string, object> Components = new();
     }
 }

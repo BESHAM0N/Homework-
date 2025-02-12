@@ -822,50 +822,6 @@ Transform:
   - {fileID: 376300664}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &791001110
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 791001112}
-  - component: {fileID: 791001111}
-  m_Layer: 0
-  m_Name: <Application>
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &791001111
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 791001110}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 065431fe42234a7a9e65c691a60b7342, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &791001112
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 791001110}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.0155082, y: 0.15058929, z: -4.2188416}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &825018766
 GameObject:
   m_ObjectHideFlags: 0
@@ -1300,6 +1256,8 @@ GameObject:
   - component: {fileID: 1779306646}
   - component: {fileID: 1779306647}
   - component: {fileID: 1779306649}
+  - component: {fileID: 1779306650}
+  - component: {fileID: 1779306651}
   m_Layer: 0
   m_Name: <SceneContext>
   m_TagString: Untagged
@@ -1337,8 +1295,8 @@ MonoBehaviour:
   _scriptableObjectInstallers:
   - {fileID: 11400000, guid: f2dd28a4344494b3289a84529f4d562d, type: 2}
   _monoInstallers:
-  - {fileID: 791001111}
   - {fileID: 2121707071}
+  - {fileID: 1779306651}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -1444,6 +1402,30 @@ MonoBehaviour:
       Data: 
   autoRun: 1
   _catalog: {fileID: 11400000, guid: a2891d20b82b24d77b5f2599b601b7e7, type: 2}
+--- !u!114 &1779306650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1779306645}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0db96477e464775b5a1d1e8016f720b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1779306651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1779306645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 065431fe42234a7a9e65c691a60b7342, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1839664928
 GameObject:
   m_ObjectHideFlags: 0
@@ -2379,4 +2361,3 @@ SceneRoots:
   - {fileID: 1779306646}
   - {fileID: 2121707070}
   - {fileID: 187226093}
-  - {fileID: 791001112}

@@ -2,7 +2,7 @@
 
 namespace Game.Scripts.Serialization
 {
-    public sealed class SerializerInstaller : Installer<SerializerInstaller>
+    public sealed class SerializerInstaller : MonoInstaller
     {
         public override void InstallBindings()
         {

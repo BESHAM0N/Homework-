@@ -9,8 +9,8 @@ namespace Game.Scripts.App
     {
         public override void InstallBindings()
         {
+            Container.BindInterfacesAndSelfTo<EntityWorldSerializer>().AsSingle().NonLazy();
             RepositoryInstaller.Install(Container);
-            SerializerInstaller.Install(Container);
             GameLoaderAndSaverInstaller.Install(Container);
         }
     }

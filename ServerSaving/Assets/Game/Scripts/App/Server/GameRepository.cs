@@ -21,6 +21,13 @@ namespace Game.Scripts.App.Server
         public async UniTask<SaveResult> Save(string data)
         {
             var latestVersion = await GetLatestVersion(); 
+            
+            if (latestVersion == -1) 
+            {
+                Debug.LogError("Failed to get latest version from server.");
+                return new SaveResult(false, 0);
+            }
+            
             var newVersion = latestVersion + 1; 
             
             var encryptedData = AesEncryptionHelper.Encrypt(data);
@@ -61,20 +68,19 @@ namespace Game.Scripts.App.Server
             return new SaveResult(true, version, decryptedData);
         }
 
-        public async UniTask<int> GetLatestVersion()
+        private async UniTask<int> GetLatestVersion()
         {
             var url = $"{SERVER_URL}{VERSION_LINK}";
             using UnityWebRequest request = UnityWebRequest.Get(url);
-
             await request.SendWebRequest();
-
             if (request.result == UnityWebRequest.Result.Success && int.TryParse(request.downloadHandler.text, out int version))
             {
                 PlayerPrefs.SetInt(LOCAL_VERSION_KEY, version);
                 PlayerPrefs.Save();
                 return version;
             }
-            
+    
+            Debug.LogWarning("Failed to get latest version from server. Using local version.");
             return PlayerPrefs.GetInt(LOCAL_VERSION_KEY, 0);
         }
     }
