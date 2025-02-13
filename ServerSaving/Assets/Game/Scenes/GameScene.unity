@@ -1053,6 +1053,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9065027770874668793, guid: c5ac295ae315e417c987790f5feaa285, type: 3}
+      propertyPath: <Value>k__BackingField
+      value: 
+      objectReference: {fileID: 1816416657}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1240,11 +1244,33 @@ Transform:
   - {fileID: 144917582}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1533155453 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -3255042188513778183, guid: 18fda96b84e0a416bbc6ac43784ede6c, type: 3}
+  m_PrefabInstance: {fileID: 1293561553}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db28c01e8c66417d9c02a36d1e417f5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1777432525 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6687724764997051306, guid: f68d88c83116a48edbbe56293b6e6967, type: 3}
   m_PrefabInstance: {fileID: 241671546056984513}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1777432531 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -4906184570170703649, guid: f68d88c83116a48edbbe56293b6e6967, type: 3}
+  m_PrefabInstance: {fileID: 241671546056984513}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db28c01e8c66417d9c02a36d1e417f5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1779306645
 GameObject:
   m_ObjectHideFlags: 0
@@ -1426,6 +1452,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 065431fe42234a7a9e65c691a60b7342, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1816416657 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2614908684948761468, guid: 4106c12989c5945208c5ad49b841da6d, type: 3}
+  m_PrefabInstance: {fileID: 3174093400553065327}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db28c01e8c66417d9c02a36d1e417f5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1839664928
 GameObject:
   m_ObjectHideFlags: 0
@@ -1526,6 +1563,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8569554350118887533, guid: 6a4b1a954f66d403995c53b9cbc10e69, type: 3}
+      propertyPath: <Value>k__BackingField
+      value: 
+      objectReference: {fileID: 1533155453}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1644,7 +1685,7 @@ PrefabInstance:
     - target: {fileID: 2699578255736237261, guid: f68d88c83116a48edbbe56293b6e6967, type: 3}
       propertyPath: <Value>k__BackingField
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1046262986}
     - target: {fileID: 6687724764997051306, guid: f68d88c83116a48edbbe56293b6e6967, type: 3}
       propertyPath: m_LocalPosition.x
       value: -8.27
@@ -1970,6 +2011,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2376188484272754450, guid: 4106c12989c5945208c5ad49b841da6d, type: 3}
+      propertyPath: _queue.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2376188484272754450, guid: 4106c12989c5945208c5ad49b841da6d, type: 3}
+      propertyPath: _queue.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: ef242378560874fa18891eab36e82579, type: 2}
     - target: {fileID: 6293560808235626781, guid: 4106c12989c5945208c5ad49b841da6d, type: 3}
       propertyPath: m_Name
       value: Barracks
@@ -2161,6 +2210,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3545485109777784190, guid: 2fba1fbd86b7e4be38f6a19cb361ec55, type: 3}
+      propertyPath: <Value>k__BackingField
+      value: 
+      objectReference: {fileID: 1777432531}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

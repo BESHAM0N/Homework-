@@ -66,6 +66,14 @@ namespace Modules.Entities
         {
             return _entities.Values;
         }
+        
+        public EntityConfig GetEntityConfigByName(string name)
+        {
+            if (string.IsNullOrEmpty(name))
+                return null;
+
+            return _catalog.FindConfig(name, out var config) ? config : null;
+        }
 
         [Button]
         public void Add(Entity entity, int id = -1)

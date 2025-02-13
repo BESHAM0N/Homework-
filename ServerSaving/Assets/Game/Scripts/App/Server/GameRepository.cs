@@ -12,7 +12,6 @@ namespace Game.Scripts.App.Server
         private const string SERVER_URL = "http://127.0.0.1:8888";
         private const string SAVE_PART_LINK = "/save?version=";
         private const string LOAD_PART_LINK = "/load?version=";
-        private const string VERSION_LINK = "/latestVersion";
         private const string PUT = "PUT";
         private const string CONTENT_TYPE = "Content-Type";
         private const string REQUEST_VALUE = "application/json";
@@ -20,16 +19,9 @@ namespace Game.Scripts.App.Server
 
         public async UniTask<SaveResult> Save(string data)
         {
-            var latestVersion = await GetLatestVersion(); 
-            
-            if (latestVersion == -1) 
-            {
-                Debug.LogError("Failed to get latest version from server.");
-                return new SaveResult(false, 0);
-            }
-            
-            var newVersion = latestVersion + 1; 
-            
+            var latestVersion = GetLastVersion();
+            var newVersion = latestVersion + 1;
+
             var encryptedData = AesEncryptionHelper.Encrypt(data);
             var url = $"{SERVER_URL}{SAVE_PART_LINK}{newVersion}";
 
@@ -45,11 +37,18 @@ namespace Game.Scripts.App.Server
 
             if (success)
             {
-                PlayerPrefs.SetInt(LOCAL_VERSION_KEY, newVersion);
-                PlayerPrefs.Save();
+                SaveVersion(newVersion);
             }
 
             return new SaveResult(success, newVersion);
+        }
+
+        private static int GetLastVersion() => PlayerPrefs.GetInt(LOCAL_VERSION_KEY, 0);
+        
+        private static void SaveVersion(int newVersion)
+        {
+            PlayerPrefs.SetInt(LOCAL_VERSION_KEY, newVersion);
+            PlayerPrefs.Save();
         }
 
         public async UniTask<SaveResult> Load(int version)
@@ -66,22 +65,6 @@ namespace Game.Scripts.App.Server
 
             var decryptedData = AesEncryptionHelper.Decrypt(request.downloadHandler.text);
             return new SaveResult(true, version, decryptedData);
-        }
-
-        private async UniTask<int> GetLatestVersion()
-        {
-            var url = $"{SERVER_URL}{VERSION_LINK}";
-            using UnityWebRequest request = UnityWebRequest.Get(url);
-            await request.SendWebRequest();
-            if (request.result == UnityWebRequest.Result.Success && int.TryParse(request.downloadHandler.text, out int version))
-            {
-                PlayerPrefs.SetInt(LOCAL_VERSION_KEY, version);
-                PlayerPrefs.Save();
-                return version;
-            }
-    
-            Debug.LogWarning("Failed to get latest version from server. Using local version.");
-            return PlayerPrefs.GetInt(LOCAL_VERSION_KEY, 0);
         }
     }
 }
