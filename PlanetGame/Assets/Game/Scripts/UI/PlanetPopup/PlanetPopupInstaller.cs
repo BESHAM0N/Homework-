@@ -19,7 +19,6 @@ namespace Game.Planets
             this.Container
                 .BindInterfacesAndSelfTo<PlanetPopupShower>()
                 .AsSingle();
-
         }
     }
 }

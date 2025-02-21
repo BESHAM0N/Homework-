@@ -6,18 +6,15 @@ namespace Game.Scripts.UI
 {
     public class UIInstaller : MonoInstaller
     {
-        [SerializeField]
-        private PlanetPopup _prefab;
+        [SerializeField] private PlanetIcon _prefabPlanet;
+        [SerializeField] private PlanetPopup _prefab;
+        [SerializeField] private Transform _poolContainer;
+        [SerializeField] private Transform _screenContainer;
 
-        [SerializeField]
-        private Transform _poolContainer;
-
-        [SerializeField]
-        private Transform _screenContainer;
-        
         public override void InstallBindings()
         {
-            PlanetPopupInstaller.Install(this.Container);
+            PlanetPopupInstaller.Install(Container);
+            PlanetIconInstaller.Install(Container, _prefabPlanet, _poolContainer);
         }
     }
 }

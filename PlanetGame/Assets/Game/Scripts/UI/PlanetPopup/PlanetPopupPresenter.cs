@@ -19,15 +19,17 @@ namespace Game.Planets
         public bool IsUnlock => _planet?.IsUnlocked ?? false; 
         public bool IsNewUpgrade => _planet?.CanUpgrade ?? false; 
         
+         private readonly PlanetCatalog _planetCatalog;
          private readonly IMoneyAdapter _moneyAdapter;
-         private Planet _planet;
+         private IPlanet _planet;
         
-         public PlanetPopupPresenter(IMoneyAdapter moneyAdapter)
-         {
-             _moneyAdapter = moneyAdapter;
-         }
+         // public PlanetPopupPresenter(IMoneyAdapter moneyAdapter, PlanetCatalog planetCatalog)
+         // {
+         //     _moneyAdapter = moneyAdapter;
+         //     _planetCatalog = planetCatalog;
+         // }
         
-         public void ChangePlanet(Planet planet)
+         public void ChangePlanet(IPlanet planet)
          {
              if (_planet != null)
              {

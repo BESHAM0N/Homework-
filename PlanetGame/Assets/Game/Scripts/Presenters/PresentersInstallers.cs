@@ -1,3 +1,4 @@
+using Game.Planets;
 using UnityEngine;
 using Zenject;
 
@@ -11,7 +12,7 @@ namespace Game.Presenters
     {
         public override void InstallBindings()
         {
-            //TODO:
+            //PlanetPopupInstaller.Install(Container);
         }
     }
 }

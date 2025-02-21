@@ -38,7 +38,6 @@ namespace Modules.Planets
         [SerializeField, PreviewField]
         private Sprite _unlockedIcon;
 
-
         private void OnValidate()
         {
             _upgradePriceTable.OnValidate(MaxLevel);
