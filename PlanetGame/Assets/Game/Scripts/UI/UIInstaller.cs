@@ -6,7 +6,7 @@ namespace Game.Scripts.UI
 {
     public class UIInstaller : MonoInstaller
     {
-        [SerializeField] private PlanetIcon _prefabPlanet;
+        [SerializeField] private PlanetView _prefabPlanet;
         [SerializeField] private PlanetPopup _prefab;
         [SerializeField] private Transform _poolContainer;
         [SerializeField] private Transform _screenContainer;

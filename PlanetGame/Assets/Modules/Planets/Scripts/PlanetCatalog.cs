@@ -25,6 +25,11 @@ namespace Modules.Planets
             for (int i = 0, count = _planets.Length; i < count; i++)
                 yield return _planets[i];
         }
+        
+        public IReadOnlyList<PlanetConfig> GetPlanets()
+        {
+            return _planets;
+        }
 
         IEnumerator IEnumerable.GetEnumerator()
         {

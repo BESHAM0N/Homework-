@@ -11,47 +11,50 @@ namespace Game.Planets
         //Model:
         private readonly Planet _planet;
         private readonly IMoneyStorage _moneyStorage;
-        
+
         //Domain layer:
         private readonly IPlanetShower _planetShower;
-        
-        //View:
-        private readonly PlanetIcon _view;
 
-        public PlanetIconPresenter(PlanetIcon view, Planet planet, IMoneyStorage moneyStorage, IPlanetShower planetShower)
+        //View:
+        private readonly PlanetView _view;
+
+        public PlanetIconPresenter(PlanetView view, Planet planet, IMoneyStorage moneyStorage,
+            IPlanetShower planetShower)
         {
             _view = view;
             _planet = planet;
             _moneyStorage = moneyStorage;
             _planetShower = planetShower;
         }
-        
+
         public void Initialize()
         {
             _view.OnClicked += OnPlanetClicked;
-            // _view.SetActiveLock(_planet.IsUnlocked);
             _view.SetIcon(_planet.GetIcon(_planet.IsUnlocked));
             _view.SetPrice(_planet.Price.ToString());
             _view.SetTimer(_planet.MinuteIncome.ToString());
+            _view.SetActiveLock(_planet.IsUnlocked);
             
-            _planet.OnUnlocked += OnPlanetActiveChanged;
+            _planet.OnUnlocked += OnPlanetUnlocked;
+            _planet.OnIncomeReady += OnIncomeReady;
+            _planet.OnIncomeTimeChanged += OnIncomeTimeChanged;
         }
 
         public void Dispose()
         {
             _view.OnClicked -= OnPlanetClicked;
-            _planet.OnUnlocked -= OnPlanetActiveChanged;
+            _planet.OnUnlocked -= OnPlanetUnlocked;
+            _planet.OnIncomeReady -= OnIncomeReady;
+            _planet.OnIncomeTimeChanged -= OnIncomeTimeChanged;
         }
 
         private void OnPlanetClicked()
         {
             if (_planet.IsUnlocked)
             {
-               _planetShower.Show(_planet);
-                return;
+                _planetShower.Show(_planet);
             }
-
-            if (_moneyStorage.IsEnough(_planet.Price))
+            else if (_moneyStorage.IsEnough(_planet.Price))
             {
                 _moneyStorage.Spend(_planet.Price);
                 _planet.Unlock();
@@ -62,17 +65,23 @@ namespace Game.Planets
             }
         }
 
-        private void OnPlanetActiveChanged()
+        private void OnPlanetUnlocked()
         {
             _view.SetActiveLock(_planet.IsUnlocked);
+            _view.SetIcon(_planet.GetIcon(_planet.IsUnlocked));
         }
 
-        private void PlanetChanged()
+        private void OnIncomeReady(bool isReady)
         {
-            
+            _view.SetTimer(isReady ? "Ready!" : _planet.MinuteIncome.ToString());
         }
-        
-        public sealed class Factory : PlaceholderFactory<Planet, PlanetIcon, PlanetIconPresenter>
+
+        private void OnIncomeTimeChanged(float timeRemaining)
+        {
+            _view.SetTimer(timeRemaining.ToString("F2"));
+        }
+
+        public sealed class Factory : PlaceholderFactory<Planet, PlanetView, PlanetIconPresenter>
         {
         }
     }

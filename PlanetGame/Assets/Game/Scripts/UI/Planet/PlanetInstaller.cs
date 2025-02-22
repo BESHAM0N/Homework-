@@ -4,10 +4,10 @@ using Zenject;
 
 namespace Game.Planets
 {
-    public class PlanetIconInstaller : Installer<PlanetIcon, Transform, PlanetIconInstaller>
+    public class PlanetIconInstaller : Installer<PlanetView, Transform, PlanetIconInstaller>
     {
         [Inject]
-        private PlanetIcon _prefab;
+        private PlanetView _prefab;
 
         [Inject]
         private Transform _poolContainer;
@@ -15,11 +15,11 @@ namespace Game.Planets
         public override void InstallBindings()
         {
             this.Container
-                .BindFactory<Planet, PlanetIcon, PlanetIconPresenter, PlanetIconPresenter.Factory>()
+                .BindFactory<Planet, PlanetView, PlanetIconPresenter, PlanetIconPresenter.Factory>()
                 .AsSingle();
 
             this.Container
-                .BindMemoryPool<PlanetIcon, PlanetIcon.Pool>()
+                .BindMemoryPool<PlanetView, PlanetView.Pool>()
                 .FromComponentInNewPrefab(_prefab)
                 .UnderTransform(_poolContainer)
                 .AsSingle();

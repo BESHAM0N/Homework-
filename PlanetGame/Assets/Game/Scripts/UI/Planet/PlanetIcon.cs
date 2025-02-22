@@ -1,4 +1,3 @@
-using Modules.Planets;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -6,7 +5,7 @@ using Zenject;
 
 namespace Game.Planets
 {
-    public class PlanetIcon : MonoBehaviour
+    public class PlanetView : MonoBehaviour
     {
         public event UnityAction OnClicked
         {
@@ -29,22 +28,12 @@ namespace Game.Planets
         {
             _incomeView.SetTimer(timer);
         }
-
-        //TODO: Куда-то убрать
-        public void SetActiveLock(bool active)
+        
+        public void SetActiveLock(bool isUnlocked)
         {
-            if (active)
-            {
-                _lockIcon.gameObject.SetActive(!active);
-                _priceView.gameObject.SetActive(!active);
-                _incomeView.gameObject.SetActive(active);
-            }
-            else
-            {
-                _lockIcon.gameObject.SetActive(active);
-                _priceView.gameObject.SetActive(active);
-                _incomeView.gameObject.SetActive(!active);
-            }
+            _lockIcon.gameObject.SetActive(!isUnlocked);
+            _priceView.gameObject.SetActive(!isUnlocked);
+            _incomeView.gameObject.SetActive(isUnlocked);
         }
 
         public void SetIcon(Sprite icon)
@@ -52,7 +41,7 @@ namespace Game.Planets
             _planetIcon.sprite = icon;
         }
         
-        public sealed class Pool : MonoMemoryPool<PlanetIcon>
+        public sealed class Pool : MonoMemoryPool<PlanetView>
         {
         }
     }

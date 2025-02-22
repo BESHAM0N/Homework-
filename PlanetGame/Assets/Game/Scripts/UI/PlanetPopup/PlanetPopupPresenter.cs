@@ -23,12 +23,6 @@ namespace Game.Planets
          private readonly IMoneyAdapter _moneyAdapter;
          private IPlanet _planet;
         
-         // public PlanetPopupPresenter(IMoneyAdapter moneyAdapter, PlanetCatalog planetCatalog)
-         // {
-         //     _moneyAdapter = moneyAdapter;
-         //     _planetCatalog = planetCatalog;
-         // }
-        
          public void ChangePlanet(IPlanet planet)
          {
              if (_planet != null)
@@ -48,7 +42,7 @@ namespace Game.Planets
 
          void IInitializable.Initialize() { }
 
-         void IDisposable.Dispose()
+         public void Dispose()
          {
              if (_planet != null)
              {
@@ -60,27 +54,31 @@ namespace Game.Planets
          {
              _planet.OnUnlocked += OnPlanetStateChanged;
              _planet.OnUpgraded += OnPlanetStateChanged;
+             _planet.OnPopulationChanged += OnPlanetStateChanged;
+             _planet.OnIncomeChanged += OnPlanetStateChanged;
          }
 
          private void UnsubscribeFromPlanetEvents()
          {
              _planet.OnUnlocked -= OnPlanetStateChanged;
              _planet.OnUpgraded -= OnPlanetStateChanged;
-         }
-
-         private void OnPlanetStateChanged(int _)
-         {
-             OnStateChanged?.Invoke();
+             _planet.OnPopulationChanged -= OnPlanetStateChanged;
+             _planet.OnIncomeChanged -= OnPlanetStateChanged;
          }
 
          private void OnPlanetStateChanged()
          {
              OnStateChanged?.Invoke();
          }
+         
+         private void OnPlanetStateChanged(int _)
+         {
+             OnStateChanged?.Invoke();
+         }
 
          public bool CanUpgrade()
          {
-             return _planet != null && _planet.CanUpgrade;
+             return _planet?.CanUpgrade ?? false;
          }
 
          public void Upgrade()
