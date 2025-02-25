@@ -6,8 +6,10 @@ using Zenject;
 
 namespace Game.Planets
 {
-    public class PlanetIconPresenter : IInitializable, IDisposable
+    public class PlanetCardPresenter : IInitializable, IDisposable
     {
+        public PlanetCard Card => _card;
+        
         //Model:
         private readonly Planet _planet;
         private readonly IMoneyStorage _moneyStorage;
@@ -16,12 +18,12 @@ namespace Game.Planets
         private readonly IPlanetShower _planetShower;
 
         //View:
-        private readonly PlanetView _view;
+        private readonly PlanetCard _card;
 
-        public PlanetIconPresenter(PlanetView view, Planet planet, IMoneyStorage moneyStorage,
+        public PlanetCardPresenter(PlanetCard card, Planet planet, IMoneyStorage moneyStorage,
             IPlanetShower planetShower)
         {
-            _view = view;
+            _card = card;
             _planet = planet;
             _moneyStorage = moneyStorage;
             _planetShower = planetShower;
@@ -29,11 +31,11 @@ namespace Game.Planets
 
         public void Initialize()
         {
-            _view.OnClicked += OnPlanetClicked;
-            _view.SetIcon(_planet.GetIcon(_planet.IsUnlocked));
-            _view.SetPrice(_planet.Price.ToString());
-            _view.SetTimer(_planet.MinuteIncome.ToString());
-            _view.SetActiveLock(_planet.IsUnlocked);
+            _card.OnClicked += OnPlanetClicked;
+            _card.SetIcon(_planet.GetIcon(_planet.IsUnlocked));
+            _card.SetPrice(_planet.Price.ToString());
+            _card.SetTimer(_planet.MinuteIncome.ToString());
+            _card.SetActiveLock(_planet.IsUnlocked);
             
             _planet.OnUnlocked += OnPlanetUnlocked;
             _planet.OnIncomeReady += OnIncomeReady;
@@ -42,7 +44,7 @@ namespace Game.Planets
 
         public void Dispose()
         {
-            _view.OnClicked -= OnPlanetClicked;
+            _card.OnClicked -= OnPlanetClicked;
             _planet.OnUnlocked -= OnPlanetUnlocked;
             _planet.OnIncomeReady -= OnIncomeReady;
             _planet.OnIncomeTimeChanged -= OnIncomeTimeChanged;
@@ -67,21 +69,21 @@ namespace Game.Planets
 
         private void OnPlanetUnlocked()
         {
-            _view.SetActiveLock(_planet.IsUnlocked);
-            _view.SetIcon(_planet.GetIcon(_planet.IsUnlocked));
+            _card.SetActiveLock(_planet.IsUnlocked);
+            _card.SetIcon(_planet.GetIcon(_planet.IsUnlocked));
         }
 
         private void OnIncomeReady(bool isReady)
         {
-            _view.SetTimer(isReady ? "Ready!" : _planet.MinuteIncome.ToString());
+            _card.SetTimer(isReady ? "Ready!" : _planet.MinuteIncome.ToString());
         }
 
         private void OnIncomeTimeChanged(float timeRemaining)
         {
-            _view.SetTimer(timeRemaining.ToString("F2"));
+            _card.SetTimer(timeRemaining.ToString("F2"));
         }
 
-        public sealed class Factory : PlaceholderFactory<Planet, PlanetView, PlanetIconPresenter>
+        public sealed class Factory : PlaceholderFactory<Planet, PlanetCard, PlanetCardPresenter>
         {
         }
     }

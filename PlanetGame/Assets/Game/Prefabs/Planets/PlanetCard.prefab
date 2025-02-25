@@ -448,7 +448,7 @@ GameObject:
   - component: {fileID: 9074777763686034631}
   - component: {fileID: 2093869527896693831}
   m_Layer: 5
-  m_Name: PlanetView
+  m_Name: PlanetCard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

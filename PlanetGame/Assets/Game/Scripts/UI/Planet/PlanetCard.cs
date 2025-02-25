@@ -5,7 +5,7 @@ using Zenject;
 
 namespace Game.Planets
 {
-    public class PlanetView : MonoBehaviour
+    public class PlanetCard : MonoBehaviour
     {
         public event UnityAction OnClicked
         {
@@ -41,7 +41,7 @@ namespace Game.Planets
             _planetIcon.sprite = icon;
         }
         
-        public sealed class Pool : MonoMemoryPool<PlanetView>
+        public sealed class Pool : MonoMemoryPool<PlanetCard>
         {
         }
     }
