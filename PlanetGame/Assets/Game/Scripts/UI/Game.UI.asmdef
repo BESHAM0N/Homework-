@@ -1,0 +1,4 @@
+{
+	"name": "Game.UI",
+	"references":[ "GUID:87df7d11a064465e9f5772fc6c82502f", "GUID:0d8beb7f090555447a6cf5ce9e54dbb4", "GUID:62a9adcec8f3470dab014061262d08cd", "GUID:9763f3e2ae3c23948aa16a7bdbbde078" ]
+}

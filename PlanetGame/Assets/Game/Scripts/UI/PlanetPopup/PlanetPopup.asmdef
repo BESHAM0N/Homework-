@@ -1,16 +1,11 @@
 {
-    "name": "Game.Views",
+    "name": "PlanetPopup",
     "rootNamespace": "",
     "references": [
-        "Unity.TextMeshPro",
-        "UIComponents",
-        "Zenject",
-        "dotweenModules",
-        "Game.UI",
-        "PlanetCard",
-        "Catalog",
-        "PlanetPopup",
-        "Planets"
+        "GUID:87df7d11a064465e9f5772fc6c82502f",
+        "GUID:9763f3e2ae3c23948aa16a7bdbbde078",
+        "GUID:0d8beb7f090555447a6cf5ce9e54dbb4",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

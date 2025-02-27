@@ -11,6 +11,7 @@ namespace Game.Planets
     {
         private readonly PlanetCatalog _catalog;
         private readonly CatalogView _view;
+        private readonly IMoneyAdapter _moneyAdapter;
         private readonly PlanetCardPresenter.Factory _presenterFactory;
 
         private readonly Dictionary<Planet, PlanetCardPresenter> _presenters = new();
@@ -18,18 +19,19 @@ namespace Game.Planets
         public CatalogPresenter(
             PlanetCatalog catalog,
             CatalogView view,
-            PlanetCardPresenter.Factory presenterFactory)
+            PlanetCardPresenter.Factory presenterFactory, IMoneyAdapter moneyAdapter)
         {
             _catalog = catalog;
             _view = view;
             _presenterFactory = presenterFactory;
+            _moneyAdapter = moneyAdapter;
         }
 
         public void Initialize()
         {
             foreach (PlanetConfig config in _catalog.GetPlanets())
             {
-                Planet planet = new Planet(config, null); // IMoneyAdapter can be injected later
+                Planet planet = new Planet(config, _moneyAdapter);
                 PlanetCard planetCard = _view.SpawnPlanet();
                 PlanetCardPresenter presenter = _presenterFactory.Create(planet, planetCard);
                 

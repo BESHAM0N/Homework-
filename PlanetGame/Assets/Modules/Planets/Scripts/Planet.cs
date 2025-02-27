@@ -19,20 +19,16 @@ namespace Modules.Planets
         public event Action<int> OnIncomeChanged;
         public event Action<float> OnIncomeTimeChanged;
 
-        [ShowInInspector, ReadOnly]
-        public string Name => _config.Name;
+        [ShowInInspector, ReadOnly] public string Name => _config.Name;
 
         [ShowInInspector, ReadOnly]
         public bool CanUpgrade => IsUnlocked && !IsMaxLevel && _moneyAdapter.IsEnough(Price);
 
-        [ShowInInspector, ReadOnly]
-        public bool CanUnlock => !IsUnlocked && _moneyAdapter.IsEnough(Price);
+        [ShowInInspector, ReadOnly] public bool CanUnlock => !IsUnlocked && _moneyAdapter.IsEnough(Price);
 
-        [ShowInInspector, ReadOnly]
-        public bool CanUnlockOrUpgrade => !IsUnlocked ? this.CanUnlock : CanUpgrade;
+        [ShowInInspector, ReadOnly] public bool CanUnlockOrUpgrade => !IsUnlocked ? this.CanUnlock : CanUpgrade;
 
-        [ShowInInspector, ReadOnly]
-        public bool IsUnlocked { get; internal set; }
+        [ShowInInspector, ReadOnly] public bool IsUnlocked { get; internal set; }
 
         [ShowInInspector, ReadOnly]
         public int Price => !IsUnlocked
@@ -41,31 +37,25 @@ namespace Modules.Planets
                 ? _config.GetUpgradePrice(Level + 1)
                 : UNDEFINED_PRICE;
 
-        [ShowInInspector, ReadOnly]
-        public int Population { get; internal set; }
+        [ShowInInspector, ReadOnly] public int Population { get; internal set; }
 
         [Title("Level")]
         [ShowInInspector, ReadOnly]
         public bool IsMaxLevel => Level == _config.MaxLevel;
 
-        [ShowInInspector, ReadOnly]
-        public int Level { get; internal set; }
+        [ShowInInspector, ReadOnly] public int Level { get; internal set; }
 
-        [ShowInInspector, ReadOnly]
-        public int MaxLevel => _config.MaxLevel;
+        [ShowInInspector, ReadOnly] public int MaxLevel => _config.MaxLevel;
 
-        [ShowInInspector, ReadOnly]
-        public int NextLevel => !this.IsMaxLevel ? Level + 1 : UNDEFINED_LEVEL;
+        [ShowInInspector, ReadOnly] public int NextLevel => !this.IsMaxLevel ? Level + 1 : UNDEFINED_LEVEL;
 
         [Title("Income")]
         [ShowInInspector, ReadOnly, ProgressBar(0, 1)]
         public float IncomeProgress => 1 - _countdown.RemainingTime / _countdown.Duration;
 
-        [ShowInInspector, ReadOnly]
-        public bool IsIncomeReady { get; private set; }
+        [ShowInInspector, ReadOnly] public bool IsIncomeReady { get; private set; }
 
-        [ShowInInspector, ReadOnly]
-        public int MinuteIncome => !IsUnlocked ? 0 : _config.GetIncome(Level);
+        [ShowInInspector, ReadOnly] public int MinuteIncome => !IsUnlocked ? 0 : _config.GetIncome(Level);
 
         [ShowInInspector, ReadOnly]
         public int NextMinuteIncome => !IsUnlocked
@@ -170,7 +160,7 @@ namespace Modules.Planets
                 return;
 
             _populationTime -= _config.PopulationPeriod;
-            
+
             Population += Level;
             OnPopulationChanged?.Invoke(Population);
         }

@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using Modules.Planets;
-using Unity.VisualScripting;
+using Zenject;
 
 namespace Game.Planets
 {
@@ -19,7 +19,6 @@ namespace Game.Planets
         public bool IsUnlock => _planet?.IsUnlocked ?? false; 
         public bool IsNewUpgrade => _planet?.CanUpgrade ?? false; 
         
-         private readonly PlanetCatalog _planetCatalog;
          private readonly IMoneyAdapter _moneyAdapter;
          private IPlanet _planet;
         

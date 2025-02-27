@@ -35,7 +35,6 @@ namespace Game.Planets
             _card.SetIcon(_planet.GetIcon(_planet.IsUnlocked));
             _card.SetPrice(_planet.Price.ToString());
             _card.SetTimer(_planet.MinuteIncome.ToString());
-            _card.SetActiveLock(_planet.IsUnlocked);
             
             _planet.OnUnlocked += OnPlanetUnlocked;
             _planet.OnIncomeReady += OnIncomeReady;

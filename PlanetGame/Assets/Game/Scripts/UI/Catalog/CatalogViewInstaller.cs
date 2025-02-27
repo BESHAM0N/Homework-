@@ -6,7 +6,7 @@ namespace Game.Planets
     public sealed class CatalogViewInstaller : Installer<CatalogView, Transform, CatalogViewInstaller>
     {
         [Inject]
-        private CatalogView _catalogViewView;
+        private CatalogView _catalogView;
 
         [Inject]
         private Transform _parent;
@@ -14,14 +14,14 @@ namespace Game.Planets
         public override void InstallBindings()
         {
             this.Container
-                .BindInterfacesTo<CatalogPresenter>()
-                .AsCached();
-            
-            this.Container
                 .BindFactory<CatalogView, CatalogView.Factory>()
-                .FromComponentInNewPrefab(_catalogViewView)
+                .FromComponentInNewPrefab(_catalogView)
                 .UnderTransform(_parent)
                 .AsSingle();
+            
+            this.Container
+                .BindInterfacesAndSelfTo<CatalogPresenter>()
+                .AsCached();
         }
     }
 }
