@@ -27,6 +27,12 @@ namespace Game.Planets
         public void SetTimer(string timer)
         {
             _incomeView.SetTimer(timer);
+            _incomeView.ShowProgressBar(true);
+        }
+        
+        public void SetProgressBar(bool show)
+        {
+            _incomeView.ShowProgressBar(show);
         }
         
         public void SetActiveLock(bool isUnlocked)

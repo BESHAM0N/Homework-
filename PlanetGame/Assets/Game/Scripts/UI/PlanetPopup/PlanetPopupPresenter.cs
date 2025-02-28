@@ -11,7 +11,7 @@ namespace Game.Planets
         
         public string PlanetName => _planet != null ? _planet.Name : string.Empty;
         public string Population => _planet != null ? _planet.Population.ToString() : string.Empty;
-        public Sprite Icon => _planet?.GetIcon(_planet.Unlock());
+        public Sprite Icon => _planet?.GetIcon(_planet.IsUnlocked);
         public string CurrentLevel => _planet != null ? _planet.Level.ToString() : string.Empty;
         public string MaxLevel => _planet != null ? _planet.MaxLevel.ToString() : string.Empty;
         public string UpgradePrice => _planet != null ? _planet.Price.ToString() : string.Empty;
@@ -19,23 +19,18 @@ namespace Game.Planets
         public bool IsUnlock => _planet?.IsUnlocked ?? false; 
         public bool IsNewUpgrade => _planet?.CanUpgrade ?? false; 
         
-         private readonly IMoneyAdapter _moneyAdapter;
          private IPlanet _planet;
         
          public void ChangePlanet(IPlanet planet)
          {
              if (_planet != null)
-             {
                  UnsubscribeFromPlanetEvents();
-             }
-
+             
              _planet = planet;
 
              if (_planet != null)
-             {
                  SubscribeToPlanetEvents();
-             }
-
+             
              OnStateChanged?.Invoke();
          }
 
@@ -54,7 +49,6 @@ namespace Game.Planets
              _planet.OnUnlocked += OnPlanetStateChanged;
              _planet.OnUpgraded += OnPlanetStateChanged;
              _planet.OnPopulationChanged += OnPlanetStateChanged;
-             _planet.OnIncomeChanged += OnPlanetStateChanged;
          }
 
          private void UnsubscribeFromPlanetEvents()
@@ -62,7 +56,6 @@ namespace Game.Planets
              _planet.OnUnlocked -= OnPlanetStateChanged;
              _planet.OnUpgraded -= OnPlanetStateChanged;
              _planet.OnPopulationChanged -= OnPlanetStateChanged;
-             _planet.OnIncomeChanged -= OnPlanetStateChanged;
          }
 
          private void OnPlanetStateChanged()

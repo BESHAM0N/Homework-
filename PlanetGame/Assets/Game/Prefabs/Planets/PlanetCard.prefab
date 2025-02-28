@@ -443,9 +443,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1226517422905731925}
   - component: {fileID: 7486801599208217449}
-  - component: {fileID: -399016484995597986}
   - component: {fileID: 6998176144112882099}
-  - component: {fileID: 9074777763686034631}
   - component: {fileID: 2093869527896693831}
   m_Layer: 5
   m_Name: PlanetCard
@@ -486,20 +484,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1080244410604157239}
   m_CullTransparentMesh: 1
---- !u!114 &-399016484995597986
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1080244410604157239}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 585e175187734a71b92b73212b5781d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _priceText: {fileID: 5444377921757551026}
-  _priceIcon: {fileID: 5537683316222300304}
 --- !u!114 &6998176144112882099
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -512,26 +496,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87b597211ef6a549bbb4bd6c519f2ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _priceView: {fileID: -399016484995597986}
-  _incomeView: {fileID: 9074777763686034631}
+  _priceView: {fileID: 4741025058186734561}
+  _incomeView: {fileID: 5147321201798549710}
   _planetIcon: {fileID: 606508972301849034}
   _button: {fileID: 2093869527896693831}
   _lockIcon: {fileID: 991180089803824017}
---- !u!114 &9074777763686034631
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1080244410604157239}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9c812e9ee264352b970f008ed8541a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _progressBar: {fileID: 383599552409175847}
-  _timerText: {fileID: 8019802931863089282}
-  _coinIcon: {fileID: 648301223005266422}
 --- !u!114 &2093869527896693831
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -587,6 +556,7 @@ GameObject:
   - component: {fileID: 1921716995094703198}
   - component: {fileID: 7366688001666472230}
   - component: {fileID: 5072925286837728165}
+  - component: {fileID: 5147321201798549710}
   m_Layer: 5
   m_Name: Income
   m_TagString: Untagged
@@ -653,6 +623,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 0.2
+--- !u!114 &5147321201798549710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5564512366540979095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9c812e9ee264352b970f008ed8541a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _progressBar: {fileID: 383599552409175847}
+  _timerText: {fileID: 8019802931863089282}
+  _coinIcon: {fileID: 648301223005266422}
 --- !u!1 &6740194235726008877
 GameObject:
   m_ObjectHideFlags: 0
@@ -760,6 +745,7 @@ GameObject:
   - component: {fileID: 3033779123653569042}
   - component: {fileID: 6404032390609247133}
   - component: {fileID: 544170752107032563}
+  - component: {fileID: 4741025058186734561}
   m_Layer: 5
   m_Name: Price
   m_TagString: Untagged
@@ -828,6 +814,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 0
+--- !u!114 &4741025058186734561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6850814019076832775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 585e175187734a71b92b73212b5781d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _priceText: {fileID: 5444377921757551026}
+  _priceIcon: {fileID: 5537683316222300304}
 --- !u!1 &7085741634984397813
 GameObject:
   m_ObjectHideFlags: 0
