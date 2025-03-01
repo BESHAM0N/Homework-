@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Modules.Planets;
+using UnityEngine;
 using Zenject;
 
 namespace Game.Planets
@@ -11,13 +12,12 @@ namespace Game.Planets
         private readonly CatalogView _view;
         private readonly PlanetRegistry _planetRegistry;
         private readonly PlanetCardPresenter.Factory _presenterFactory;
-
         private readonly Dictionary<Planet, PlanetCardPresenter> _presenters = new();
 
         public CatalogPresenter(
             PlanetCatalog catalog,
             CatalogView view,
-            PlanetCardPresenter.Factory presenterFactory, IMoneyAdapter moneyAdapter, PlanetRegistry planetRegistry)
+            PlanetCardPresenter.Factory presenterFactory, PlanetRegistry planetRegistry)
         {
             _catalog = catalog;
             _view = view;
@@ -30,13 +30,13 @@ namespace Game.Planets
             foreach (PlanetConfig config in _catalog.GetPlanets())
             {
                 Planet planet = _planetRegistry.GetPlanet(config);
-
+            
                 if (planet == null)
                     continue;
-
+            
                 PlanetCard planetCard = _view.SpawnPlanet();
                 PlanetCardPresenter presenter = _presenterFactory.Create(config, planetCard);
-
+            
                 presenter.Initialize();
                 _presenters.Add(planet, presenter);
             }

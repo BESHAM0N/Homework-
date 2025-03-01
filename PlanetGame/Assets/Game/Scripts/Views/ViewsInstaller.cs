@@ -1,7 +1,6 @@
 using Game.Planets;
-using Modules.Planets;
+using Game.Scripts.UI.Currency;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Zenject;
 
 namespace Game.Views
@@ -12,6 +11,7 @@ namespace Game.Views
         [SerializeField] private Transform _poolContainer;
         [SerializeField] private CatalogView _catalogViewPrefab;
         [SerializeField] private Transform _screenContainer;
+        [SerializeField] private CurrencyView _currencyView;
 
         public override void InstallBindings()
         {
@@ -21,6 +21,7 @@ namespace Game.Views
                 .AsSingle();
             CatalogViewInstaller.Install(Container, _catalogViewPrefab, _screenContainer);
             PlanetCardInstaller.Install(Container, _planetCardPrefab, _poolContainer);
+            CurrencyInstaller.Install(Container, _currencyView);
         }
     }
 }

@@ -4,7 +4,8 @@ using UnityEngine.UI;
 
 public sealed class IncomeView : MonoBehaviour
 {
-    [SerializeField] private GameObject _progressBar;
+    [SerializeField] private Image _progressBar;
+    [SerializeField] private Image _progressBarBoard;
     [SerializeField] private TMP_Text _timerText;
     [SerializeField] private Image _coinIcon;
 
@@ -20,7 +21,9 @@ public sealed class IncomeView : MonoBehaviour
 
     public void ShowProgressBar(bool show)
     {
-        _progressBar.SetActive(show);
+        _progressBar.enabled = show;
+        _progressBarBoard.enabled = show;
+        _timerText.enabled = show;
         _coinIcon.gameObject.SetActive(!show);
     }
 }

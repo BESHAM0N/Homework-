@@ -13,10 +13,9 @@ public class MoneyView : MonoBehaviour
     }
     
     [SerializeField] private Button _button;
-    [Inject] private TMP_Text _allMoneyText;
     
-    public void SetAllMoneyText(string amount)
+    public void SetMoney(string amount)
     {
-        _allMoneyText.text = amount;
+       
     }
 }

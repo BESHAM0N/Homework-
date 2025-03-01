@@ -1,5 +1,4 @@
 using Modules.Planets;
-using UnityEngine;
 using Zenject;
 
 public class MoneyInstaller : Installer<MoneyInstaller>

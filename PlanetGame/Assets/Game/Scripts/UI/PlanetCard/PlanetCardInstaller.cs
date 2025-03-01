@@ -14,25 +14,13 @@ namespace Game.Planets
         
         public override void InstallBindings()
         {
-            // ✅ Регистрируем Factory для PlanetCardPresenter
             Container.BindFactory<PlanetConfig, PlanetCard, PlanetCardPresenter, PlanetCardPresenter.Factory>()
                 .AsSingle();
-
-            // ✅ Пул объектов для PlanetCard
+           
             Container.BindMemoryPool<PlanetCard, PlanetCard.Pool>()
                 .FromComponentInNewPrefab(_prefab)
                 .UnderTransform(_poolContainer)
                 .AsSingle();
-            
-            // this.Container
-            //     .BindFactory<Planet, PlanetCard, PlanetCardPresenter, PlanetCardPresenter.Factory>()
-            //     .AsSingle();
-            //
-            // this.Container
-            //     .BindMemoryPool<PlanetCard, PlanetCard.Pool>()
-            //     .FromComponentInNewPrefab(_prefab)
-            //     .UnderTransform(_poolContainer)
-            //     .AsSingle();
         }
     }
 }

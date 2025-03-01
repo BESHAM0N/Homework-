@@ -146,11 +146,9 @@ namespace Modules.Planets
 
         void IFixedTickable.FixedTick()
         {
-            Debug.Log($"FixedTick() called. Object ID: {GetHashCode()}, IsUnlocked: {IsUnlocked}");
-            //Debug.Log($"Before FixedTick() - {Name}: IsUnlocked: {IsUnlocked}");
             if (!IsUnlocked)
                 return;
-            Debug.Log($"After FixedTick() - {Name}: IsUnlocked: {IsUnlocked}");
+           
             float deltaTime = Time.fixedDeltaTime;
             this.UpdateIncome(deltaTime);
             this.UpdatePopulation(deltaTime);
@@ -176,7 +174,6 @@ namespace Modules.Planets
             if (_countdown.IsPlaying())
             {
                 _countdown.Tick(deltaTime);
-                Debug.Log($"Income timer updated: {_countdown.RemainingTime}");
                 OnIncomeTimeChanged?.Invoke(_countdown.RemainingTime);
                 return;
             }

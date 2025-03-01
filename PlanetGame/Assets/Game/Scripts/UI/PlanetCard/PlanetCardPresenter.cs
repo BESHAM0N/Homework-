@@ -6,8 +6,6 @@ namespace Game.Planets
 {
     public class PlanetCardPresenter : IInitializable, IDisposable
     {
-        public PlanetCard Card => _card;
-
         //Model:
         private readonly Planet _planet;
         
@@ -65,14 +63,24 @@ namespace Game.Planets
 
         private void OnIncomeReady(bool isReady)
         {
-            _card.SetTimer(isReady ? "Ready!" : _planet.MinuteIncome.ToString());
+            // _card.SetTimer(isReady ? "Ready!" : _planet.MinuteIncome.ToString());
             _card.SetProgressBar(!isReady);
         }
 
         private void OnIncomeTimeChanged(float timeRemaining)
         {
-            var formattedTime = timeRemaining > 0 ? timeRemaining.ToString("F1") + "s" : "Ready!";
-            _card.SetTimer(formattedTime);
+            // var formattedTime = timeRemaining > 0 ? timeRemaining.ToString("F1") + "s" : "Ready!";
+            // _card.SetTimer(formattedTime);
+            //_card.SetProgressBar(true);
+            if (timeRemaining > 0)
+            {
+                var formattedTime = timeRemaining.ToString("F1") + "s";
+                _card.SetTimer(formattedTime);
+            }
+            else
+            {
+                _card.SetProgressBar(false);
+            }
         }
 
         public sealed class Factory : PlaceholderFactory<PlanetConfig, PlanetCard, PlanetCardPresenter>
