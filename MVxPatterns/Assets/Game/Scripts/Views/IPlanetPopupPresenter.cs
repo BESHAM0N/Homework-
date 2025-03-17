@@ -13,7 +13,6 @@ namespace Game.Presenters
         string UpgradePrice { get; }
         string Income { get; }
         string LevelText { get; }
-        
 
         bool CanUpgrade();
         void Upgrade();

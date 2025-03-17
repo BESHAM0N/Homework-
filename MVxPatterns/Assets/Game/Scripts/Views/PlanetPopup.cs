@@ -1,4 +1,5 @@
-﻿using Modules.Views;
+﻿using Game.Presenters;
+using Modules.Views;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,32 +18,32 @@ namespace Game.Views
         [SerializeField] private Button _upgradeButton;
         [SerializeField] private TMP_Text _upgradePrice;
 
-        //[Inject] private IPlanetPopupPresenter _presenter;
+        [Inject] private IPlanetPopupPresenter _presenter;
         
         protected override void OnShow()
         {
-            //_presenter.OnStateChanged += OnStateChanged;
-            //_upgradeButton.onClick.AddListener(_presenter.Upgrade);
+            _presenter.OnStateChanged += OnStateChanged;
+            _upgradeButton.onClick.AddListener(_presenter.Upgrade);
             _closeButton.onClick.AddListener(OnCloseClicked);
             OnStateChanged();
         }
         
         protected override void OnHide()
         {
-            //_presenter.OnStateChanged -= OnStateChanged;
-            //_upgradeButton.onClick.RemoveListener(_presenter.Upgrade);
+            _presenter.OnStateChanged -= OnStateChanged;
+            _upgradeButton.onClick.RemoveListener(_presenter.Upgrade);
             _closeButton.onClick.RemoveListener(OnCloseClicked);
         }
 
         private void OnStateChanged()
         {
-            // _planetName.text = _presenter.PlanetName;
-            // _population.text = _presenter.Population;
-            // _level.text = _presenter.LevelText;
-            // _income.text = _presenter.Income;
-            // _icon.sprite = _presenter.Icon;
-            // _upgradeButton.interactable = _presenter.CanUpgrade();
-            // _upgradePrice.text = _presenter.UpgradePrice;
+            _planetName.text = _presenter.PlanetName;
+            _population.text = _presenter.Population;
+            _level.text = _presenter.LevelText;
+            _income.text = _presenter.Income;
+            _icon.sprite = _presenter.Icon;
+            _upgradeButton.interactable = _presenter.CanUpgrade();
+            _upgradePrice.text = _presenter.UpgradePrice;
         }
 
         private void OnCloseClicked()

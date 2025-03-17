@@ -1,5 +1,4 @@
-using System.Collections.Generic;
-using Modules.Planets;
+using Modules.UI;
 using UnityEngine;
 using Zenject;
 
@@ -10,17 +9,21 @@ namespace Game.Views
         [SerializeField] private PlanetCard _planetCardPrefab;
         [SerializeField] private MoneyView _moneyView;
         [SerializeField] private Transform _screenContainer;
-        [SerializeField] private List<Planet> _planets;
         
         public override void InstallBindings()
         {
-            this.Container
+            Container.Bind<ParticleAnimator>().FromComponentInHierarchy().AsSingle();
+            
+            Container.Bind<PlanetCard>().FromComponentsInHierarchy().AsCached();
+            
+            Container
                 .Bind<PlanetPopup>()
                 .FromComponentInHierarchy()
                 .AsSingle()
                 .NonLazy();
             
             Container.Bind<MoneyView>().FromInstance(_moneyView).AsSingle();
+            
         }
     }
 }

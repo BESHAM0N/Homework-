@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f31b0b7d912c4d3896947183d8c75caa, type: 3}
   m_Name: PresentersInstallers
   m_EditorClassIdentifier: 
+  _catalog: {fileID: 11400000, guid: 24135235a5c00425d9bcca105b41c4c4, type: 2}

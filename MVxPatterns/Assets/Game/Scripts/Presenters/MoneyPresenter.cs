@@ -1,13 +1,14 @@
 ﻿using System;
 using Game.Views;
 using Modules.Money;
+using UnityEngine;
 using Zenject;
 
 namespace Game.Presenters
 {
     public class MoneyPresenter : IInitializable, IDisposable
     {
-        
+        public Vector3 MoneyTransform => _view.transform.position;
         private MoneyView _view;
         private IMoneyStorage _moneyStorage;
 

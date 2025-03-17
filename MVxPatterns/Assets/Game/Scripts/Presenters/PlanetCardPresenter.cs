@@ -2,6 +2,7 @@
 using Game.Views;
 using Modules.Planets;
 using Modules.UI;
+using UnityEngine;
 using Zenject;
 
 namespace Game.Presenters
@@ -57,7 +58,15 @@ namespace Game.Presenters
         private void OnGathered(int money)
         {
             //TODO: Анимация движения монетки через particleAnimator.Emit
-            //_particleAnimator.Emit(_card.MoneyIconPosition.position, );
+            
+            var startPos = _card.MoneyIconPosition.position;
+            var targetPos = _moneyPresenter.MoneyTransform;
+          
+            _particleAnimator.Emit(startPos, targetPos, 1f, () =>
+            {
+                // Этот callback вызывается после завершения анимации
+                Debug.Log("Анимация монетки завершена");
+            });
         }
 
         private void OnPlanetClicked()
@@ -102,8 +111,8 @@ namespace Game.Presenters
             _planet.GatherIncome();
         }
 
-        // public sealed class Factory : PlaceholderFactory<PlanetConfig, PlanetCard, PlanetCardPresenter>
-        // {
-        // }
+        public sealed class Factory : PlaceholderFactory<Planet, PlanetCard, PlanetCardPresenter>
+        {
+        }
     }
 }
