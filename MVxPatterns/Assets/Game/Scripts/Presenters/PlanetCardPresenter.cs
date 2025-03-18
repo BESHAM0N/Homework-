@@ -2,7 +2,6 @@
 using Game.Views;
 using Modules.Planets;
 using Modules.UI;
-using UnityEngine;
 using Zenject;
 
 namespace Game.Presenters
@@ -36,8 +35,7 @@ namespace Game.Presenters
             _card.OnClickedMoneyIcon += CollectMoney;
             _card.SetIcon(_planet.GetIcon(_planet.IsUnlocked));
             _card.SetPrice(_planet.Price.ToString());
-            _card.SetTimer(_planet.MinuteIncome.ToString());
-
+            _card.SetTimer(_planet.CountdownDuration,_planet.MinuteIncome,_planet.MinuteIncome.ToString());
             _planet.OnUnlocked += OnPlanetUnlocked;
             _planet.OnIncomeReady += OnIncomeReady;
             _planet.OnIncomeTimeChanged += OnIncomeTimeChanged;
@@ -48,7 +46,6 @@ namespace Game.Presenters
         {
             _card.OnClicked -= OnPlanetClicked;
             _card.OnClickedMoneyIcon -= CollectMoney;
-            
             _planet.OnUnlocked -= OnPlanetUnlocked;
             _planet.OnIncomeReady -= OnIncomeReady;
             _planet.OnIncomeTimeChanged -= OnIncomeTimeChanged;
@@ -57,15 +54,12 @@ namespace Game.Presenters
 
         private void OnGathered(int money)
         {
-            //TODO: Анимация движения монетки через particleAnimator.Emit
-            
-            var startPos = _card.MoneyIconPosition.position;
+            var startPos = _card.MoneyIconPosition;
             var targetPos = _moneyPresenter.MoneyTransform;
           
             _particleAnimator.Emit(startPos, targetPos, 1f, () =>
             {
-                // Этот callback вызывается после завершения анимации
-                Debug.Log("Анимация монетки завершена");
+                _moneyPresenter.UpdateMoney();
             });
         }
 
@@ -83,6 +77,7 @@ namespace Game.Presenters
 
         private void OnPlanetUnlocked()
         {
+            _moneyPresenter.Initialize();
             _card.SetActiveLock(_planet.IsUnlocked);
             _card.SetIcon(_planet.GetIcon(_planet.IsUnlocked));
         }
@@ -97,7 +92,7 @@ namespace Game.Presenters
             if (timeRemaining > 0)
             {
                 var formattedTime = timeRemaining.ToString("F1") + "s";
-                _card.SetTimer(formattedTime);
+                _card.SetTimer(_planet.CountdownDuration,timeRemaining,formattedTime);
             }
             else
             {

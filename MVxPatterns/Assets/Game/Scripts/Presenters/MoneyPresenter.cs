@@ -1,14 +1,13 @@
-﻿using System;
-using Game.Views;
+﻿using Game.Views;
 using Modules.Money;
 using UnityEngine;
 using Zenject;
 
 namespace Game.Presenters
 {
-    public class MoneyPresenter : IInitializable, IDisposable
+    public class MoneyPresenter : IInitializable
     {
-        public Vector3 MoneyTransform => _view.transform.position;
+        public Vector3 MoneyTransform => _view.MoneyIconPosition;
         private MoneyView _view;
         private IMoneyStorage _moneyStorage;
 
@@ -20,18 +19,12 @@ namespace Game.Presenters
 
         public void Initialize()
         {
-            _moneyStorage.OnMoneyChanged += SetMoney;
             _view.SetMoney(_moneyStorage.Money.ToString());
         }
-
-        public void Dispose()
+        
+        public void UpdateMoney()
         {
-            _moneyStorage.OnMoneyChanged -= SetMoney;
-        }
-
-        private void SetMoney(int newValue, int prevValue)
-        {
-            _view.SetMoney(newValue.ToString());
+            _view.UpdateMoney(_moneyStorage.Money.ToString());
         }
     }
 }

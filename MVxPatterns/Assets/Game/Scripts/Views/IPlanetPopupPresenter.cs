@@ -14,6 +14,8 @@ namespace Game.Presenters
         string Income { get; }
         string LevelText { get; }
 
+        bool PlanetMaxLevel { get; }
+
         bool CanUpgrade();
         void Upgrade();
     }

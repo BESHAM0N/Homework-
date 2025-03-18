@@ -55,6 +55,8 @@ namespace Modules.Planets
         [ShowInInspector, ReadOnly]
         public int MaxLevel => _config.MaxLevel;
 
+        public float CountdownDuration => _countdown.Duration;
+
         [ShowInInspector, ReadOnly]
         public int NextLevel => !this.IsMaxLevel ? Level + 1 : UNDEFINED_LEVEL;
 

@@ -3,7 +3,6 @@ using Game.Common;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
-using Zenject;
 
 namespace Game.Views
 {
@@ -17,7 +16,7 @@ namespace Game.Views
 
         public event Action OnClickedMoneyIcon;
         
-        public Transform MoneyIconPosition => _moneyButton.transform.GetChild(0);
+        public Vector3 MoneyIconPosition => _moneyButton.transform.position;
 
         [SerializeField] private PriceView _priceView;
         [SerializeField] private IncomeView _incomeView;
@@ -41,10 +40,10 @@ namespace Game.Views
         {
             _priceView.SetPrice(price);
         }
-
-        public void SetTimer(string timer)
+        
+        public void SetTimer(float  remainingTime, float  duration, string timer)
         {
-            _incomeView.SetTimer(timer);
+            _incomeView.UpdateProgress(remainingTime, duration, timer);
             _incomeView.ShowProgressBar(true);
         }
         
@@ -68,10 +67,6 @@ namespace Game.Views
         private void OnClickedMoney()
         {
             OnClickedMoneyIcon!.Invoke();
-        }
-        
-        // public sealed class Pool : MonoMemoryPool<PlanetCard>
-        // {
-        // }
+        }        
     }
 }
