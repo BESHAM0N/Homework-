@@ -1,0 +1,54 @@
+﻿using System;
+using UnityEngine;
+
+namespace Component
+{
+    public class DropOffComponent : MonoBehaviour
+    {
+        [SerializeField] private float _dropForce = 10f; 
+        [SerializeField] private float _dropRadius = 2f;
+        [SerializeField] private LayerMask _dropLayer;
+
+        private readonly AndCondition _andCondition = new();
+        private Cooldawn _cooldown;
+
+        private void Awake()
+        {
+            _cooldown = new Cooldawn(0.5f);
+            _andCondition.AddCondition(() => _cooldown.IsReady());
+        }
+
+        public void ExecuteDropOff()
+        {
+            if (!_andCondition.IsTrue())
+                return;
+
+            var colliders = Physics2D.OverlapCircleAll(transform.position, _dropRadius, _dropLayer);
+
+            foreach (Collider2D collider in colliders)
+            {
+                if (collider.gameObject == gameObject)
+                    continue;
+
+                Rigidbody2D rb = collider.GetComponent<Rigidbody2D>();
+                if (rb != null)
+                {
+                    rb.AddForce(Vector2.up * _dropForce, ForceMode2D.Impulse);
+                }
+            }
+
+            _cooldown.ResetCooldown();
+        }
+
+        public void AddCondition(Func<bool> condition)
+        {
+            _andCondition.AddCondition(condition);
+        }
+
+        private void OnDrawGizmosSelected()
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(transform.position, _dropRadius);
+        }
+    }
+}
