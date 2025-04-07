@@ -3,63 +3,49 @@ using UnityEngine;
 
 namespace Component
 {
+    public enum MovementType
+    {
+        Horizontal,
+        Vertical
+    }
+
     public class MoveComponent : MonoBehaviour
     {
         public Action<Vector2> OnRotate;
-
-        [SerializeField] private Rigidbody2D _rigidbody;
-        [SerializeField] private float _speed;
+        [SerializeField] private float speed = 5f;
         [SerializeField] private bool _canMove = true;
-        // Флаги управления по осям
-        [SerializeField] private bool controlHorizontal = true;
-        [SerializeField] private bool controlVertical;
-
-        // Вектор направления задается через SetDirection.
-        private Vector2 _moveDirection;
+        [SerializeField] private MovementType movementType = MovementType.Horizontal;
+        private Vector2 direction;
         private readonly AndCondition _andCondition = new();
+
+        public void SetDirection(Vector2 newDirection)
+        {
+            if (movementType == MovementType.Horizontal)
+            {
+                direction = new Vector2(newDirection.x, 0);
+                OnRotate?.Invoke(direction);
+            }
+            else 
+            {
+                direction = new Vector2(0, newDirection.y);
+            }
+        }
 
         private void FixedUpdate()
         {
             Move();
         }
-
+      
         private void Move()
         {
             if (!_canMove || !_andCondition.IsTrue())
                 return;
-
-            // Берем текущую скорость
-            Vector2 currentVel = _rigidbody.velocity;
-            // Начинаем с текущего значения, чтобы сохранить ту часть, которую не контролируем
-            Vector2 targetVel = currentVel;
-
-            if (controlHorizontal)
-            {
-                // Задаем горизонтальную скорость
-                targetVel.x = _moveDirection.x * _speed;
-            }
-            if (controlVertical)
-            {
-                // Задаем вертикальную скорость
-                targetVel.y = _moveDirection.y * _speed;
-            }
-
-            _rigidbody.velocity = targetVel;
-        }
-
-        /// <summary>
-        /// Задает направление движения.
-        /// Для игрока можно передавать только горизонтальную составляющую,
-        /// для объектов с полным контролем — направление может быть произвольным.
-        /// </summary>
-        public void SetDirection(Vector2 direction)
-        {
-            _moveDirection = direction.normalized;
-            OnRotate?.Invoke(_moveDirection);
+            
+            transform.Translate(direction.normalized * speed * Time.fixedDeltaTime, Space.World);
         }
         
         public void AddCondition(Func<bool> condition)
-        {
+         {
             _andCondition.AddCondition(condition);
         }
     }

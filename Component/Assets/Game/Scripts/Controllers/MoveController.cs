@@ -6,7 +6,7 @@ namespace Component
     {
         [SerializeField] private MoveComponent _moveComponent;
 
-        private void FixedUpdate()
+        private void Update()
         {
             HandleKeyboard();
         }

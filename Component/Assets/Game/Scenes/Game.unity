@@ -2615,6 +2615,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4763996743474606694, guid: 72f49d2e77eaa4d26818f3f35aef8a5f, type: 3}
+      propertyPath: speed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4763996743474606694, guid: 72f49d2e77eaa4d26818f3f35aef8a5f, type: 3}
+      propertyPath: movementType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5434138037557620653, guid: 72f49d2e77eaa4d26818f3f35aef8a5f, type: 3}
       propertyPath: m_LocalPosition.y
       value: -3.75
@@ -2649,7 +2657,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec0fe22077374c938f747efc9aae5a90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pushForce: 1020
+  _pushForce: 10
   _pushRadius: 3
   _pushLayer:
     serializedVersion: 2
@@ -3478,6 +3486,14 @@ PrefabInstance:
     - target: {fileID: 1736318179580503177, guid: 72f49d2e77eaa4d26818f3f35aef8a5f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4763996743474606694, guid: 72f49d2e77eaa4d26818f3f35aef8a5f, type: 3}
+      propertyPath: speed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4763996743474606694, guid: 72f49d2e77eaa4d26818f3f35aef8a5f, type: 3}
+      propertyPath: movementType
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5434138037557620653, guid: 72f49d2e77eaa4d26818f3f35aef8a5f, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4709,11 +4725,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e35c9edefb44bfda8942a875283fd50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rigidbody: {fileID: 1856897330}
-  _speed: 4
+  speed: 5
   _canMove: 1
-  controlHorizontal: 1
-  controlVertical: 0
+  movementType: 0
 --- !u!50 &1856897330
 Rigidbody2D:
   serializedVersion: 4
@@ -4882,6 +4896,10 @@ PrefabInstance:
     - target: {fileID: 1736318179580503177, guid: 72f49d2e77eaa4d26818f3f35aef8a5f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4763996743474606694, guid: 72f49d2e77eaa4d26818f3f35aef8a5f, type: 3}
+      propertyPath: speed
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5434138037557620653, guid: 72f49d2e77eaa4d26818f3f35aef8a5f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5529,6 +5547,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1551361583}
     - target: {fileID: 4763996743474606694, guid: 72f49d2e77eaa4d26818f3f35aef8a5f, type: 3}
+      propertyPath: speed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4763996743474606694, guid: 72f49d2e77eaa4d26818f3f35aef8a5f, type: 3}
+      propertyPath: movementType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4763996743474606694, guid: 72f49d2e77eaa4d26818f3f35aef8a5f, type: 3}
       propertyPath: controlVertical
       value: 1
       objectReference: {fileID: 0}
@@ -5996,6 +6022,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 8342082945872629457, guid: 059a7ddbcfb4f4b51a6fd1d2b168a503, type: 3}
+      propertyPath: m_BodyType
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6054,11 +6084,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e35c9edefb44bfda8942a875283fd50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rigidbody: {fileID: 9176129389965680759}
-  _speed: 10
+  speed: 5
   _canMove: 1
-  controlHorizontal: 1
-  controlVertical: 0
+  movementType: 0
 --- !u!114 &9176129389965680755
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6137,7 +6165,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rigidbody: {fileID: 9176129389965680759}
-  _jumpForce: 5
+  _jumpForce: 10
   _jumpCooldown: 1
 --- !u!114 &9176129389965680763
 MonoBehaviour:
