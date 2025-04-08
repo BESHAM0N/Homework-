@@ -1,21 +1,36 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Component
 {
     public class SoundComponent : MonoBehaviour
     {
-        [SerializeField] private AudioClip _sound;  
-        [SerializeField] private AudioSource _audioSource; 
-      
-        public void PlaySound()
+        [SerializeField] private AudioSource _audioSource;
+        [SerializeField] private SoundEntry[] _soundEntries;
+        private Dictionary<SoundType, AudioClip> _soundDictionary;
+
+        private void Awake()
         {
-            if (_sound == null)
+            _soundDictionary = new Dictionary<SoundType, AudioClip>();
+            foreach (var entry in _soundEntries)
             {
-                Debug.LogWarning("SoundComponent: Аудиоклип не назначен!");
-                return;
+                if (!_soundDictionary.ContainsKey(entry.SoundType) && entry.Clip != null)
+                {
+                    _soundDictionary.Add(entry.SoundType, entry.Clip);
+                }
             }
-            
-            _audioSource.PlayOneShot(_sound);
+        }
+
+        public void PlaySound(SoundType soundType)
+        {
+            if (_soundDictionary.TryGetValue(soundType, out AudioClip clip) && clip != null)
+            {
+                _audioSource.PlayOneShot(clip);
+            }
+            else
+            {
+                Debug.LogWarning($"SoundComponent: Звук {soundType} не назначен!");
+            }
         }
     }
 }

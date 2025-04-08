@@ -608,9 +608,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e35c9edefb44bfda8942a875283fd50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rigidbody: {fileID: 1745589832700849}
-  _speed: 3
+  speed: 5
   _canMove: 1
+  movementType: 0
 --- !u!114 &2274328879752729393
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -703,6 +703,7 @@ MonoBehaviour:
   _moveComponent: {fileID: 5690521476137526532}
   _rotateComponent: {fileID: 799569323972777602}
   _deathComponent: {fileID: 5938402770652477703}
+  _soundComponent: {fileID: 4926856195256941321}
 --- !u!114 &5938402770652477703
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -725,6 +726,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2315917673189246781}
   - component: {fileID: 7373436372039092287}
+  - component: {fileID: 4926856195256941321}
   m_Layer: 0
   m_Name: <Audio>
   m_TagString: Untagged
@@ -843,3 +845,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &4926856195256941321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9168432786817898581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db2cf75496d98e74993ff1cb50158e84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioSource: {fileID: 7373436372039092287}
+  _soundEntries:
+  - SoundType: 1
+    Clip: {fileID: 8300000, guid: 49fd8f26329a7d447b6232131cfd5e71, type: 3}

@@ -5,6 +5,7 @@ namespace Component
 {
     public class JumpComponent : MonoBehaviour
     {
+        public event Action OnJump;
         public bool OnGround => _onGround;
 
         [SerializeField] private Rigidbody2D _rigidbody;
@@ -26,7 +27,8 @@ namespace Component
         {
             if (!_andCondition.IsTrue())
                 return;
-
+            
+            OnJump?.Invoke();
             _rigidbody.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
             _cooldown.ResetCooldown();
             _onGround = false;

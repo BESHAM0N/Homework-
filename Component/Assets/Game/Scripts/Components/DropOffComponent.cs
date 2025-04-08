@@ -5,6 +5,7 @@ namespace Component
 {
     public class DropOffComponent : MonoBehaviour
     {
+        public event Action OnDropOff;
         [SerializeField] private float _dropForce = 10f; 
         [SerializeField] private float _dropRadius = 2f;
         [SerializeField] private LayerMask _dropLayer;
@@ -33,10 +34,10 @@ namespace Component
                 Rigidbody2D rb = collider.GetComponent<Rigidbody2D>();
                 if (rb != null)
                 {
+                    OnDropOff?.Invoke();
                     rb.AddForce(Vector2.up * _dropForce, ForceMode2D.Impulse);
                 }
             }
-
             _cooldown.ResetCooldown();
         }
 

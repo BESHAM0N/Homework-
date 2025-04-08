@@ -6,6 +6,7 @@ namespace Component
     public class LifeComponent : MonoBehaviour, IDamageable
     {
         public event Action OnEmpty;
+        public event Action OnHit;
 
         [SerializeField] private int _maxPoints;
         [SerializeField] private bool _isDead;
@@ -24,6 +25,7 @@ namespace Component
             }
 
             _hitPoints -= damage;
+            OnHit?.Invoke();
             
             if (_hitPoints <= 0)
             {

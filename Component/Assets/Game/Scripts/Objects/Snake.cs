@@ -10,6 +10,7 @@ namespace Component
         [SerializeField] private MoveComponent _moveComponent;
         [SerializeField] private RotateComponent _rotateComponent;
         [SerializeField] private DeathComponent _deathComponent;
+        [SerializeField] private SoundComponent _soundComponent;
 
         private void Awake()
         {
@@ -21,6 +22,7 @@ namespace Component
         {
             _attackComponent.OnAttacked += OnDrop;
             _lifeComponent.OnEmpty += OnHealthEmpty;
+            _lifeComponent.OnHit += OnTakeDamage;
             _moveComponent.OnRotate += _rotateComponent.SetDirection;
         }
 
@@ -28,6 +30,7 @@ namespace Component
         {
             _attackComponent.OnAttacked -= OnDrop;
             _lifeComponent.OnEmpty -= OnHealthEmpty;
+            _lifeComponent.OnHit -= OnTakeDamage;
             _moveComponent.OnRotate -= _rotateComponent.SetDirection;
         }
 
@@ -39,6 +42,11 @@ namespace Component
         private void OnHealthEmpty()
         {
             _deathComponent.Death();
+        }
+
+        private void OnTakeDamage()
+        {
+           _soundComponent.PlaySound(SoundType.TakeDamageEnemy);
         }
     }
 }

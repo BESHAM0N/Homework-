@@ -5,15 +5,15 @@ namespace Component
 {
     public class AttackComponent : MonoBehaviour
     {
-        public Action OnAttacked;
+        public event Action OnAttacked;
         
         [SerializeField] private int _damage;
         private void OnCollisionEnter2D(Collision2D collision)
         {
             if (collision.gameObject.TryGetComponent(out IDamageable proxy))
             {
-                proxy.TakeDamage(_damage);
                 OnAttacked?.Invoke();
+                proxy.TakeDamage(_damage);
             }
         }
 

@@ -5,8 +5,9 @@ namespace Component
 {
     public class PushComponent : MonoBehaviour
     {
-        [SerializeField] private float _pushForce = 10f; // Сила толкания
-        [SerializeField] private float _pushRadius = 1f; // Радиус действия толчка
+        public event Action OnPush;
+        [SerializeField] private float _pushForce = 10f;
+        [SerializeField] private float _pushRadius = 1f;
         [SerializeField] private LayerMask _pushLayer;
 
         private readonly AndCondition _andCondition = new();
@@ -22,7 +23,7 @@ namespace Component
         {
             if (!_andCondition.IsTrue())
                 return;
-            // Поиск всех коллайдеров в указанном радиусе, отфильтрованных по слою
+           
             var colliders = Physics2D.OverlapCircleAll(transform.position, _pushRadius, _pushLayer);
 
             foreach (Collider2D collider in colliders)
@@ -36,8 +37,8 @@ namespace Component
                 if (rb != null)
                 {
                     Debug.Log("Pushing to " + collider.gameObject.name);
-                    // Направление от текущего объекта к объекту-мишени
                     var pushDirection = ((Vector2)collider.transform.position - (Vector2)transform.position).normalized;
+                    OnPush?.Invoke();
                     rb.AddForce(pushDirection * _pushForce, ForceMode2D.Impulse);
                 }
             }
