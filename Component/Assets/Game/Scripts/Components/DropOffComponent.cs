@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Component
 {
-    public class DropOffComponent : MonoBehaviour
+    public sealed class DropOffComponent : MonoBehaviour
     {
         public event Action OnDropOff;
         [SerializeField] private float _dropForce = 10f; 

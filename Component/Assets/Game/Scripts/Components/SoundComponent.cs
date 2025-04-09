@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Component
 {
-    public class SoundComponent : MonoBehaviour
+    public sealed class SoundComponent : MonoBehaviour
     {
         [SerializeField] private AudioSource _audioSource;
         [SerializeField] private SoundEntry[] _soundEntries;
@@ -15,22 +15,14 @@ namespace Component
             foreach (var entry in _soundEntries)
             {
                 if (!_soundDictionary.ContainsKey(entry.SoundType) && entry.Clip != null)
-                {
                     _soundDictionary.Add(entry.SoundType, entry.Clip);
-                }
             }
         }
 
         public void PlaySound(SoundType soundType)
         {
             if (_soundDictionary.TryGetValue(soundType, out AudioClip clip) && clip != null)
-            {
                 _audioSource.PlayOneShot(clip);
-            }
-            else
-            {
-                Debug.LogWarning($"SoundComponent: Звук {soundType} не назначен!");
-            }
         }
     }
 }

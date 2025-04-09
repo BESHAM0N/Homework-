@@ -3,7 +3,7 @@
 namespace Component
 {
     [System.Serializable]
-    public class SoundEntry
+    public sealed class SoundEntry
     {
         public SoundType SoundType;
         public AudioClip Clip;

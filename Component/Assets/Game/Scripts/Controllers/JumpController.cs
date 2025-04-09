@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Component;
 
-public class JumpController : MonoBehaviour
+public sealed class JumpController : MonoBehaviour
 {
     [SerializeField] private JumpComponent _jumpComponent;
 

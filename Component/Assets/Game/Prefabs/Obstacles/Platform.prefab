@@ -120,10 +120,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efc6b8ae964c47829c8a271d702596cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pointA: {fileID: 5434138037557620653}
-  pointB: {fileID: 7441270365842623162}
-  reachThreshold: 0.1
-  moveComponent: {fileID: 4763996743474606694}
+  _pointA: {fileID: 5434138037557620653}
+  _pointB: {fileID: 7441270365842623162}
+  _reachThreshold: 0.1
+  _moveComponent: {fileID: 4763996743474606694}
 --- !u!114 &4763996743474606694
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -136,9 +136,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e35c9edefb44bfda8942a875283fd50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rigidbody: {fileID: 1599025579162667576}
-  _speed: 1
+  _speed: 3
   _canMove: 1
+  _movementType: 0
 --- !u!1 &2402534428499199933
 GameObject:
   m_ObjectHideFlags: 0

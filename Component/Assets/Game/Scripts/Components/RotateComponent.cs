@@ -2,7 +2,7 @@
 
 namespace Component
 {
-    public class RotateComponent : MonoBehaviour
+    public sealed class RotateComponent : MonoBehaviour
     {
         [SerializeField] private Transform _rotationRoot;
         private Vector2 _rotateDirection = Vector2.right;

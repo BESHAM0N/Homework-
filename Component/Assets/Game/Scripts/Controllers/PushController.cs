@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Component;
 
-public class PushController : MonoBehaviour
+public sealed class PushController : MonoBehaviour
 {
     [SerializeField] private PushComponent _pushComponent;
   

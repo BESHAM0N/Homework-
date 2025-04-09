@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Component
 {
-    public class MoveController : MonoBehaviour
+    public sealed class MoveController : MonoBehaviour
     {
         [SerializeField] private MoveComponent _moveComponent;
 

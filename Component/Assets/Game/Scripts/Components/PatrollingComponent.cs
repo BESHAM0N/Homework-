@@ -1,50 +1,46 @@
 ﻿using UnityEngine;
-using Component;
 
 namespace Component
 {
-    public class PatrollingComponent : MonoBehaviour
+    public sealed class PatrollingComponent : MonoBehaviour
     {
-        [SerializeField] private Transform pointA;             
-        [SerializeField] private Transform pointB;             
-        [SerializeField] private float reachThreshold = 0.1f;    
-        [SerializeField] private MoveComponent moveComponent;    
+        [SerializeField] private Transform _pointA;
+        [SerializeField] private Transform _pointB;
+        [SerializeField] private float _reachThreshold = 0.1f;
+        [SerializeField] private MoveComponent _moveComponent;
 
         private Transform _currentTarget;
 
         private void Start()
         {
-            if (pointA == null || pointB == null)
+            if (_pointA == null || _pointB == null)
             {
-                Debug.LogError("PatrollingComponent: Задайте обе точки патрулирования (pointA и pointB).");
                 enabled = false;
                 return;
             }
 
-            // Выбираем стартовую цель – например, ту, которая дальше от текущей позиции
-            float distanceToA = Vector2.Distance(transform.position, pointA.position);
-            float distanceToB = Vector2.Distance(transform.position, pointB.position);
-            _currentTarget = (distanceToA < distanceToB) ? pointB : pointA;
+            var distanceToA = Vector2.Distance(transform.position, _pointA.position);
+            var distanceToB = Vector2.Distance(transform.position, _pointB.position);
+            _currentTarget = (distanceToA < distanceToB) ? _pointB : _pointA;
         }
 
         private void Update()
         {
-            // Направление рассчитываем строго по двум точкам.
             Vector2 direction;
-            if (_currentTarget == pointB)
+            if (_currentTarget == _pointB)
             {
-                direction = (pointB.position - pointA.position).normalized;
+                direction = (_pointB.position - _pointA.position).normalized;
             }
             else
             {
-                direction = (pointA.position - pointB.position).normalized;
+                direction = (_pointA.position - _pointB.position).normalized;
             }
 
-            moveComponent.SetDirection(direction);
+            _moveComponent.SetDirection(direction);
 
-            if (Vector2.Distance(transform.position, _currentTarget.position) < reachThreshold)
+            if (Vector2.Distance(transform.position, _currentTarget.position) < _reachThreshold)
             {
-                _currentTarget = (_currentTarget == pointA) ? pointB : pointA;
+                _currentTarget = (_currentTarget == _pointA) ? _pointB : _pointA;
             }
         }
     }

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Component
 {
-    public class LifeComponent : MonoBehaviour, IDamageable
+    public sealed class LifeComponent : MonoBehaviour, IDamageable
     {
         public event Action OnEmpty;
         public event Action OnHit;

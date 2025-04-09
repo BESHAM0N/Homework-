@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Component
 {
-    public class SoundController : MonoBehaviour
+    public sealed class SoundController : MonoBehaviour
     {
         [SerializeField] private SoundComponent _soundComponent;
         [SerializeField] private LifeComponent _lifeComponent;

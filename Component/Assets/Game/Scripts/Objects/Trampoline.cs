@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Component
 {
-    public class Trampoline : MonoBehaviour
+    public sealed class Trampoline : MonoBehaviour
     {
         [SerializeField] private DropOffComponent _dropOffComponent;
         [SerializeField] private SoundComponent _soundComponent;
@@ -11,20 +11,19 @@ namespace Component
         {
             _dropOffComponent.OnDropOff += OnDrop;
         }
-        
+
         private void OnDisable()
         {
             _dropOffComponent.OnDropOff -= OnDrop;
         }
 
-        private void Update()
+        private void OnCollisionEnter2D(Collision2D collision)
         {
             _dropOffComponent.ExecuteDropOff();
         }
 
         private void OnDrop()
         {
-            Debug.Log("Trampoline");
             _soundComponent.PlaySound(SoundType.Trampline);
         }
     }

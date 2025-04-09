@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Component
 {
-    public class AndCondition
+    public sealed class AndCondition
     {
         private readonly List<Func<bool>> _conditions = new();
 

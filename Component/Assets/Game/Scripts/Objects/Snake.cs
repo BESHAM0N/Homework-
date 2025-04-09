@@ -2,7 +2,7 @@
 
 namespace Component
 {
-    public class Snake : MonoBehaviour
+    public sealed class Snake : MonoBehaviour
     {
         [SerializeField] private AttackComponent _attackComponent;
         [SerializeField] private DropOffComponent _dropOffComponent;

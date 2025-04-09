@@ -2,7 +2,7 @@ using Component;
 using UnityEngine;
 
 //Facade
-public class Character : MonoBehaviour
+public sealed class Character : MonoBehaviour
 {
     [SerializeField] private LifeComponent _lifeComponent;
     [SerializeField] private MoveComponent _moveComponent;

@@ -2,7 +2,7 @@
 
 namespace Component
 {
-    public class DamageableProxy : MonoBehaviour, IDamageable
+    public sealed class DamageableProxy : MonoBehaviour, IDamageable
     {
         [SerializeField] private LifeComponent _lifeComponent;
         

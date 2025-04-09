@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Component;
 
-public class DropOffController : MonoBehaviour
+public sealed class DropOffController : MonoBehaviour
 {
     [SerializeField] private DropOffComponent _dropOffComponent;
     

@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Component
 {
-    public class Lava : MonoBehaviour
+    public sealed class Lava : MonoBehaviour
     {
         [SerializeField] private SoundComponent _soundComponent;
         [SerializeField] private AttackComponent _attackComponent;

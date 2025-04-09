@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Component
 {
-    public class PushComponent : MonoBehaviour
+    public sealed class PushComponent : MonoBehaviour
     {
         public event Action OnPush;
         [SerializeField] private float _pushForce = 10f;

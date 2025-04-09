@@ -211,6 +211,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1504080579300883975}
   - component: {fileID: 7937140358218983994}
+  - component: {fileID: 8845356985929575027}
   m_Layer: 0
   m_Name: <Sprite>
   m_TagString: Untagged
@@ -286,6 +287,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8845356985929575027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4767580505778117511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43db49804b7ff4f4ea424d7bbe350eb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _blinkColor: {r: 1, g: 0.9348355, b: 0, a: 1}
+  _blinkDuration: 2
+  _blinkInterval: 0.2
 --- !u!1 &6460365143824586839
 GameObject:
   m_ObjectHideFlags: 0
@@ -455,6 +471,7 @@ GameObject:
   - component: {fileID: 799569323972777602}
   - component: {fileID: 7888410917981044806}
   - component: {fileID: 5938402770652477703}
+  - component: {fileID: 5182741230328698533}
   m_Layer: 8
   m_Name: <Snake>
   m_TagString: Untagged
@@ -513,7 +530,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8521204571576199944}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -580,7 +597,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0.375}
@@ -608,9 +625,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e35c9edefb44bfda8942a875283fd50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  _speed: 2
   _canMove: 1
-  movementType: 0
+  _movementType: 0
 --- !u!114 &2274328879752729393
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -638,10 +655,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efc6b8ae964c47829c8a271d702596cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pointA: {fileID: 7836685165928915669}
-  pointB: {fileID: 3188779134163127405}
-  reachThreshold: 0.1
-  moveComponent: {fileID: 5690521476137526532}
+  _pointA: {fileID: 7836685165928915669}
+  _pointB: {fileID: 3188779134163127405}
+  _reachThreshold: 0.1
+  _moveComponent: {fileID: 5690521476137526532}
 --- !u!114 &3262379268206931368
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -716,6 +733,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbba0a191d3fd7e4994cec115a1bfa5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5182741230328698533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8521204571576199944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b52cd92a39f4615a87db1b15acebe26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _colorBlinkComponent: {fileID: 8845356985929575027}
+  _lifeComponent: {fileID: 2274328879752729393}
 --- !u!1 &9168432786817898581
 GameObject:
   m_ObjectHideFlags: 0

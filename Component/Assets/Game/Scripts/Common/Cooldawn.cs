@@ -2,7 +2,7 @@
 
 namespace Component
 {
-    public class Cooldawn
+    public sealed class Cooldawn
     {
         private float _cooldownDuration;
         private float _lastActionTime;

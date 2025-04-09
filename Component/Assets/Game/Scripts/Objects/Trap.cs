@@ -2,7 +2,7 @@
 
 namespace Component
 {
-    public class Trap :MonoBehaviour
+    public sealed class Trap :MonoBehaviour
     {
         [SerializeField] private LifeComponent _lifeComponent;
         [SerializeField] private DeathComponent _deathComponent;

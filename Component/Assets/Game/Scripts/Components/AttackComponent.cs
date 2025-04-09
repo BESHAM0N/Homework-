@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Component
 {
-    public class AttackComponent : MonoBehaviour
+    public sealed class AttackComponent : MonoBehaviour
     {
         public event Action OnAttacked;
         

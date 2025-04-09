@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Component
 {
-    public class DeathComponent : MonoBehaviour
+    public sealed class DeathComponent : MonoBehaviour
     {
         public void Death()
         {

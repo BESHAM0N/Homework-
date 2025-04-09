@@ -2,7 +2,7 @@
 
 namespace Component
 {
-    public class Spider : MonoBehaviour
+    public sealed class Spider : MonoBehaviour
     {
         [SerializeField] private AttackComponent _attackComponent;
         [SerializeField] private PushComponent _pushComponent;
