@@ -18,8 +18,7 @@ namespace Component
         }
 
         // private void OnTriggerEnter2D(Collider2D other)
-        // {
-        //     Debug.Log($"А такую: {gameObject.name}");
+        // {   
         //     if (other.TryGetComponent(out IDamageable proxy))
         //     {
         //         proxy.TakeDamage(_damage);

@@ -1,12 +1,11 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Component
 {
     public sealed class MoveComponent : MonoBehaviour
     {
-        public Action<Vector2> OnRotate;
+        public event Action<Vector2> OnRotate;
         
         [SerializeField] private float _speed = 5f;
         [SerializeField] private bool _canMove = true;

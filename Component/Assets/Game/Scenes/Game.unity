@@ -635,6 +635,18 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7073503754261842485, guid: 0ec997e873f9642f3b6e0d36345da0c0, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7073503754261842485, guid: 0ec997e873f9642f3b6e0d36345da0c0, type: 3}
+      propertyPath: m_UsedByEffector
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7422560000825944449, guid: 0ec997e873f9642f3b6e0d36345da0c0, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2760,6 +2772,7 @@ MonoBehaviour:
   _pushLayer:
     serializedVersion: 2
     m_Bits: 256
+  _cooldownDuration: 1
 --- !u!114 &1132770282
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2790,6 +2803,7 @@ MonoBehaviour:
   _dropLayer:
     serializedVersion: 2
     m_Bits: 256
+  _cooldownDuration: 0.5
 --- !u!114 &1132770284
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4800,10 +4814,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efc6b8ae964c47829c8a271d702596cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pointA: {fileID: 0}
-  _pointB: {fileID: 0}
+  _pointA: {fileID: 2725077071304007268}
+  _pointB: {fileID: 719510584883460979}
   _reachThreshold: 0.1
-  _moveComponent: {fileID: 0}
+  _moveComponent: {fileID: 1856897329}
 --- !u!114 &1856897329
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5833,11 +5847,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 464711613102087323, guid: 80a831c9d00f24f04b83b56403d7f261, type: 3}
       propertyPath: m_IsTrigger
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 519640766865834813, guid: 80a831c9d00f24f04b83b56403d7f261, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3480418266488211585, guid: 80a831c9d00f24f04b83b56403d7f261, type: 3}
+      propertyPath: _dropRadius
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6630584940079141506, guid: 80a831c9d00f24f04b83b56403d7f261, type: 3}
       propertyPath: m_Name

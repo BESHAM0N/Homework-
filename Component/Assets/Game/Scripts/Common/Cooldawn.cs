@@ -22,11 +22,5 @@ namespace Component
         {
             _lastActionTime = Time.time;
         }
-        
-        public float GetRemainingTime()
-        {
-            var elapsed = Time.time - _lastActionTime;
-            return Mathf.Max(0, _cooldownDuration - elapsed);
-        }
     }
 }

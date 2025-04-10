@@ -341,10 +341,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dropForce: 10
-  _dropRadius: 1
+  _dropRadius: 1.2
   _dropLayer:
     serializedVersion: 2
     m_Bits: 768
+  _cooldownDuration: 0
 --- !u!114 &2934954646636255209
 MonoBehaviour:
   m_ObjectHideFlags: 0

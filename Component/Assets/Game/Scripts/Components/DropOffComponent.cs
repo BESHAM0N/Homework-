@@ -6,16 +6,18 @@ namespace Component
     public sealed class DropOffComponent : MonoBehaviour
     {
         public event Action OnDropOff;
+        
         [SerializeField] private float _dropForce = 10f; 
         [SerializeField] private float _dropRadius = 2f;
         [SerializeField] private LayerMask _dropLayer;
+        [SerializeField] private float _cooldownDuration = 0.5f;
 
         private readonly AndCondition _andCondition = new();
         private Cooldawn _cooldown;
 
         private void Awake()
         {
-            _cooldown = new Cooldawn(0.5f);
+            _cooldown = new Cooldawn(_cooldownDuration);
             _andCondition.AddCondition(() => _cooldown.IsReady());
         }
 
