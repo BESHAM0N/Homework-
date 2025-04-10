@@ -18,8 +18,7 @@ namespace Component
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
-        {
-            Debug.Log("ПРЫГ");
+        {           
             _dropOffComponent.ExecuteDropOff();
         }
 
