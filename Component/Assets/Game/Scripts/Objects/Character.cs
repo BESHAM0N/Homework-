@@ -8,17 +8,15 @@ public sealed class Character : MonoBehaviour
     [SerializeField] private MoveComponent _moveComponent;
     [SerializeField] private RotateComponent _rotateComponent;
     [SerializeField] private JumpComponent _jumpComponent;
-    [SerializeField] private PushComponent _pushComponent;
-    [SerializeField] private DropOffComponent _dropOffComponent;
     [SerializeField] private DeathComponent _deathComponent;
+    [SerializeField] private RepulsionComponent _repulsionComponent;
     
     private void Awake()
     {
         _moveComponent.AddCondition(_lifeComponent.IsAlive);
         _jumpComponent.AddCondition(_lifeComponent.IsAlive);
-        _pushComponent.AddCondition(_lifeComponent.IsAlive);
-        _dropOffComponent.AddCondition(_lifeComponent.IsAlive);
-        _dropOffComponent.AddCondition(() => _jumpComponent.OnGround);
+        _repulsionComponent.AddCondition(_lifeComponent.IsAlive);
+        _repulsionComponent.AddCondition(() => _jumpComponent.OnGround);
     }
 
     private void OnEnable()

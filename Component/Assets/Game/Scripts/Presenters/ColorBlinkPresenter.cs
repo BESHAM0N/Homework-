@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Component
 {
-    public sealed class ColorBlinkComponent : MonoBehaviour
+    public sealed class ColorBlinkPresenter : MonoBehaviour
     {
         [SerializeField] private Color _blinkColor = Color.red;
         [SerializeField] private float _blinkDuration = 2f;

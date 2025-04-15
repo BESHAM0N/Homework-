@@ -97,7 +97,6 @@ GameObject:
   - component: {fileID: 8320438562223812922}
   - component: {fileID: 631912920420615194}
   - component: {fileID: 8110472744242374830}
-  - component: {fileID: 8413836365269889903}
   - component: {fileID: 3435557311660572437}
   m_Layer: 8
   m_Name: Trap
@@ -211,7 +210,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _lifeComponent: {fileID: 8110472744242374830}
   _deathComponent: {fileID: 3435557311660572437}
-  _attackComponent: {fileID: 8413836365269889903}
+  _damage: 5
 --- !u!114 &8110472744242374830
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -227,19 +226,6 @@ MonoBehaviour:
   _maxPoints: 1
   _isDead: 0
   _hitPoints: 1
---- !u!114 &8413836365269889903
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4331236207197526835}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 545e341bcc4a461bb3b5dc93cb6107fe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _damage: 5
 --- !u!114 &3435557311660572437
 MonoBehaviour:
   m_ObjectHideFlags: 0

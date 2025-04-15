@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Component
 {
-    public sealed class SoundComponent : MonoBehaviour
+    public sealed class SoundPresenter : MonoBehaviour
     {
         [SerializeField] private AudioSource _audioSource;
         [SerializeField] private SoundEntry[] _soundEntries;

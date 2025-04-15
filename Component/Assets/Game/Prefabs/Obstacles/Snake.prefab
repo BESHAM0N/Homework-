@@ -466,12 +466,11 @@ GameObject:
   - component: {fileID: 5690521476137526532}
   - component: {fileID: 2274328879752729393}
   - component: {fileID: 7081149637381681976}
-  - component: {fileID: 3262379268206931368}
-  - component: {fileID: 3480418266488211585}
   - component: {fileID: 799569323972777602}
   - component: {fileID: 7888410917981044806}
   - component: {fileID: 5938402770652477703}
   - component: {fileID: 5182741230328698533}
+  - component: {fileID: 5402189344541601009}
   m_Layer: 8
   m_Name: <Snake>
   m_TagString: Untagged
@@ -625,7 +624,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e35c9edefb44bfda8942a875283fd50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 2
+  _speed: 1
   _canMove: 1
   _movementType: 0
 --- !u!114 &2274328879752729393
@@ -659,36 +658,6 @@ MonoBehaviour:
   _pointB: {fileID: 3188779134163127405}
   _reachThreshold: 0.1
   _moveComponent: {fileID: 5690521476137526532}
---- !u!114 &3262379268206931368
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8521204571576199944}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 545e341bcc4a461bb3b5dc93cb6107fe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _damage: 10
---- !u!114 &3480418266488211585
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8521204571576199944}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bbeb8af72f5428ab188f3a72c86bce2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _dropForce: 5
-  _dropRadius: 3
-  _dropLayer:
-    serializedVersion: 2
-    m_Bits: 512
 --- !u!114 &799569323972777602
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -714,13 +683,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e90f0f50c38f47df9fe6ddda2fd4d9b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attackComponent: {fileID: 3262379268206931368}
-  _dropOffComponent: {fileID: 3480418266488211585}
   _lifeComponent: {fileID: 2274328879752729393}
   _moveComponent: {fileID: 5690521476137526532}
   _rotateComponent: {fileID: 799569323972777602}
   _deathComponent: {fileID: 5938402770652477703}
-  _soundComponent: {fileID: 4926856195256941321}
+  _soundPresenter: {fileID: 4926856195256941321}
+  _repulsionComponent: {fileID: 5402189344541601009}
+  _damage: 5
 --- !u!114 &5938402770652477703
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -745,8 +714,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b52cd92a39f4615a87db1b15acebe26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _colorBlinkComponent: {fileID: 8845356985929575027}
+  _colorBlinkPresenter: {fileID: 8845356985929575027}
   _lifeComponent: {fileID: 2274328879752729393}
+--- !u!114 &5402189344541601009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8521204571576199944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b88697787c1e4ebc88e16f34436825c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _repulsionType: 0
+  _dropOffType: 0
+  _dropForce: 5
+  _dropRadius: 3
+  _dropLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  _dropCooldownDuration: 0.5
+  _pushForce: 10
+  _pushRadius: 1
+  _pushLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  _pushCooldownDuration: 1
 --- !u!1 &9168432786817898581
 GameObject:
   m_ObjectHideFlags: 0

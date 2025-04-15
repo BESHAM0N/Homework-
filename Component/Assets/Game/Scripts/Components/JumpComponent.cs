@@ -16,7 +16,6 @@ namespace Component
         private readonly AndCondition _andCondition = new();
         private Cooldawn _cooldown;
         private const string GROUND_TAG = "Ground";
-        private const string PLATFORM_TAG = "Platform";
 
         private void Awake()
         {
@@ -40,18 +39,12 @@ namespace Component
         {
             if (collision.collider.gameObject.layer == LayerMask.NameToLayer(GROUND_TAG))
                 _onGround = true;
-            
-            if (collision.gameObject.CompareTag(PLATFORM_TAG))
-                transform.parent = collision.transform;
         }
         
         private void OnCollisionExit2D(Collision2D collision)
         {
             if (collision.collider.gameObject.layer == LayerMask.NameToLayer(GROUND_TAG))
                 _onGround = false;
-            
-            if (collision.gameObject.CompareTag(PLATFORM_TAG))
-                transform.parent = null; 
         }
 
         public void AddCondition(Func<bool> condition)

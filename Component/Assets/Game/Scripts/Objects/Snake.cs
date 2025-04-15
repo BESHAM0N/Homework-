@@ -4,23 +4,22 @@ namespace Component
 {
     public sealed class Snake : MonoBehaviour
     {
-        [SerializeField] private AttackComponent _attackComponent;
-        [SerializeField] private DropOffComponent _dropOffComponent;
         [SerializeField] private LifeComponent _lifeComponent;
         [SerializeField] private MoveComponent _moveComponent;
         [SerializeField] private RotateComponent _rotateComponent;
         [SerializeField] private DeathComponent _deathComponent;
-        [SerializeField] private SoundComponent _soundComponent;
-
+        [SerializeField] private SoundPresenter _soundPresenter;
+        [SerializeField] private RepulsionComponent _repulsionComponent;
+        [SerializeField] private int _damage = 5;
+        
         private void Awake()
         {
             _moveComponent.AddCondition(_lifeComponent.IsAlive);
-            _dropOffComponent.AddCondition(_lifeComponent.IsAlive);
+            _repulsionComponent.AddCondition(_lifeComponent.IsAlive);
         }
 
         private void OnEnable()
         {
-            _attackComponent.OnAttacked += OnDrop;
             _lifeComponent.OnEmpty += OnHealthEmpty;
             _lifeComponent.OnHit += OnTakeDamage;
             _moveComponent.OnRotate += _rotateComponent.SetDirection;
@@ -28,15 +27,18 @@ namespace Component
 
         private void OnDisable()
         {
-            _attackComponent.OnAttacked -= OnDrop;
             _lifeComponent.OnEmpty -= OnHealthEmpty;
             _lifeComponent.OnHit -= OnTakeDamage;
             _moveComponent.OnRotate -= _rotateComponent.SetDirection;
         }
-
-        private void OnDrop()
+       
+        private void OnCollisionEnter2D(Collision2D collision)
         {
-            _dropOffComponent.ExecuteDropOff();
+            if (collision.gameObject.TryGetComponent(out IDamageable proxy))
+            {
+                proxy.TakeDamage(_damage);
+                _repulsionComponent.ExecuteAction();
+            }
         }
 
         private void OnHealthEmpty()
@@ -46,7 +48,7 @@ namespace Component
 
         private void OnTakeDamage()
         {
-           _soundComponent.PlaySound(SoundType.TakeDamageEnemy);
+           _soundPresenter.PlaySound(SoundType.TakeDamageEnemy);
         }
     }
 }

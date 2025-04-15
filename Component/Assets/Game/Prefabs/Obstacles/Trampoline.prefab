@@ -257,8 +257,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4979841302588641904}
   - component: {fileID: 2682617834291874480}
-  - component: {fileID: 1659405492214856822}
   - component: {fileID: 2934954646636255209}
+  - component: {fileID: 2312360668769479092}
   m_Layer: 6
   m_Name: Trampoline
   m_TagString: Untagged
@@ -315,7 +315,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.25}
+  m_Offset: {x: 0.070495605, y: 0.25}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -326,26 +326,8 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2, y: 0.5}
+  m_Size: {x: 1.8552551, y: 0.5}
   m_EdgeRadius: 0
---- !u!114 &1659405492214856822
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8595837930061912479}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bbeb8af72f5428ab188f3a72c86bce2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _dropForce: 10
-  _dropRadius: 1.2
-  _dropLayer:
-    serializedVersion: 2
-    m_Bits: 768
-  _cooldownDuration: 0
 --- !u!114 &2934954646636255209
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -358,5 +340,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 779b5b872c60a054a820985e7e4a657e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dropOffComponent: {fileID: 1659405492214856822}
-  _soundComponent: {fileID: 156775016082542625}
+  _repulsionComponent: {fileID: 2312360668769479092}
+  _soundPresenter: {fileID: 156775016082542625}
+--- !u!114 &2312360668769479092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8595837930061912479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b88697787c1e4ebc88e16f34436825c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _repulsionType: 0
+  _dropForce: 10
+  _dropRadius: 1.2
+  _dropLayer:
+    serializedVersion: 2
+    m_Bits: 768
+  _dropCooldownDuration: 0
+  _pushForce: 10
+  _pushRadius: 1
+  _pushLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  _pushCooldownDuration: 1

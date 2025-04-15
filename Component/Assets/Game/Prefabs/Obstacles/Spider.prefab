@@ -465,13 +465,12 @@ GameObject:
   - component: {fileID: 7073503754261842485}
   - component: {fileID: 4642646875420651682}
   - component: {fileID: 248228422397553430}
-  - component: {fileID: 6153649307936436076}
   - component: {fileID: 5200054311613037053}
   - component: {fileID: 5708220010249318383}
   - component: {fileID: 5360456309583373920}
   - component: {fileID: 8759042585396358885}
-  - component: {fileID: 4012717216226513348}
   - component: {fileID: 5557859961986601234}
+  - component: {fileID: 5562636972766482758}
   m_Layer: 8
   m_Name: <Spider>
   m_TagString: Untagged
@@ -639,19 +638,6 @@ MonoBehaviour:
   _maxPoints: 10
   _isDead: 0
   _hitPoints: 0
---- !u!114 &6153649307936436076
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8665529919726988981}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 545e341bcc4a461bb3b5dc93cb6107fe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _damage: 5
 --- !u!114 &5200054311613037053
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -708,29 +694,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ace44d84399f4b46996fc408d887b318, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attackComponent: {fileID: 6153649307936436076}
-  _pushComponent: {fileID: 4012717216226513348}
+  _repulsionComponent: {fileID: 5562636972766482758}
   _lifeComponent: {fileID: 248228422397553430}
   _moveComponent: {fileID: 5708220010249318383}
   _deathComponent: {fileID: 4642646875420651682}
---- !u!114 &4012717216226513348
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8665529919726988981}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec0fe22077374c938f747efc9aae5a90, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _pushForce: 5
-  _pushRadius: 2
-  _pushLayer:
-    serializedVersion: 2
-    m_Bits: 512
-  _cooldownDuration: 1
+  _damage: 3
 --- !u!114 &5557859961986601234
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -743,5 +711,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b52cd92a39f4615a87db1b15acebe26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _colorBlinkComponent: {fileID: 8833270305049465147}
+  _colorBlinkPresenter: {fileID: 8833270305049465147}
   _lifeComponent: {fileID: 248228422397553430}
+--- !u!114 &5562636972766482758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8665529919726988981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b88697787c1e4ebc88e16f34436825c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _repulsionType: 1
+  _dropForce: 10
+  _dropRadius: 2
+  _dropLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  _dropCooldownDuration: 0.5
+  _pushForce: 5
+  _pushRadius: 2
+  _pushLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  _pushCooldownDuration: 1

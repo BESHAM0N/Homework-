@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Component
 {
     public sealed class ColorBlinkController : MonoBehaviour
     {
-        [SerializeField] private ColorBlinkComponent _colorBlinkComponent;
+        [SerializeField] private ColorBlinkPresenter _colorBlinkPresenter;
         [SerializeField] private LifeComponent _lifeComponent;
 
         private void OnEnable()
@@ -19,7 +20,7 @@ namespace Component
 
         private void OnBlink()
         {
-            _colorBlinkComponent.StartBlink();
+            _colorBlinkPresenter.StartBlink();
         }
     }
 }

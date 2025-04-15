@@ -4,22 +4,16 @@ namespace Component
 {
     public sealed class Lava : MonoBehaviour
     {
-        [SerializeField] private SoundComponent _soundComponent;
-        [SerializeField] private AttackComponent _attackComponent;
-
-        private void OnEnable()
+        [SerializeField] private SoundPresenter _soundPresenter;
+        [SerializeField] private int _damage = 1000;
+       
+        private void OnCollisionEnter2D(Collision2D collision)
         {
-            _attackComponent.OnAttacked += OnAttack;
-        }
-
-        private void OnDisable()
-        {
-            _attackComponent.OnAttacked -= OnAttack;
-        }
-
-        private void OnAttack()
-        {
-            _soundComponent.PlaySound(SoundType.Lava);
+            if (collision.gameObject.TryGetComponent(out IDamageable proxy))
+            {
+                _soundPresenter.PlaySound(SoundType.Lava);
+                proxy.TakeDamage(_damage);
+            }
         }
     }
 }

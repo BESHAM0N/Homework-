@@ -4,46 +4,45 @@ namespace Component
 {
     public sealed class SoundController : MonoBehaviour
     {
-        [SerializeField] private SoundComponent _soundComponent;
+        [SerializeField] private SoundPresenter _soundPresenter;
         [SerializeField] private LifeComponent _lifeComponent;
-        [SerializeField] private PushComponent _pushComponent;
-        [SerializeField] private DropOffComponent _dropOffComponent;
+        [SerializeField]  private RepulsionComponent _repulsionComponent;
         [SerializeField] private JumpComponent _jumpComponent;
 
         private void OnEnable()
         {
             _lifeComponent.OnHit += OnTakeDamage;
-            _pushComponent.OnPush += OnPush;
-            _dropOffComponent.OnDropOff += OnDrop;
+            _repulsionComponent.OnPush += OnPush;
+            _repulsionComponent.OnDropOff += OnDrop;
             _jumpComponent.OnJump += OnJump;
         }
 
         private void OnDisable()
         {
             _lifeComponent.OnHit -= OnTakeDamage;
-            _pushComponent.OnPush -= OnPush;
-            _dropOffComponent.OnDropOff -= OnDrop;
+            _repulsionComponent.OnPush -= OnPush;
+            _repulsionComponent.OnDropOff -= OnDrop;
             _jumpComponent.OnJump -= OnJump;
         }
 
         private void OnJump()
         {
-            _soundComponent.PlaySound(SoundType.Jump);
+            _soundPresenter.PlaySound(SoundType.Jump);
         }
 
         private void OnDrop()
         {
-            _soundComponent.PlaySound(SoundType.Toss);
+            _soundPresenter.PlaySound(SoundType.Toss);
         }
 
         private void OnTakeDamage()
         {
-            _soundComponent.PlaySound(SoundType.TakeDamage);
+            _soundPresenter.PlaySound(SoundType.TakeDamage);
         }
 
         private void OnPush()
         {
-            _soundComponent.PlaySound(SoundType.Push);
+            _soundPresenter.PlaySound(SoundType.Push);
         }
     }
 }
