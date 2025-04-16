@@ -8,7 +8,7 @@ namespace Component
         [SerializeField] private MoveComponent _moveComponent;
         [SerializeField] private RotateComponent _rotateComponent;
         [SerializeField] private DeathComponent _deathComponent;
-        [SerializeField] private SoundPresenter _soundPresenter;
+        [SerializeField] private SoundComponent _soundComponent;
         [SerializeField] private RepulsionComponent _repulsionComponent;
         [SerializeField] private int _damage = 5;
         
@@ -48,7 +48,7 @@ namespace Component
 
         private void OnTakeDamage()
         {
-           _soundPresenter.PlaySound(SoundType.TakeDamageEnemy);
+           _soundComponent.PlaySound(SoundType.TakeDamageEnemy);
         }
     }
 }

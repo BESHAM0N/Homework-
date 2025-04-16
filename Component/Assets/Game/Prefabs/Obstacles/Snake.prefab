@@ -687,7 +687,7 @@ MonoBehaviour:
   _moveComponent: {fileID: 5690521476137526532}
   _rotateComponent: {fileID: 799569323972777602}
   _deathComponent: {fileID: 5938402770652477703}
-  _soundPresenter: {fileID: 4926856195256941321}
+  _soundComponent: {fileID: 4926856195256941321}
   _repulsionComponent: {fileID: 5402189344541601009}
   _damage: 5
 --- !u!114 &5938402770652477703
@@ -714,7 +714,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b52cd92a39f4615a87db1b15acebe26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _colorBlinkPresenter: {fileID: 8845356985929575027}
+  _colorBlinkComponent: {fileID: 8845356985929575027}
   _lifeComponent: {fileID: 2274328879752729393}
 --- !u!114 &5402189344541601009
 MonoBehaviour:

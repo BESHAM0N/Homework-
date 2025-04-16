@@ -711,7 +711,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b52cd92a39f4615a87db1b15acebe26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _colorBlinkPresenter: {fileID: 8833270305049465147}
+  _colorBlinkComponent: {fileID: 8833270305049465147}
   _lifeComponent: {fileID: 248228422397553430}
 --- !u!114 &5562636972766482758
 MonoBehaviour:
@@ -726,6 +726,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _repulsionType: 1
+  _dropOffType: 0
   _dropForce: 10
   _dropRadius: 2
   _dropLayer:

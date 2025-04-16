@@ -341,7 +341,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _repulsionComponent: {fileID: 2312360668769479092}
-  _soundPresenter: {fileID: 156775016082542625}
+  _soundComponent: {fileID: 156775016082542625}
 --- !u!114 &2312360668769479092
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -355,6 +355,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _repulsionType: 0
+  _dropOffType: 0
   _dropForce: 10
   _dropRadius: 1.2
   _dropLayer:

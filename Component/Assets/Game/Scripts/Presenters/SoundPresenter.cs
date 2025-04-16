@@ -1,28 +1,48 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Component
 {
     public sealed class SoundPresenter : MonoBehaviour
     {
-        [SerializeField] private AudioSource _audioSource;
-        [SerializeField] private SoundEntry[] _soundEntries;
-        private Dictionary<SoundType, AudioClip> _soundDictionary;
+        [SerializeField] private SoundComponent _soundComponent;
+        [SerializeField] private LifeComponent _lifeComponent;
+        [SerializeField]  private RepulsionComponent _repulsionComponent;
+        [SerializeField] private JumpComponent _jumpComponent;
 
-        private void Awake()
+        private void OnEnable()
         {
-            _soundDictionary = new Dictionary<SoundType, AudioClip>();
-            foreach (var entry in _soundEntries)
-            {
-                if (!_soundDictionary.ContainsKey(entry.SoundType) && entry.Clip != null)
-                    _soundDictionary.Add(entry.SoundType, entry.Clip);
-            }
+            _lifeComponent.OnHit += OnTakeDamage;
+            _repulsionComponent.OnPush += OnPush;
+            _repulsionComponent.OnDropOff += OnDrop;
+            _jumpComponent.OnJump += OnJump;
         }
 
-        public void PlaySound(SoundType soundType)
+        private void OnDisable()
         {
-            if (_soundDictionary.TryGetValue(soundType, out AudioClip clip) && clip != null)
-                _audioSource.PlayOneShot(clip);
+            _lifeComponent.OnHit -= OnTakeDamage;
+            _repulsionComponent.OnPush -= OnPush;
+            _repulsionComponent.OnDropOff -= OnDrop;
+            _jumpComponent.OnJump -= OnJump;
+        }
+
+        private void OnJump()
+        {
+            _soundComponent.PlaySound(SoundType.Jump);
+        }
+
+        private void OnDrop()
+        {
+            _soundComponent.PlaySound(SoundType.Toss);
+        }
+
+        private void OnTakeDamage()
+        {
+            _soundComponent.PlaySound(SoundType.TakeDamage);
+        }
+
+        private void OnPush()
+        {
+            _soundComponent.PlaySound(SoundType.Push);
         }
     }
 }

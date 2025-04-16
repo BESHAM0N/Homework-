@@ -1,10 +1,11 @@
 using UnityEngine;
+
 namespace Component
 {
     public sealed class Trampoline : MonoBehaviour
     {
         [SerializeField] private RepulsionComponent _repulsionComponent;
-        [SerializeField] private SoundPresenter _soundPresenter;
+        [SerializeField] private SoundComponent _soundComponent;
 
         private void OnEnable()
         {
@@ -23,7 +24,7 @@ namespace Component
 
         private void OnDrop()
         {
-            _soundPresenter.PlaySound(SoundType.Trampline);
+            _soundComponent.PlaySound(SoundType.Trampline);
         }
     }
 }
