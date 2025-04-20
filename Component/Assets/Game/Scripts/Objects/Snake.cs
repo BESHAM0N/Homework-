@@ -37,7 +37,7 @@ namespace Component
             if (collision.gameObject.TryGetComponent(out IDamageable proxy))
             {
                 proxy.TakeDamage(_damage);
-                _repulsionComponent.ExecuteAction();
+                _repulsionComponent.ExecuteAction(Vector2.up);
             }
         }
 

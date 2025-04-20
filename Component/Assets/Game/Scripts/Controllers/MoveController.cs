@@ -1,10 +1,17 @@
+using System;
 using UnityEngine;
 
 namespace Component
 {
     public sealed class MoveController : MonoBehaviour
     {
-        [SerializeField] private MoveComponent _moveComponent;
+        [SerializeField] private GameObject _character;
+        private MoveComponent _moveComponent;
+
+        private void Start()
+        {
+            _moveComponent = _character.GetComponent<MoveComponent>();
+        }
 
         private void Update()
         {

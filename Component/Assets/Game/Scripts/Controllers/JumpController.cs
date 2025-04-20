@@ -3,7 +3,13 @@ using Component;
 
 public sealed class JumpController : MonoBehaviour
 {
-    [SerializeField] private JumpComponent _jumpComponent;
+    [SerializeField] private GameObject _character;
+    private JumpComponent _jumpComponent;
+
+    private void Start()
+    {
+        _jumpComponent = _character.GetComponent<JumpComponent>();
+    }
 
     private void Update()
     {

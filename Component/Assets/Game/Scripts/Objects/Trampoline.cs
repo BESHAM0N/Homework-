@@ -6,20 +6,21 @@ namespace Component
     {
         [SerializeField] private RepulsionComponent _repulsionComponent;
         [SerializeField] private SoundComponent _soundComponent;
+        [SerializeField] private Vector2 _vector2;
 
         private void OnEnable()
         {
-            _repulsionComponent.OnDropOff += OnDrop;
+            _repulsionComponent.OnRepulsion += OnDrop;
         }
 
         private void OnDisable()
         {
-            _repulsionComponent.OnDropOff -= OnDrop;
+            _repulsionComponent.OnRepulsion -= OnDrop;
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
         {           
-            _repulsionComponent.ExecuteAction();
+            _repulsionComponent.ExecuteAction(_vector2);
         }
 
         private void OnDrop()

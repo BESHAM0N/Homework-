@@ -12,16 +12,16 @@ namespace Component
         private void OnEnable()
         {
             _lifeComponent.OnHit += OnTakeDamage;
-            _repulsionComponent.OnPush += OnPush;
-            _repulsionComponent.OnDropOff += OnDrop;
+            _repulsionComponent.OnRepulsion += OnRepulsion;
+            _repulsionComponent.OnRepulsion += OnToss;
             _jumpComponent.OnJump += OnJump;
         }
 
         private void OnDisable()
         {
             _lifeComponent.OnHit -= OnTakeDamage;
-            _repulsionComponent.OnPush -= OnPush;
-            _repulsionComponent.OnDropOff -= OnDrop;
+            _repulsionComponent.OnRepulsion -= OnRepulsion;
+            _repulsionComponent.OnRepulsion -= OnToss;
             _jumpComponent.OnJump -= OnJump;
         }
 
@@ -30,7 +30,7 @@ namespace Component
             _soundComponent.PlaySound(SoundType.Jump);
         }
 
-        private void OnDrop()
+        private void OnToss()
         {
             _soundComponent.PlaySound(SoundType.Toss);
         }
@@ -40,7 +40,7 @@ namespace Component
             _soundComponent.PlaySound(SoundType.TakeDamage);
         }
 
-        private void OnPush()
+        private void OnRepulsion()
         {
             _soundComponent.PlaySound(SoundType.Push);
         }

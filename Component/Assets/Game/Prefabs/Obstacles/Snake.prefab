@@ -728,17 +728,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b88697787c1e4ebc88e16f34436825c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _repulsionType: 0
-  _dropOffType: 0
-  _dropForce: 5
-  _dropRadius: 3
-  _dropLayer:
-    serializedVersion: 2
-    m_Bits: 512
-  _dropCooldownDuration: 0.5
-  _pushForce: 10
-  _pushRadius: 1
-  _pushLayer:
+  _force: 10
+  _radius: 3
+  _layer:
     serializedVersion: 2
     m_Bits: 512
   _pushCooldownDuration: 1

@@ -4,19 +4,26 @@ namespace Component
 {
     public sealed class RepulsionController : MonoBehaviour
     {
-        [SerializeField] private RepulsionComponent _repulsionComponent;
+        [SerializeField] private GameObject _character;
+        
+        private IPushComponent _pushComponent;
+        private ITossComponent _tossComponent;
+
+        private void Start()
+        {
+           _pushComponent = _character.GetComponent<IPushComponent>();
+           _tossComponent = _character.GetComponent<ITossComponent>();
+        }
 
         private void Update()
         {
             if (Input.GetMouseButtonDown(1))
-            {
-                _repulsionComponent.SetRepulsionType(RepulsionType.DropOff);
-                _repulsionComponent.ExecuteAction();
+            { 
+               _tossComponent.Toss();
             }
             else if(Input.GetMouseButtonDown(0))
             {
-                _repulsionComponent.SetRepulsionType(RepulsionType.Push);
-                _repulsionComponent.ExecuteAction();
+                _pushComponent.Push();
             }
         }
     }
