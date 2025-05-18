@@ -33,7 +33,14 @@ values:
 - MoveCondition: IExpression<bool>
 - MoveAction: IAction<Vector3, float>
 - MoveDirection: IReactiveVariable<Vector3>
+  
+#Rotate
+- RotateDirection: IReactiveVariable<Vector3>
 - RotateSpeed: IValue<float>
+- RotateCondition: IExpression<bool>
+  
+#TakeDamage
+- DamageEvent: IEvent<int>
   
 #Conbat  
 - Damage: IValue<int>

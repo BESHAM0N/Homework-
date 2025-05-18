@@ -1748,9 +1748,10 @@ MonoBehaviour:
   _angularSpeed: 15
   _health: 3
   _gameObject: {fileID: 6355162821186015845}
-  _transform: {fileID: 4361596233082998913}
+  _transform: {fileID: 1383350002564321792}
   _hand: {fileID: 2475374338728845929}
   _initialTarget: {fileID: 0}
+  _cooldown: 1
 --- !u!114 &1770007514988188615
 MonoBehaviour:
   m_ObjectHideFlags: 0

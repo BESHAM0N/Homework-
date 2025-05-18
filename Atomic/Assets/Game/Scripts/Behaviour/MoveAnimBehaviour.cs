@@ -30,6 +30,7 @@ namespace Game.Behavior
 
         private void OnMoveDirectionChanged(Vector3 direction)
         {
+            Debug.Log($"OnMoveDirectionChanged,direction: {direction}");
             _animator.SetBool(_isMovingHash, direction != Vector3.zero);
         }
     }

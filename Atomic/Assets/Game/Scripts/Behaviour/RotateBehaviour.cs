@@ -1,6 +1,7 @@
 ﻿using Atomic.Entities;
 using Game.Gameplay;
 using SampleGame;
+using UnityEngine;
 
 namespace Game.Behavior
 {
@@ -8,7 +9,8 @@ namespace Game.Behavior
     {
         public void OnFixedUpdate(in IEntity entity, in float deltaTime)
         {
-            var direction = entity.GetMoveDirection().Value;
+            Vector3 direction;
+            direction = entity.HasRotateDirection() ? entity.GetRotateDirection().Value : entity.GetMoveDirection().Value;
             RotateUseCase.Rotate(entity, direction, deltaTime);
         }
     }

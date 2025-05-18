@@ -17,6 +17,7 @@ namespace SampleGame
 		///Values
 		public const int BulletPrefab = -918778767; // SceneEntity
 		public const int FirePoint = 397255013; // Transform
+		public const int HitRadius = -640536362; // float
 
 
 		///Value Extensions
@@ -56,5 +57,23 @@ namespace SampleGame
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static void SetFirePoint(this IWeaponEntity obj, Transform value) => obj.SetValue(FirePoint, value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static float GetHitRadius(this IWeaponEntity obj) => obj.GetValue<float>(HitRadius);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool TryGetHitRadius(this IWeaponEntity obj, out float value) => obj.TryGetValue(HitRadius, out value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool AddHitRadius(this IWeaponEntity obj, float value) => obj.AddValue(HitRadius, value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool HasHitRadius(this IWeaponEntity obj) => obj.HasValue(HitRadius);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool DelHitRadius(this IWeaponEntity obj) => obj.DelValue(HitRadius);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void SetHitRadius(this IWeaponEntity obj, float value) => obj.SetValue(HitRadius, value);
     }
 }

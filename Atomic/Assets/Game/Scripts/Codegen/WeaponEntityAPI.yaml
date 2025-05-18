@@ -14,3 +14,4 @@ imports:
 values:
 - BulletPrefab: SceneEntity
 - FirePoint: Transform
+- HitRadius: float

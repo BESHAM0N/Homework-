@@ -24,6 +24,7 @@ namespace Game.Gameplay
             entity.AddAnimator(_animator);
             entity.AddBehaviour(new MoveAnimBehaviour(_isMovingKey));
             entity.AddBehaviour<AttackAnimBehaviour>();
+            entity.AddBehaviour<DeathAnimBehaviour>();
         }
     }
 }

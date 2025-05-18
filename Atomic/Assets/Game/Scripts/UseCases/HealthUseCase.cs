@@ -1,6 +1,7 @@
 ﻿using System;
 using Atomic.Entities;
 using SampleGame;
+using UnityEngine;
 
 namespace Game.Gameplay
 {
@@ -13,16 +14,20 @@ namespace Game.Gameplay
 
         public static bool TakeDamage(this IEntity entity, int damage)
         {
-            if(!entity.HasDamageableTag())
+            if (!entity.HasDamageableTag())
                 return false;
-            
+
             var health = entity.GetHealth();
-            
             var currentHealth = health.Value;
+
             if (currentHealth <= 0)
                 return false;
-            
-            health.Value = Math.Max(0, health.Value - damage);
+
+            health.Value = Mathf.Max(0, currentHealth - damage);
+
+            if (entity.HasDamageEvent())
+                entity.GetDamageEvent().Invoke(damage);
+
             return true;
         }
     }

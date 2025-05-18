@@ -9,7 +9,7 @@ namespace Game.Gameplay
 {
     public sealed class BulletInstaller : SceneEntityInstaller
     {
-        [SerializeField] private float _moveSpeed = 3;
+        [SerializeField] private float _moveSpeed = 45;
         [SerializeField] private int _damage = 3;
         [SerializeField] private TriggerEventReceiver _trigger;
         public override void Install(IEntity entity)

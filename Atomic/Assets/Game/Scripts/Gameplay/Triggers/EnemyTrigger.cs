@@ -1,5 +1,5 @@
-using System;
 using Atomic.Entities;
+using SampleGame;
 using UnityEngine;
 
 namespace Game.Gameplay
@@ -12,12 +12,27 @@ namespace Game.Gameplay
 
         private void OnTriggerEnter(Collider other)
         {
-            //TODO
+            if (!other.TryGetComponent(out SceneEntity target))
+                return;
+
+            foreach (var enemy in _enemies)
+            {
+                if (!enemy.HasTarget()) continue;
+                enemy.GetTarget().Value = target;
+            }
         }
 
         private void OnTriggerExit(Collider other)
         {
-            //TODO
+            if (!other.TryGetComponent(out SceneEntity target))
+                return;
+
+            foreach (var enemy in _enemies)
+            {
+                if (!enemy.HasTarget()) continue;
+                if (enemy.GetTarget().Value == target)
+                    enemy.GetTarget().Value = null;
+            }
         }
     }
 }

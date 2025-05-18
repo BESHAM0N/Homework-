@@ -29,37 +29,35 @@ namespace Game.Gameplay
 
         [SerializeField] private SceneEntity _initialTarget;
         [SerializeField] private float _cooldown;
-       
-
+        
         public override void Install(IEntity entity)
         {
             entity.AddDamageableTag();
-            
+            entity.AddHealth(new ReactiveVariable<int>(_health));
             entity.AddGameObject(_gameObject);
             entity.AddTransform(_transform);
-
+            entity.AddTarget(new ReactiveVariable<IEntity>(_initialTarget));
+            
             entity.AddHandWeapon(_hand);
             
+            var cooldown = new Cooldown(_cooldown);
+            entity.WhenFixedUpdate(cooldown.Tick);
+            entity.AddFireCooldown(cooldown);
+
+            entity.AddRotateSpeed(new ReactiveVariable<float>(_angularSpeed));
             entity.AddMoveSpeed(new ReactiveVariable<float>(_moveSpeed));
             entity.AddMoveCondition(new AndExpression(entity.IsAlive));
-
-            entity.AddRotateSpeed(new BaseFunction<float>(() => _angularSpeed * entity.GetHealth().Value));
-            entity.AddHealth(new ReactiveVariable<int>(_health));
-
             entity.AddMoveAction(new BaseAction<Vector3, float>((direction, deltaTime) =>
             {
                 entity.Move(direction, deltaTime);
                 entity.Rotate(direction, deltaTime);
             }));
-
-            entity.AddTarget(new ReactiveVariable<IEntity>(_initialTarget));
-
-            var cooldown = new Cooldown(_cooldown);
-            entity.AddFireCooldown(cooldown);
-            entity.WhenFixedUpdate(cooldown.Tick);
             
             entity.AddBehaviour<DeathBehaviour>();
+            
             entity.AddBehaviour<EnemyAttackBehavior>();
+            entity.AddBehaviour<AttackAnimBehaviour>();
+            entity.AddBehaviour<DeathAnimBehaviour>();
         }
     }
 }
