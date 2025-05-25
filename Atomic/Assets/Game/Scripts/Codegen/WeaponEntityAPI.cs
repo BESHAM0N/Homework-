@@ -18,6 +18,7 @@ namespace SampleGame
 		public const int BulletPrefab = -918778767; // SceneEntity
 		public const int FirePoint = 397255013; // Transform
 		public const int HitRadius = -640536362; // float
+		public const int Ammo = 1337839892; // int
 
 
 		///Value Extensions
@@ -75,5 +76,23 @@ namespace SampleGame
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static void SetHitRadius(this IWeaponEntity obj, float value) => obj.SetValue(HitRadius, value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static int GetAmmo(this IWeaponEntity obj) => obj.GetValue<int>(Ammo);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool TryGetAmmo(this IWeaponEntity obj, out int value) => obj.TryGetValue(Ammo, out value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool AddAmmo(this IWeaponEntity obj, int value) => obj.AddValue(Ammo, value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool HasAmmo(this IWeaponEntity obj) => obj.HasValue(Ammo);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool DelAmmo(this IWeaponEntity obj) => obj.DelValue(Ammo);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void SetAmmo(this IWeaponEntity obj, int value) => obj.SetValue(Ammo, value);
     }
 }

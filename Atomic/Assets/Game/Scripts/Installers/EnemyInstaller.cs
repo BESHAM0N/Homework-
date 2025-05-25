@@ -44,20 +44,18 @@ namespace Game.Gameplay
             entity.WhenFixedUpdate(cooldown.Tick);
             entity.AddFireCooldown(cooldown);
 
-            entity.AddRotateSpeed(new ReactiveVariable<float>(_angularSpeed));
+            entity.AddMoveDirection(new ReactiveVariable<Vector3>(Vector3.zero));
             entity.AddMoveSpeed(new ReactiveVariable<float>(_moveSpeed));
             entity.AddMoveCondition(new AndExpression(entity.IsAlive));
+            entity.AddRotateSpeed(new ReactiveVariable<float>(_angularSpeed));
             entity.AddMoveAction(new BaseAction<Vector3, float>((direction, deltaTime) =>
             {
                 entity.Move(direction, deltaTime);
                 entity.Rotate(direction, deltaTime);
             }));
-            
-            entity.AddBehaviour<DeathBehaviour>();
-            
+            entity.AddFireEvent(new BaseEvent());
             entity.AddBehaviour<EnemyAttackBehavior>();
-            entity.AddBehaviour<AttackAnimBehaviour>();
-            entity.AddBehaviour<DeathAnimBehaviour>();
+            entity.AddBehaviour<DeathBehaviour>();
         }
     }
 }

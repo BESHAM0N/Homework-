@@ -1,0 +1,24 @@
+header: ContextAPI
+contextType: IPlayerContext
+aggressiveInlining: true
+
+namespace: SampleGame
+className: PlayerContextAPI
+directory: Assets/Scripts/Codegen
+ 
+imports:
+- UnityEngine
+- Atomic.Contexts
+- Atomic.Entities
+- Atomic.Elements
+- System.Collections.Generic
+- Game.Scripts.PlayerContext
+- Modules.Common
+
+values:
+- Health: int
+- Speed: float
+- Transform: Transform
+- Character: IEntity
+- MoveJoystick: Joystick
+- AttackJoystick: Joystick

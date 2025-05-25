@@ -17,7 +17,7 @@ namespace Game.Gameplay
         {
             if (_entity.GetFireCondition().Invoke())
             {
-                FireUseCase.FireBullet(_entity.GetPistolWeapon());
+                _entity.GetPistolWeapon().GetFireAction().Invoke();
                 _entity.GetFireEvent().Invoke();
             }
         }

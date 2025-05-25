@@ -44,6 +44,7 @@ namespace SampleGame
 		public const int FireAction = 1186461126; // IAction
 		public const int FireRequest = 1469079819; // IEvent
 		public const int FireCondition = -280402907; // IFunction<bool>
+		public const int FireRotateDirection = -252772034; // IReactiveVariable<Vector3>
 		public const int Trigger = -707381567; // TriggerEventReceiver
 		public const int Animator = -1714818978; // Animator
 
@@ -493,6 +494,24 @@ namespace SampleGame
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static void SetFireCondition(this IEntity obj, IFunction<bool> value) => obj.SetValue(FireCondition, value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static IReactiveVariable<Vector3> GetFireRotateDirection(this IEntity obj) => obj.GetValue<IReactiveVariable<Vector3>>(FireRotateDirection);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool TryGetFireRotateDirection(this IEntity obj, out IReactiveVariable<Vector3> value) => obj.TryGetValue(FireRotateDirection, out value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool AddFireRotateDirection(this IEntity obj, IReactiveVariable<Vector3> value) => obj.AddValue(FireRotateDirection, value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool HasFireRotateDirection(this IEntity obj) => obj.HasValue(FireRotateDirection);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool DelFireRotateDirection(this IEntity obj) => obj.DelValue(FireRotateDirection);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void SetFireRotateDirection(this IEntity obj, IReactiveVariable<Vector3> value) => obj.SetValue(FireRotateDirection, value);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static TriggerEventReceiver GetTrigger(this IEntity obj) => obj.GetValue<TriggerEventReceiver>(Trigger);

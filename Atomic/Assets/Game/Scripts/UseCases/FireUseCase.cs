@@ -1,15 +1,16 @@
 ﻿using Atomic.Entities;
+using Game.Scripts.GameContext;
 using SampleGame;
+using UnityEngine;
 
 namespace Game.Gameplay
 {
     public static class FireUseCase
     {
-        public static IEntity FireBullet(this IWeaponEntity entity)
+        public static IEntity FireBullet(this IWeaponEntity entity, in IGameContext gameContext)
         {
-            var bulletPrefab = entity.GetBulletPrefab();
-            var firePoint = entity.GetFirePoint();
-            return SceneEntity.Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+            Transform firePoint = entity.GetFirePoint();
+            return SpawnBulletUseCase.SpawnBullet(gameContext, firePoint.position, firePoint.rotation);
         }
     }
 }

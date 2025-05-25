@@ -47,6 +47,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _trailView: {fileID: 6699597922267114625}
+  _fireVfx: {fileID: 0}
+  _fireAudioSource: {fileID: 0}
 --- !u!114 &6699597922267114625
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -210,6 +212,7 @@ MonoBehaviour:
   _moveSpeed: 3
   _damage: 3
   _trigger: {fileID: 330831729280076139}
+  _lifetime: 3
 --- !u!114 &330831729280076139
 MonoBehaviour:
   m_ObjectHideFlags: 0

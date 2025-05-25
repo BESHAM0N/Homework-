@@ -22,8 +22,14 @@ namespace Game.Gameplay
             entity.AddPistolWeapon(_pistolWeapon);
             
             entity.AddFireEvent(new BaseEvent());
-            entity.AddFireCondition(new BaseFunction<bool>(() => HealthUseCase.IsAlive(entity)));
+            entity.AddFireCondition(new BaseFunction<bool>(() =>
+            {
+                return HealthUseCase.IsAlive(entity)
+                       && entity.GetPistolWeapon().GetFireCondition().Invoke()
+                       && entity.GetFireRotateDirection().Value != Vector3.zero; 
+            }));
             entity.AddFireAction(new CharacterFireAction(entity));
+            entity.AddFireRotateDirection(new ReactiveVariable<Vector3>(Vector3.zero));
             entity.AddBehaviour<FireBehaviour>();
             
             entity.AddBehaviour<RotateBehaviour>();
@@ -47,7 +53,6 @@ namespace Game.Gameplay
             entity.AddMoveCondition(new AndExpression(entity.IsAlive));
             
             entity.AddBehaviour<DeathBehaviour>();
-            entity.AddBehaviour<DeathAnimBehaviour>();
         }
     }
 }

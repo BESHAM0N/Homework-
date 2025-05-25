@@ -1653,8 +1653,8 @@ GameObject:
   - component: {fileID: 4361596233082998913}
   - component: {fileID: 501587286819408059}
   - component: {fileID: 8179233504444308434}
-  - component: {fileID: 4444256245005298418}
   - component: {fileID: 1770007514988188615}
+  - component: {fileID: 1199228128129607685}
   m_Layer: 10
   m_Name: Enemy
   m_TagString: Enemy
@@ -1699,10 +1699,10 @@ MonoBehaviour:
   installInEditMode: 0
   disposeValues: 1
   installers:
+  - {fileID: 1199228128129607685}
   - {fileID: 5256318650505570873}
   - {fileID: 647656227805482429}
   - {fileID: 4518519460149995683}
-  - {fileID: 4444256245005298418}
   _onlySelectedGizmos: 0
   _onlyEditModeGizmos: 0
 --- !u!54 &8179233504444308434
@@ -1732,26 +1732,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 84
   m_CollisionDetection: 0
---- !u!114 &4444256245005298418
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6355162821186015845}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b79b590003144a0481c0e353ffd2dd4f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _moveSpeed: 3
-  _angularSpeed: 15
-  _health: 3
-  _gameObject: {fileID: 6355162821186015845}
-  _transform: {fileID: 1383350002564321792}
-  _hand: {fileID: 2475374338728845929}
-  _initialTarget: {fileID: 0}
-  _cooldown: 1
 --- !u!114 &1770007514988188615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1767,6 +1747,26 @@ MonoBehaviour:
   entities:
   - {fileID: 501587286819408059}
   - {fileID: 2475374338728845929}
+--- !u!114 &1199228128129607685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6355162821186015845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e25142f147c44d2fae37ff031e1b67e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _moveSpeed: 3
+  _angularSpeed: 15
+  _health: 3
+  _gameObject: {fileID: 0}
+  _transform: {fileID: 1383350002564321792}
+  _hand: {fileID: 2475374338728845929}
+  _initialTarget: {fileID: 0}
+  _cooldown: 3
 --- !u!1 &6519369982854541961
 GameObject:
   m_ObjectHideFlags: 0
@@ -2082,6 +2082,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _animator: {fileID: 2415962780172116089}
   _animationReceiver: {fileID: 2316574847488464730}
+  _isMovingKey: IsMoving
 --- !u!1 &7369059967829061964
 GameObject:
   m_ObjectHideFlags: 0
@@ -2832,6 +2833,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d8e9d3646324b699910d3013b8d23d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _hitRadius: 0.2
+  _firePoint: {fileID: 0}
 --- !u!114 &2475374338728845929
 MonoBehaviour:
   m_ObjectHideFlags: 0

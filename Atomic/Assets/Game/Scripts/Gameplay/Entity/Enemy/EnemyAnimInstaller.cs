@@ -1,5 +1,7 @@
 using Atomic.Entities;
+using Game.Behavior;
 using Modules.Gameplay;
+using SampleGame;
 using UnityEngine;
 
 namespace Game.Gameplay
@@ -14,9 +16,15 @@ namespace Game.Gameplay
         [SerializeField]
         private AnimationEventReceiver _animationReceiver;
         
+        [SerializeField]
+        private string _isMovingKey = "IsMoving";
+
         public override void Install(IEntity entity)
         {
-            //TODO
+            entity.AddAnimator(_animator);
+            entity.AddBehaviour(new MoveAnimBehaviour(_isMovingKey));
+            entity.AddBehaviour<AttackAnimBehaviour>();
+            entity.AddBehaviour<DeathAnimBehaviour>();
         }
     }
 }

@@ -10,17 +10,17 @@ namespace Game.Behavior
 {
     public class BulletCollisionBehaviour : IEntityInit, IEntityDispose
     {
-        private GameObject _gameObject;
+        private IAction _destroyAction;
         private TriggerEventReceiver _trigger;
         private IValue<int> _damage;
 
         public void Init(in IEntity entity)
         {
-            _gameObject = entity.GetGameObject();
-            _trigger = entity.GetTrigger();
+            _destroyAction = entity.GetDestroyAction();
             _damage = entity.GetDamage();
+            _trigger = entity.GetTrigger();
 
-            _trigger.OnEntered += OnTriggerEntered;
+            _trigger.OnEntered += this.OnTriggerEntered;
         }
 
         public void Dispose(in IEntity entity)
@@ -30,8 +30,8 @@ namespace Game.Behavior
 
         private void OnTriggerEntered(Collider collider)
         {
-            if (collider.TryGetComponent(out IEntity target) && target.TakeDamage(_damage.Value))
-                GameObject.Destroy(_gameObject);
+            if (collider.TryGetComponent(out IEntity target) && HealthUseCase.TakeDamage(target, _damage.Value))
+                _destroyAction.Invoke();
         }
     }
 }

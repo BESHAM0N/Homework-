@@ -56,6 +56,7 @@ values:
 - FireAction: IAction
 - FireRequest: IEvent
 - FireCondition: IFunction<bool>
+- FireRotateDirection: IReactiveVariable<Vector3>
   
 #Physics
 - Trigger: TriggerEventReceiver

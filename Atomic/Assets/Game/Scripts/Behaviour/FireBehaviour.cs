@@ -13,7 +13,7 @@ namespace Game.Behavior
         {
             _cooldown.Tick(deltaTime);
 
-            var direction = entity.GetRotateDirection().Value;
+            var direction = entity.GetFireRotateDirection().Value;
             if (direction != Vector3.zero && entity.GetFireCondition().Invoke() && _cooldown.IsExpired())
             {
                 entity.GetFireAction().Invoke();
