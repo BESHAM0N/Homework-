@@ -17,6 +17,7 @@ namespace SampleGame
 	{
 		///Tags
 		public const int Damageable = 563499515;
+		public const int Interactible = -2055148603;
 
 
 		///Values
@@ -38,6 +39,9 @@ namespace SampleGame
 		public const int PistolWeapon = 1183190889; // IWeaponEntity
 		public const int HandWeapon = 1077568457; // IWeaponEntity
 		public const int BulletPrefab = -918778767; // SceneEntity
+		public const int Kill = -1491338921; // IReactiveVariable<int>
+		public const int Ammo = 1337839892; // Ammo
+		public const int PickUpPrefab = 1763436596; // SceneEntity
 		public const int FireCooldown = 695041130; // Cooldown
 		public const int FirePoint = 397255013; // Transform
 		public const int FireEvent = -1683597082; // IEvent
@@ -47,6 +51,7 @@ namespace SampleGame
 		public const int FireRotateDirection = -252772034; // IReactiveVariable<Vector3>
 		public const int Trigger = -707381567; // TriggerEventReceiver
 		public const int Animator = -1714818978; // Animator
+		public const int InteractAction = -1026843572; // IAction<IEntity>
 
 
 		///Tag Extensions
@@ -59,6 +64,15 @@ namespace SampleGame
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static bool DelDamageableTag(this IEntity obj) => obj.DelTag(Damageable);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool HasInteractibleTag(this IEntity obj) => obj.HasTag(Interactible);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool AddInteractibleTag(this IEntity obj) => obj.AddTag(Interactible);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool DelInteractibleTag(this IEntity obj) => obj.DelTag(Interactible);
 
 
 		///Value Extensions
@@ -388,6 +402,60 @@ namespace SampleGame
 		public static void SetBulletPrefab(this IEntity obj, SceneEntity value) => obj.SetValue(BulletPrefab, value);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static IReactiveVariable<int> GetKill(this IEntity obj) => obj.GetValue<IReactiveVariable<int>>(Kill);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool TryGetKill(this IEntity obj, out IReactiveVariable<int> value) => obj.TryGetValue(Kill, out value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool AddKill(this IEntity obj, IReactiveVariable<int> value) => obj.AddValue(Kill, value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool HasKill(this IEntity obj) => obj.HasValue(Kill);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool DelKill(this IEntity obj) => obj.DelValue(Kill);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void SetKill(this IEntity obj, IReactiveVariable<int> value) => obj.SetValue(Kill, value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static Ammo GetAmmo(this IEntity obj) => obj.GetValue<Ammo>(Ammo);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool TryGetAmmo(this IEntity obj, out Ammo value) => obj.TryGetValue(Ammo, out value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool AddAmmo(this IEntity obj, Ammo value) => obj.AddValue(Ammo, value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool HasAmmo(this IEntity obj) => obj.HasValue(Ammo);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool DelAmmo(this IEntity obj) => obj.DelValue(Ammo);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void SetAmmo(this IEntity obj, Ammo value) => obj.SetValue(Ammo, value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static SceneEntity GetPickUpPrefab(this IEntity obj) => obj.GetValue<SceneEntity>(PickUpPrefab);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool TryGetPickUpPrefab(this IEntity obj, out SceneEntity value) => obj.TryGetValue(PickUpPrefab, out value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool AddPickUpPrefab(this IEntity obj, SceneEntity value) => obj.AddValue(PickUpPrefab, value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool HasPickUpPrefab(this IEntity obj) => obj.HasValue(PickUpPrefab);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool DelPickUpPrefab(this IEntity obj) => obj.DelValue(PickUpPrefab);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void SetPickUpPrefab(this IEntity obj, SceneEntity value) => obj.SetValue(PickUpPrefab, value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static Cooldown GetFireCooldown(this IEntity obj) => obj.GetValue<Cooldown>(FireCooldown);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -548,5 +616,23 @@ namespace SampleGame
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static void SetAnimator(this IEntity obj, Animator value) => obj.SetValue(Animator, value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static IAction<IEntity> GetInteractAction(this IEntity obj) => obj.GetValue<IAction<IEntity>>(InteractAction);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool TryGetInteractAction(this IEntity obj, out IAction<IEntity> value) => obj.TryGetValue(InteractAction, out value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool AddInteractAction(this IEntity obj, IAction<IEntity> value) => obj.AddValue(InteractAction, value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool HasInteractAction(this IEntity obj) => obj.HasValue(InteractAction);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool DelInteractAction(this IEntity obj) => obj.DelValue(InteractAction);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void SetInteractAction(this IEntity obj, IAction<IEntity> value) => obj.SetValue(InteractAction, value);
     }
 }

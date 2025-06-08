@@ -2,16 +2,16 @@
 using Atomic.Entities;
 using Atomic.Presenters;
 using Game.Scripts.GameContext;
+using Game.UI;
 using SampleGame;
 using UnityEngine;
-using Game.UI;
 
 namespace Game.Presenters
 {
-    public sealed class HealthPresenter : Presenter
+    public class KillPresenter : Presenter
     {
         [SerializeField] private StatView _view;
-        
+
         private IEntity _character;
         
         protected override void OnInit()
@@ -22,15 +22,15 @@ namespace Game.Presenters
 
         protected override void OnShow()
         {
-            _character.GetHealth().Observe(OnHealthChanged);
+            _character.GetKill().Observe(OnKillChanged);
         }
 
         protected override void OnHide()
         {
-            _character.GetHealth().Unsubscribe(OnHealthChanged);
+            _character.GetKill().Unsubscribe(OnKillChanged);
         }
 
-        private void OnHealthChanged(int health)
+        private void OnKillChanged(int health)
         {
             _view.SetText(health.ToString());
         }

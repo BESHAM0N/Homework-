@@ -1,6 +1,6 @@
 ﻿using Atomic.Contexts;
-using Atomic.Entities;
 using Game.Scripts.GameContext.Bullets;
+using SampleGame;
 using UnityEngine;
 
 namespace Game.Scripts.GameContext
@@ -11,6 +11,7 @@ namespace Game.Scripts.GameContext
         protected override void Install(IGameContext context)
         {
             _bulletSystem.Install(context);
+            context.AddPlayer(new PlayerContext.PlayerContext());
         }
     }
 }

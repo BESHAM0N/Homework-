@@ -4,7 +4,7 @@ aggressiveInlining: true
 
 namespace: SampleGame
 className: EntityAPI
-directory: Assets/Game/Scripts/Codegen
+directory: Assets/Game/Scripts/Gameplay/Entity
  
 imports:
 - UnityEngine
@@ -16,6 +16,7 @@ imports:
 
 tags:
 - Damageable
+- Interactible
 
 values:
   
@@ -48,8 +49,13 @@ values:
 - PistolWeapon: IWeaponEntity
 - HandWeapon: IWeaponEntity
 - BulletPrefab: SceneEntity
+- Kill: IReactiveVariable<int>
   
-  #Fire  
+#Weapon
+- Ammo: Ammo
+- PickUpPrefab: SceneEntity
+  
+#Fire  
 - FireCooldown: Cooldown
 - FirePoint: Transform
 - FireEvent: IEvent
@@ -63,3 +69,7 @@ values:
 
 #Visual
 - Animator: Animator
+  
+#Interact    
+- InteractAction: IAction<IEntity>
+- TargetInteractible: IReactiveVariableIEntity<>

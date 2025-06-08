@@ -4,15 +4,17 @@ aggressiveInlining: true
 
 namespace: SampleGame
 className: WeaponEntityAPI
-directory: Assets/Game/Scripts/Codegen
+directory: Assets/Game/Scripts/Gameplay/Entity/Weapons
  
 imports:
 - UnityEngine
 - Atomic.Entities
 - Game.Gameplay
+- Atomic.Elements
+- Modules.Gameplay
 
 values:
 - BulletPrefab: SceneEntity
 - FirePoint: Transform
 - HitRadius: float
-- Ammo: int
+- Ammo: Ammo

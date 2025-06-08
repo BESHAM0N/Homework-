@@ -1,5 +1,7 @@
-﻿using Atomic.Presenters;
+﻿using Atomic.Elements;
+using Atomic.Presenters;
 using Game.Gameplay;
+using Game.Scripts.GameContext;
 using SampleGame;
 using UnityEngine;
 using Game.UI;
@@ -11,26 +13,25 @@ namespace Game.Presenters
         [SerializeField] private StatView _view;
 
         private IWeaponEntity _weapon;
-
-        public void SetWeapon(IWeaponEntity weapon)
+        protected override void OnInit()
         {
-            _weapon = weapon;
+            var gameContext = GameContext.Instance;
+            _weapon = gameContext.GetPlayer().GetCharacter().GetPistolWeapon();
         }
 
         protected override void OnShow()
         {
-            _weapon.GetAmmo().Observe(OnAmmoChanged);
-            OnAmmoChanged(_weapon.GetAmmo().Value);
-        }
-
-        protected override void OnHide()
-        {
-            _weapon.GetAmmo().Unsubscribe(OnAmmoChanged);
-        }
-
-        private void OnAmmoChanged(int ammo)
-        {
-            _view.SetText(ammo.ToString());
-        }
+            _weapon.GetAmmo().OnStateChanged += OnAmmoChanged;
+         }
+        
+         protected override void OnHide()
+         {
+            _weapon.GetAmmo().OnStateChanged -= OnAmmoChanged;
+         }
+        
+         private void OnAmmoChanged()
+         {
+             _view.SetText(_weapon.GetAmmo().GetCount().ToString());
+         }
     }
 }

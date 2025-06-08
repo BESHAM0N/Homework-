@@ -27,10 +27,14 @@ namespace Modules.Gameplay
             return this.count > 0;
         }
 
-        public void Add(int charges)
+        public bool Add(int charges)
         {
+            if (count <= 0)
+                return false;
+            
             this.count += charges;
             this.OnStateChanged?.Invoke();
+            return true;
         }
 
         public void Spend()

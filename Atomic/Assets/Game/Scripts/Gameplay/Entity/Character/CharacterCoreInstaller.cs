@@ -1,6 +1,7 @@
 using Atomic.Elements;
 using Atomic.Entities;
 using Game.Behavior;
+using Modules.Gameplay;
 using SampleGame;
 using UnityEngine;
 
@@ -13,6 +14,7 @@ namespace Game.Gameplay
         [SerializeField] private Transform _transform;
         [SerializeField] private int _health = 50;
         [SerializeField] private GameObject _character;
+        [SerializeField] private TriggerEventReceiver _characterTrigger;
         [SerializeField] private WeaponEntity _pistolWeapon;
         public override void Install(IEntity entity)
         {
@@ -31,7 +33,7 @@ namespace Game.Gameplay
             entity.AddFireAction(new CharacterFireAction(entity));
             entity.AddFireRotateDirection(new ReactiveVariable<Vector3>(Vector3.zero));
             entity.AddBehaviour<FireBehaviour>();
-            
+            entity.AddTrigger(_characterTrigger);
             entity.AddBehaviour<RotateBehaviour>();
             entity.AddRotateSpeed(new BaseFunction<float>(() => _rotateSpeed));
             entity.AddRotateDirection(new ReactiveVariable<Vector3>(Vector3.zero));

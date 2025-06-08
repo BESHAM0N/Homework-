@@ -9,6 +9,7 @@ using Atomic.Contexts;
 using Atomic.Entities;
 using Atomic.Elements;
 using Game.Scripts.GameContext;
+using Game.Scripts.PlayerContext;
 
 namespace SampleGame
 {
@@ -18,6 +19,7 @@ namespace SampleGame
 
 		///Values
 		public const int BulletPool = 1915726678; // IEntityPool
+		public const int Player = -1615495341; // IPlayerContext
 
 
 		///Value Extensions
@@ -39,5 +41,23 @@ namespace SampleGame
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static void SetBulletPool(this IGameContext obj, IEntityPool value) => obj.SetValue(BulletPool, value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static IPlayerContext GetPlayer(this IGameContext obj) => obj.GetValue<IPlayerContext>(Player);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool TryGetPlayer(this IGameContext obj, out IPlayerContext value) => obj.TryGetValue(Player, out value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool AddPlayer(this IGameContext obj, IPlayerContext value) => obj.AddValue(Player, value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool HasPlayer(this IGameContext obj) => obj.HasValue(Player);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool DelPlayer(this IGameContext obj) => obj.DelValue(Player);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void SetPlayer(this IGameContext obj, IPlayerContext value) => obj.SetValue(Player, value);
     }
 }

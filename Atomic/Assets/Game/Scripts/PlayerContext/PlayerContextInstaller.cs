@@ -2,6 +2,7 @@
 using Atomic.Entities;
 using Game.Scripts.Controllers;
 using Modules.Common;
+using Game.Scripts.GameContext;
 using SampleGame;
 using UnityEngine;
 
@@ -20,6 +21,7 @@ namespace Game.Scripts.PlayerContext
             context.AddAttackJoystick(_attackJoystick);
             context.AddController<CharacterAttackController>();
             context.AddController<CharacterMoveController>();
+            GameContext.GameContext.Instance.GetPlayer().AddCharacter(_character);
         }
     }
 }

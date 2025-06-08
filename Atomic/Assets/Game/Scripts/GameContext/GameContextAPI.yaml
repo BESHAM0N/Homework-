@@ -12,6 +12,8 @@ imports:
 - Atomic.Entities
 - Atomic.Elements
 - Game.Scripts.GameContext
+- Game.Scripts.PlayerContext
 
 values:
 - BulletPool: IEntityPool
+- Player: IPlayerContext

@@ -7,6 +7,8 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using Atomic.Entities;
 using Game.Gameplay;
+using Atomic.Elements;
+using Modules.Gameplay;
 
 namespace SampleGame
 {
@@ -18,7 +20,7 @@ namespace SampleGame
 		public const int BulletPrefab = -918778767; // SceneEntity
 		public const int FirePoint = 397255013; // Transform
 		public const int HitRadius = -640536362; // float
-		public const int Ammo = 1337839892; // int
+		public const int Ammo = 1337839892; // Ammo
 
 
 		///Value Extensions
@@ -78,13 +80,13 @@ namespace SampleGame
 		public static void SetHitRadius(this IWeaponEntity obj, float value) => obj.SetValue(HitRadius, value);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static int GetAmmo(this IWeaponEntity obj) => obj.GetValue<int>(Ammo);
+		public static Ammo GetAmmo(this IWeaponEntity obj) => obj.GetValue<Ammo>(Ammo);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool TryGetAmmo(this IWeaponEntity obj, out int value) => obj.TryGetValue(Ammo, out value);
+		public static bool TryGetAmmo(this IWeaponEntity obj, out Ammo value) => obj.TryGetValue(Ammo, out value);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool AddAmmo(this IWeaponEntity obj, int value) => obj.AddValue(Ammo, value);
+		public static bool AddAmmo(this IWeaponEntity obj, Ammo value) => obj.AddValue(Ammo, value);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static bool HasAmmo(this IWeaponEntity obj) => obj.HasValue(Ammo);
@@ -93,6 +95,6 @@ namespace SampleGame
 		public static bool DelAmmo(this IWeaponEntity obj) => obj.DelValue(Ammo);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static void SetAmmo(this IWeaponEntity obj, int value) => obj.SetValue(Ammo, value);
+		public static void SetAmmo(this IWeaponEntity obj, Ammo value) => obj.SetValue(Ammo, value);
     }
 }
