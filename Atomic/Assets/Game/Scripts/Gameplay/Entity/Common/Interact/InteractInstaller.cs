@@ -1,6 +1,7 @@
 ﻿using System;
 using Atomic.Elements;
 using Atomic.Entities;
+using DG.Tweening.Core;
 using Modules.Gameplay;
 using UnityEngine;
 
@@ -26,7 +27,7 @@ namespace SampleGame.Common.Interact
         
         public void Install(IEntity entity)
         {
-            //entity.AddTargetInteractible(new ReactiveVariable<IEntity>());
+            entity.AddTargetInteractible(new ReactiveVariable<IEntity>());
             entity.AddBehaviour(new DetectInteractibleBehaviour(_center, _radius, _layerMask, _triggerInteraction,
                 new Cooldown(_period)));
         }

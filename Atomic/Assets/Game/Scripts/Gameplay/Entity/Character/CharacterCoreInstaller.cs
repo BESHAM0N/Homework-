@@ -3,6 +3,7 @@ using Atomic.Entities;
 using Game.Behavior;
 using Modules.Gameplay;
 using SampleGame;
+using SampleGame.Common.Interact;
 using UnityEngine;
 
 namespace Game.Gameplay
@@ -16,29 +17,23 @@ namespace Game.Gameplay
         [SerializeField] private GameObject _character;
         [SerializeField] private TriggerEventReceiver _characterTrigger;
         [SerializeField] private WeaponEntity _pistolWeapon;
+        [SerializeField] private InteractInstaller _interactInstaller;
         public override void Install(IEntity entity)
         {
-            entity.AddTransform(_transform);
             entity.AddGameObject(_character);
-            entity.AddHealth(new ReactiveVariable<int>(_health));
+            entity.AddTransform(_transform);
             entity.AddPistolWeapon(_pistolWeapon);
-            
-            entity.AddFireEvent(new BaseEvent());
-            entity.AddFireCondition(new BaseFunction<bool>(() =>
-            {
-                return HealthUseCase.IsAlive(entity)
-                       && entity.GetPistolWeapon().GetFireCondition().Invoke()
-                       && entity.GetFireRotateDirection().Value != Vector3.zero; 
-            }));
-            entity.AddFireAction(new CharacterFireAction(entity));
-            entity.AddFireRotateDirection(new ReactiveVariable<Vector3>(Vector3.zero));
-            entity.AddBehaviour<FireBehaviour>();
             entity.AddTrigger(_characterTrigger);
-            entity.AddBehaviour<RotateBehaviour>();
-            entity.AddRotateSpeed(new BaseFunction<float>(() => _rotateSpeed));
-            entity.AddRotateDirection(new ReactiveVariable<Vector3>(Vector3.zero));
-            entity.AddRotateCondition(new AndExpression(entity.IsAlive));
             
+            InstallHealth(entity);
+            InstallFire(entity);
+            InstallRotate(entity);
+            InstallMove(entity);
+            _interactInstaller.Install(entity);
+        }
+
+        private void InstallMove(IEntity entity)
+        {
             entity.AddBehaviour<MoveBehaviour>();
             entity.AddMoveSpeed(new ReactiveVariable<float>(_moveSpeed));
             entity.AddMoveDirection(new ReactiveVariable<Vector3>(Vector3.zero));
@@ -53,8 +48,34 @@ namespace Game.Gameplay
                 transform.position += direction * (speed * deltaTime);
             }));
             entity.AddMoveCondition(new AndExpression(entity.IsAlive));
-            
+        }
+
+        private void InstallRotate(IEntity entity)
+        {
+            entity.AddBehaviour<RotateBehaviour>();
+            entity.AddRotateSpeed(new BaseFunction<float>(() => _rotateSpeed));
+            entity.AddRotateDirection(new ReactiveVariable<Vector3>(Vector3.zero));
+            entity.AddRotateCondition(new AndExpression(entity.IsAlive));
+        }
+
+        private void InstallHealth(IEntity entity)
+        {
+            entity.AddHealth(new ReactiveVariable<int>(_health));
             entity.AddBehaviour<DeathBehaviour>();
+        }
+
+        private static void InstallFire(IEntity entity)
+        {
+            entity.AddFireEvent(new BaseEvent());
+            entity.AddFireCondition(new BaseFunction<bool>(() =>
+            {
+                return HealthUseCase.IsAlive(entity)
+                       && entity.GetPistolWeapon().GetFireCondition().Invoke()
+                       && entity.GetFireRotateDirection().Value != Vector3.zero; 
+            }));
+            entity.AddFireAction(new CharacterFireAction(entity));
+            entity.AddFireRotateDirection(new ReactiveVariable<Vector3>(Vector3.zero));
+            entity.AddBehaviour<FireBehaviour>();
         }
     }
 }

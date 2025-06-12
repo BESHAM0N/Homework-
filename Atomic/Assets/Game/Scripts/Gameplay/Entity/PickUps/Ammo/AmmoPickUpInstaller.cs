@@ -21,7 +21,7 @@ namespace SampleGame.PickUps.Ammo
             {
                 if (WeaponUseCase.AddClips(character, _clips))
                     gameObject.SetActive(false);
-                    //gameContext.GetEntityPool().Return(entity);
+                //gameContext.GetEntityPool().Return(entity);
             }));
         }
     }

@@ -2,9 +2,9 @@
 using Atomic.Entities;
 using Game.Scripts.Controllers;
 using Modules.Common;
-using Game.Scripts.GameContext;
 using SampleGame;
 using UnityEngine;
+using GameContextInstance = Game.Scripts.GameContext.GameContext;
 
 namespace Game.Scripts.PlayerContext
 {
@@ -16,12 +16,17 @@ namespace Game.Scripts.PlayerContext
         
         protected override void Install(IPlayerContext context)
         {
-            context.AddCharacter(_character);
+            GameContextInstance gameContext = GameContextInstance.Instance;
+            
+            gameContext.SetPlayer(context);
+            
             context.AddMoveJoystick(_moveJoystick);
             context.AddAttackJoystick(_attackJoystick);
+            context.AddCharacter(_character);
+            gameContext.GetPlayer().AddCharacter(_character);
             context.AddController<CharacterAttackController>();
             context.AddController<CharacterMoveController>();
-            GameContext.GameContext.Instance.GetPlayer().AddCharacter(_character);
+            context.AddController<CharacterInteractController>();
         }
     }
 }

@@ -13,7 +13,7 @@ namespace SampleGame.Common.Interact
         private readonly float _radius;
         private readonly LayerMask _layerMask;
         private readonly QueryTriggerInteraction _triggerInteraction;
-        private readonly Cooldown _period; 
+        private readonly Cooldown _period;
 
         public DetectInteractibleBehaviour(
             Transform center,
@@ -32,7 +32,7 @@ namespace SampleGame.Common.Interact
 
         public void Init(in IEntity entity)
         {
-            //_target = entity.GetTargetInteractible();
+            _target = entity.GetTargetInteractible();
         }
 
         public void OnFixedUpdate(in IEntity entity, in float deltaTime)
@@ -41,8 +41,8 @@ namespace SampleGame.Common.Interact
             if (!_period.IsExpired())
                 return;
 
-           // InteractUseCase.FindClosest(_center.position, _radius, _layerMask, _triggerInteraction, out IEntity target);
-            //_target.Value = target;
+            InteractUseCase.FindClosest(_center.position, _radius, _layerMask, _triggerInteraction, out IEntity target);
+            _target.Value = target;
             _period.Reset();
         }
 

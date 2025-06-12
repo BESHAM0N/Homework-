@@ -2,17 +2,11 @@
 using Atomic.Entities;
 using UnityEngine;
 
-
 namespace SampleGame.Common.Interact
 {
     public static class InteractUseCase
     {
-        private const int COLLIDER_BUFFER_SIZE = 32;
-
-        public static bool Interact(in IEntity source, in Collider collider)
-        {
-            return collider != null && collider.TryGetComponent(out IEntity other) && Interact(source, other);
-        }
+        private const int COLLIDER_BUFFER_SIZE = 30;
 
         public static bool Interact(in IEntity source, in IEntity target)
         {
@@ -26,11 +20,11 @@ namespace SampleGame.Common.Interact
             return true;
         }
 
-        // public static bool InteractAsCharacter(in IEntity character)
-        // {
-        //     IEntity interactible = character.GetTargetInteractible().Value;
-        //     return Interact(character, interactible);
-        // }
+        public static bool InteractAsCharacter(in IEntity character)
+        {
+            IEntity interactible = character.GetTargetInteractible().Value;
+            return Interact(character, interactible);
+        }
 
         public static bool FindClosest(
             in Vector3 center,

@@ -72,4 +72,4 @@ values:
   
 #Interact    
 - InteractAction: IAction<IEntity>
-- TargetInteractible: IReactiveVariableIEntity<>
+- TargetInteractible: IReactiveVariable<IEntity> 

@@ -52,6 +52,7 @@ namespace SampleGame
 		public const int Trigger = -707381567; // TriggerEventReceiver
 		public const int Animator = -1714818978; // Animator
 		public const int InteractAction = -1026843572; // IAction<IEntity>
+		public const int TargetInteractible = 21081601; // IReactiveVariable<IEntity>
 
 
 		///Tag Extensions
@@ -634,5 +635,23 @@ namespace SampleGame
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static void SetInteractAction(this IEntity obj, IAction<IEntity> value) => obj.SetValue(InteractAction, value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static IReactiveVariable<IEntity> GetTargetInteractible(this IEntity obj) => obj.GetValue<IReactiveVariable<IEntity>>(TargetInteractible);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool TryGetTargetInteractible(this IEntity obj, out IReactiveVariable<IEntity> value) => obj.TryGetValue(TargetInteractible, out value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool AddTargetInteractible(this IEntity obj, IReactiveVariable<IEntity> value) => obj.AddValue(TargetInteractible, value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool HasTargetInteractible(this IEntity obj) => obj.HasValue(TargetInteractible);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool DelTargetInteractible(this IEntity obj) => obj.DelValue(TargetInteractible);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void SetTargetInteractible(this IEntity obj, IReactiveVariable<IEntity> value) => obj.SetValue(TargetInteractible, value);
     }
 }

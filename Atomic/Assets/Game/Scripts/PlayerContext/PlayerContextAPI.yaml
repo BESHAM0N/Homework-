@@ -4,7 +4,7 @@ aggressiveInlining: true
 
 namespace: SampleGame
 className: PlayerContextAPI
-directory: Assets/Scripts/Codegen
+directory: Assets/Scripts/PlayerContext
  
 imports:
 - UnityEngine
