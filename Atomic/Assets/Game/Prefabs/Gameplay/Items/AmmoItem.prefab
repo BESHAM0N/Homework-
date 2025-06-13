@@ -251,6 +251,7 @@ MonoBehaviour:
   disposeValues: 1
   installers:
   - {fileID: 377272719891871065}
+  - {fileID: 5001423876081847446}
   _onlySelectedGizmos: 0
   _onlyEditModeGizmos: 0
 --- !u!114 &377272719891871065
@@ -265,7 +266,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1f7ae4a900949dc9cb81e1ea1a0bf97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _clips: 50
+  _clips: 10
 --- !u!1 &7655232285111366949
 GameObject:
   m_ObjectHideFlags: 0

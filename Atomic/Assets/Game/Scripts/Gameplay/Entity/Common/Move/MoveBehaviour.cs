@@ -1,7 +1,7 @@
 using Atomic.Entities;
 using SampleGame;
 
-namespace Game.Behavior
+namespace Game.Gameplay
 {
     public sealed class MoveBehaviour : IEntityUpdate
     {

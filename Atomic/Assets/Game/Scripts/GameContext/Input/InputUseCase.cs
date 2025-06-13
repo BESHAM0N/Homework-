@@ -1,7 +1,7 @@
 ﻿using Modules.Common;
 using UnityEngine;
 
-namespace Game.Scripts.GameContext.Input
+namespace Game.Context
 {
     public class InputUseCase
     {

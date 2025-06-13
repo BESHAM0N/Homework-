@@ -3,7 +3,7 @@ using Atomic.Entities;
 using SampleGame;
 using UnityEngine;
 
-namespace Game.Behavior
+namespace Game.Gameplay
 {
     public class MoveAnimBehaviour : IEntityInit, IEntityDispose
     {

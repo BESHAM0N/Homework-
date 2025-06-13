@@ -1,5 +1,4 @@
 ﻿using Atomic.Entities;
-using Game.Gameplay;
 using SampleGame;
 using UnityEngine;
 
@@ -20,10 +19,13 @@ namespace Game.Gameplay
 
             foreach (var hit in hits)
             {
-                if (!hit.TryGetComponent<SceneEntity>(out var entity))
+                if (!hit.TryGetComponent<IEntity>(out var entity))
                     continue;
 
                 if (!entity.HasDamageableTag())
+                    continue;
+                
+                if (entity.HasEnemyTag())
                     continue;
 
                 entity.TakeDamage(damage);

@@ -3,7 +3,7 @@ using Atomic.Entities;
 using Modules.Gameplay;
 using SampleGame;
 
-namespace Game.Scripts.GameContext.Bullets
+namespace Game.Context
 {
     public sealed class BulletLifetimeBehaviour : IEntityInit, IEntityFixedUpdate
     {

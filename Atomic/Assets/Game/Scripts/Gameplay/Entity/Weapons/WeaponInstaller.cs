@@ -1,6 +1,7 @@
 ﻿using Atomic.Elements;
 using Atomic.Entities;
-using Game.Scripts.GameContext;
+using Game.Context;
+using Modules.Gameplay;
 using SampleGame;
 using UnityEngine;
 
@@ -10,20 +11,26 @@ namespace Game.Gameplay
     {
         [SerializeField] private SceneEntity _bulletPrefab;
         [SerializeField] private Transform _firePoint;
+        [SerializeField] private Ammo _ammo;
         
         protected override void Install(IWeaponEntity entity)
         {
-            GameContext gameContext = GameContext.Instance;
             entity.AddBulletPrefab(_bulletPrefab);
+            InstallFire(entity, GameContext.Instance);
+        }
+        
+        private void InstallFire(IWeaponEntity entity, GameContext gameContext)
+        {
+            entity.AddAmmo(_ammo);
             entity.AddFirePoint(_firePoint);
             entity.AddFireEvent(new BaseEvent());
-            entity.AddFireCondition(new Const<bool>(true));
-            
-            entity.AddFireAction( new BaseAction(() => 
+            entity.AddFireCondition(new AndExpression(_ammo.Exists));
+            entity.AddFireAction(new BaseAction(() =>
             {
                 if (entity.GetFireCondition().Invoke())
                 {
                     FireUseCase.FireBullet(entity, gameContext);
+                    _ammo.SpendOne();
                     entity.GetFireEvent().Invoke();
                 }
             }));

@@ -1,8 +1,6 @@
 ﻿using Atomic.Elements;
 using Atomic.Entities;
-using Game.Behavior;
-using Game.Scripts.GameContext;
-using Game.Scripts.GameContext.Bullets;
+using Game.Context;
 using Modules.Gameplay;
 using SampleGame;
 using UnityEngine;

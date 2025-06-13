@@ -1,11 +1,11 @@
 ﻿using Atomic.Contexts;
 using Atomic.Entities;
-using Game.Scripts.GameContext.Input;
-using Game.Scripts.PlayerContext;
+using Game.Context;
+using Game.PlayerContext;
 using Modules.Common;
 using SampleGame;
 
-namespace Game.Scripts.Controllers
+namespace Game.Controllers
 {
     public sealed class CharacterMoveController : IContextInit<IPlayerContext>, IContextUpdate
     {

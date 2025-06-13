@@ -1,10 +1,9 @@
 ﻿using Atomic.Elements;
 using Atomic.Entities;
 using Atomic.Presenters;
-using Game.Scripts.GameContext;
+using Game.Context;
 using SampleGame;
 using UnityEngine;
-using Game.UI;
 
 namespace Game.Presenters
 {
@@ -17,7 +16,7 @@ namespace Game.Presenters
         protected override void OnInit()
         {
             var gameContext = GameContext.Instance;
-            _character = gameContext.GetPlayer().GetCharacter();
+            _character = PlayersUseCase.GetCharacter(gameContext, 1);
         }
 
         protected override void OnShow()

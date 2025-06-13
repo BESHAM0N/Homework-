@@ -1,5 +1,4 @@
 using Atomic.Entities;
-using Game.Behavior;
 using Modules.Gameplay;
 using SampleGame;
 using UnityEngine;

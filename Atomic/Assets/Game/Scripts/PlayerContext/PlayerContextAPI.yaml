@@ -12,7 +12,7 @@ imports:
 - Atomic.Entities
 - Atomic.Elements
 - System.Collections.Generic
-- Game.Scripts.PlayerContext
+- Game.PlayerContext
 - Modules.Common
 
 values:

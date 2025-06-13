@@ -11,9 +11,11 @@ imports:
 - Atomic.Contexts
 - Atomic.Entities
 - Atomic.Elements
-- Game.Scripts.GameContext
-- Game.Scripts.PlayerContext
+- Game.Context
+- Game.PlayerContext
+- System.Collections.Generic
 
 values:
 - BulletPool: IEntityPool
 - Player: IPlayerContext
+- Players: IDictionary<int, IPlayerContext>

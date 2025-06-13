@@ -1,9 +1,7 @@
 using Atomic.Elements;
 using Atomic.Entities;
-using Game.Behavior;
 using Modules.Gameplay;
 using SampleGame;
-using SampleGame.Common.Interact;
 using UnityEngine;
 
 namespace Game.Gameplay
@@ -13,13 +11,16 @@ namespace Game.Gameplay
         [SerializeField] private float _moveSpeed = 1;
         [SerializeField] private int _rotateSpeed = 5;
         [SerializeField] private Transform _transform;
-        [SerializeField] private int _health = 50;
+        [SerializeField] private int _health = 100;
         [SerializeField] private GameObject _character;
         [SerializeField] private TriggerEventReceiver _characterTrigger;
         [SerializeField] private WeaponEntity _pistolWeapon;
         [SerializeField] private InteractInstaller _interactInstaller;
+        
         public override void Install(IEntity entity)
         {
+            entity.AddDamageableTag();
+            
             entity.AddGameObject(_character);
             entity.AddTransform(_transform);
             entity.AddPistolWeapon(_pistolWeapon);
@@ -60,8 +61,11 @@ namespace Game.Gameplay
 
         private void InstallHealth(IEntity entity)
         {
+            entity.AddDamageEvent(new BaseEvent<int>());
             entity.AddHealth(new ReactiveVariable<int>(_health));
-            entity.AddBehaviour<DeathBehaviour>();
+            entity.AddMaxHealth(_health);
+            entity.AddBehaviour<DeathAnimBehaviour>();
+            entity.AddBehaviour<DamageAnimBehaviour>();
         }
 
         private static void InstallFire(IEntity entity)
@@ -76,6 +80,7 @@ namespace Game.Gameplay
             entity.AddFireAction(new CharacterFireAction(entity));
             entity.AddFireRotateDirection(new ReactiveVariable<Vector3>(Vector3.zero));
             entity.AddBehaviour<FireBehaviour>();
+            entity.AddKill(new ReactiveVariable<int>(0));
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using Atomic.Entities;
-using Game.Scripts.GameContext;
+using Game.Context;
 using SampleGame;
 using UnityEngine;
 

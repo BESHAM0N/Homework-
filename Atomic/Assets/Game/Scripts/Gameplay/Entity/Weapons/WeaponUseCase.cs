@@ -3,7 +3,7 @@ using Game.Gameplay;
 using Modules.Gameplay;
 using SampleGame;
 
-namespace Game.Scripts.Gameplay.Entity.Weapons
+namespace Game.Gameplay
 {
     public static class WeaponUseCase
     {

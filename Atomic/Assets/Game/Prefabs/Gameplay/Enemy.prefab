@@ -1655,6 +1655,7 @@ GameObject:
   - component: {fileID: 8179233504444308434}
   - component: {fileID: 1770007514988188615}
   - component: {fileID: 1199228128129607685}
+  - component: {fileID: 3089634915694366837}
   m_Layer: 10
   m_Name: Enemy
   m_TagString: Enemy
@@ -1759,14 +1760,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e25142f147c44d2fae37ff031e1b67e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: 3
-  _angularSpeed: 15
-  _health: 3
-  _gameObject: {fileID: 0}
+  _moveSpeed: 1
+  _angularSpeed: 5
+  _health: 10
+  _gameObject: {fileID: 6355162821186015845}
   _transform: {fileID: 1383350002564321792}
   _hand: {fileID: 2475374338728845929}
-  _initialTarget: {fileID: 0}
   _cooldown: 3
+  _enemyTrigger: {fileID: 3089634915694366837}
+--- !u!114 &3089634915694366837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6355162821186015845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7e1bcad94a740f18cf6a67630cec709, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6519369982854541961
 GameObject:
   m_ObjectHideFlags: 0
@@ -2044,7 +2057,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7158363685665035492}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: ffdfcb810f2918b4f8fe9f917f07bc78, type: 3}
+  m_Avatar: {fileID: 9000000, guid: b20a3c10714a6ac439af479e3273de65, type: 3}
   m_Controller: {fileID: 9100000, guid: cb7def12ed591468ebdc46c5accc3cdb, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
@@ -2796,6 +2809,14 @@ PrefabInstance:
       propertyPath: _cooldown._duration
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 7047969178664124080, guid: 1d8166845e4d241e8afd28e8a9249ace, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.033
+      objectReference: {fileID: 0}
+    - target: {fileID: 7047969178664124080, guid: 1d8166845e4d241e8afd28e8a9249ace, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.334
+      objectReference: {fileID: 0}
     - target: {fileID: 7223745350942996134, guid: 1d8166845e4d241e8afd28e8a9249ace, type: 3}
       propertyPath: m_Name
       value: Hand
@@ -2833,8 +2854,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d8e9d3646324b699910d3013b8d23d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hitRadius: 0.2
-  _firePoint: {fileID: 0}
+  _hitRadius: 2
+  _firePoint: {fileID: 6131711661144468450}
 --- !u!114 &2475374338728845929
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2854,6 +2875,11 @@ MonoBehaviour:
   - {fileID: 8156050098427945778}
   _onlySelectedGizmos: 0
   _onlyEditModeGizmos: 0
+--- !u!4 &6131711661144468450 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7047969178664124080, guid: 1d8166845e4d241e8afd28e8a9249ace, type: 3}
+  m_PrefabInstance: {fileID: 3807615246241092946}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4012628793975234114
 PrefabInstance:
   m_ObjectHideFlags: 0

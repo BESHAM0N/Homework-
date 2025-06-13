@@ -201,8 +201,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 906204727706075558}
+  - component: {fileID: 177816046829527970}
   - component: {fileID: 393305246776948499}
   - component: {fileID: 3100126443347532207}
+  - component: {fileID: 2430279199224210225}
   m_Layer: 11
   m_Name: HealthItem
   m_TagString: Untagged
@@ -228,6 +230,26 @@ Transform:
   - {fileID: 5262532739361100812}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &177816046829527970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5903764127141603557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3142498ee69840069f3a93c11b1e1f75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  installOnAwake: 1
+  installInEditMode: 0
+  disposeValues: 1
+  installers:
+  - {fileID: 2430279199224210225}
+  - {fileID: 393305246776948499}
+  _onlySelectedGizmos: 0
+  _onlyEditModeGizmos: 0
 --- !u!114 &393305246776948499
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -264,6 +286,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.83043134, y: 0.5, z: 0.77526355}
   m_Center: {x: 0.00082963705, y: 0.25, z: 0.016052604}
+--- !u!114 &2430279199224210225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5903764127141603557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae3064d9f6c548909b51ca39b37b7af4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hp: 20
 --- !u!1001 &7860753860947560585
 PrefabInstance:
   m_ObjectHideFlags: 0

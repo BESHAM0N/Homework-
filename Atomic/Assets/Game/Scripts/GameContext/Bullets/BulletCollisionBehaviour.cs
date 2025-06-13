@@ -1,12 +1,11 @@
-﻿using System;
-using Atomic.Elements;
+﻿using Atomic.Elements;
 using Atomic.Entities;
 using Game.Gameplay;
 using Modules.Gameplay;
 using SampleGame;
 using UnityEngine;
 
-namespace Game.Behavior
+namespace Game.Context
 {
     public class BulletCollisionBehaviour : IEntityInit, IEntityDispose
     {
@@ -20,7 +19,7 @@ namespace Game.Behavior
             _damage = entity.GetDamage();
             _trigger = entity.GetTrigger();
 
-            _trigger.OnEntered += this.OnTriggerEntered;
+            _trigger.OnEntered += OnTriggerEntered;
         }
 
         public void Dispose(in IEntity entity)

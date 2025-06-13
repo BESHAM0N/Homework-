@@ -18,12 +18,14 @@ namespace SampleGame
 		///Tags
 		public const int Damageable = 563499515;
 		public const int Interactible = -2055148603;
+		public const int Enemy = 979269037;
 
 
 		///Values
 		public const int GameObject = 1482111001; // GameObject
 		public const int Transform = -180157682; // Transform
 		public const int Health = -915003867; // IReactiveVariable<int>
+		public const int MaxHealth = 1923500305; // int
 		public const int LifeTime = 1688468960; // Cooldown
 		public const int DestroyAction = 85938956; // IAction
 		public const int MoveSpeed = 526065662; // IReactiveVariable<float>
@@ -40,7 +42,6 @@ namespace SampleGame
 		public const int HandWeapon = 1077568457; // IWeaponEntity
 		public const int BulletPrefab = -918778767; // SceneEntity
 		public const int Kill = -1491338921; // IReactiveVariable<int>
-		public const int Ammo = 1337839892; // Ammo
 		public const int PickUpPrefab = 1763436596; // SceneEntity
 		public const int FireCooldown = 695041130; // Cooldown
 		public const int FirePoint = 397255013; // Transform
@@ -74,6 +75,15 @@ namespace SampleGame
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static bool DelInteractibleTag(this IEntity obj) => obj.DelTag(Interactible);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool HasEnemyTag(this IEntity obj) => obj.HasTag(Enemy);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool AddEnemyTag(this IEntity obj) => obj.AddTag(Enemy);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool DelEnemyTag(this IEntity obj) => obj.DelTag(Enemy);
 
 
 		///Value Extensions
@@ -131,6 +141,24 @@ namespace SampleGame
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static void SetHealth(this IEntity obj, IReactiveVariable<int> value) => obj.SetValue(Health, value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static int GetMaxHealth(this IEntity obj) => obj.GetValue<int>(MaxHealth);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool TryGetMaxHealth(this IEntity obj, out int value) => obj.TryGetValue(MaxHealth, out value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool AddMaxHealth(this IEntity obj, int value) => obj.AddValue(MaxHealth, value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool HasMaxHealth(this IEntity obj) => obj.HasValue(MaxHealth);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool DelMaxHealth(this IEntity obj) => obj.DelValue(MaxHealth);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void SetMaxHealth(this IEntity obj, int value) => obj.SetValue(MaxHealth, value);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static Cooldown GetLifeTime(this IEntity obj) => obj.GetValue<Cooldown>(LifeTime);
@@ -419,24 +447,6 @@ namespace SampleGame
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static void SetKill(this IEntity obj, IReactiveVariable<int> value) => obj.SetValue(Kill, value);
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static Ammo GetAmmo(this IEntity obj) => obj.GetValue<Ammo>(Ammo);
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool TryGetAmmo(this IEntity obj, out Ammo value) => obj.TryGetValue(Ammo, out value);
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool AddAmmo(this IEntity obj, Ammo value) => obj.AddValue(Ammo, value);
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool HasAmmo(this IEntity obj) => obj.HasValue(Ammo);
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool DelAmmo(this IEntity obj) => obj.DelValue(Ammo);
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static void SetAmmo(this IEntity obj, Ammo value) => obj.SetValue(Ammo, value);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static SceneEntity GetPickUpPrefab(this IEntity obj) => obj.GetValue<SceneEntity>(PickUpPrefab);

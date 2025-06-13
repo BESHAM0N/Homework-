@@ -1,10 +1,11 @@
 ﻿using System;
 using Atomic.Contexts;
 using Atomic.Entities;
+using Game.Context;
 using SampleGame;
 using UnityEngine;
 
-namespace Game.Scripts.GameContext.Bullets
+namespace Game.Context
 {
     [Serializable]
     public sealed class BulletSystemInstaller : IContextInstaller<IGameContext>

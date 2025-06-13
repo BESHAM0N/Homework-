@@ -1,6 +1,6 @@
 using System;
+using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Modules.Gameplay
 {
@@ -8,18 +8,46 @@ namespace Modules.Gameplay
     public sealed class Ammo
     {
         public event Action OnStateChanged;
+        public event Action<int> OnCountChanged;
+        public event Action<int> OnCapacityChanged;
 
-        [SerializeField, Min(0)]
+        [ShowInInspector, HideInEditorMode]
+        public int Count => this.count;
+
+        [ShowInInspector, HideInEditorMode]
+        public int Capacity => this.capacity;
+
+        [HideInPlayMode]
+        [SerializeField, Min(0), MaxValue(nameof(capacity))]
         private int count;
+
+        [HideInPlayMode]
+        [SerializeField, Min(0)]
+        private int capacity;
 
         public Ammo(int count)
         {
             this.count = count;
         }
 
-        public int GetCount()
+       public int GetCount()
         {
             return this.count;
+        }
+
+        public int GetCapacity()
+        {
+            return this.capacity;
+        }
+
+        public bool IsEmpty()
+        {
+            return this.count == 0;
+        }
+
+        public bool IsFull()
+        {
+            return this.count == this.capacity;
         }
 
         public bool Exists()
@@ -27,23 +55,80 @@ namespace Modules.Gameplay
             return this.count > 0;
         }
 
-        public bool Add(int charges)
+        public float GetPercent()
         {
-            if (count <= 0)
-                return false;
+            return (float) this.count / this.capacity;
+        }
+
+        [Button, HideInEditorMode]
+        public bool Add(int range)
+        {
+            Debug.Log($"Add,count {count}");
             
-            this.count += charges;
+            if (range <= 0)
+                return false;
+
+            if (this.count == this.capacity)
+                return false;
+
+            this.count = Math.Min(this.count + range, this.capacity);
             this.OnStateChanged?.Invoke();
+            this.OnCountChanged?.Invoke(this.count);
             return true;
         }
 
-        public void Spend()
+        [Button, HideInEditorMode]
+        public void SpendOne()
         {
-            if (this.count > 0)
+            if (this.count == 0)
+                return;
+            
+            this.count = Math.Max(0, this.count - 1);
+            this.OnStateChanged?.Invoke();
+            this.OnCountChanged?.Invoke(this.count);
+            
+            Debug.Log($"SpendOne,count {count}");
+        }
+
+        [Button, HideInEditorMode]
+        public void SetCount(int count)
+        {
+            if (this.count == count)
             {
-                this.count--;
-                this.OnStateChanged?.Invoke();
+                return;
             }
+
+            this.count = Math.Clamp(count, 0, this.capacity);
+            this.OnStateChanged?.Invoke();
+            this.OnCountChanged?.Invoke(this.count);
+        }
+
+        [Button, HideInEditorMode]
+        public void SetCapacity(int capacity)
+        {
+            if (this.capacity == capacity)
+            {
+                return;
+            }
+
+            this.capacity = Math.Max(1, capacity);
+            this.OnCapacityChanged?.Invoke(this.capacity);
+
+            int newCount = Math.Min(this.count, this.capacity);
+            if (newCount != this.count)
+            {
+                this.count = newCount;
+                this.OnCountChanged?.Invoke(newCount);
+            }
+
+            this.OnStateChanged?.Invoke();
+        }
+
+        public void Setup(Ammo other)
+        {
+            this.capacity = other.capacity;
+            this.count = other.count;
+            this.OnStateChanged?.Invoke();
         }
     }
 }

@@ -1,10 +1,8 @@
-﻿using Atomic.Elements;
-using Atomic.Presenters;
+﻿using Atomic.Presenters;
+using Game.Context;
 using Game.Gameplay;
-using Game.Scripts.GameContext;
 using SampleGame;
 using UnityEngine;
-using Game.UI;
 
 namespace Game.Presenters
 {
@@ -16,7 +14,8 @@ namespace Game.Presenters
         protected override void OnInit()
         {
             var gameContext = GameContext.Instance;
-            _weapon = gameContext.GetPlayer().GetCharacter().GetPistolWeapon();
+            _weapon = PlayersUseCase.GetCharacter(gameContext, 1).GetPistolWeapon();
+            OnAmmoChanged();
         }
 
         protected override void OnShow()

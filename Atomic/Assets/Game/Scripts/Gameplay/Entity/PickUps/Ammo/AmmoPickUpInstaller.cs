@@ -1,15 +1,15 @@
 ﻿using Atomic.Elements;
 using Atomic.Entities;
-using Game.Scripts.GameContext;
-using Game.Scripts.Gameplay.Entity.Weapons;
+using Game.Context;
+using SampleGame;
 using UnityEngine;
 
-namespace SampleGame.PickUps.Ammo
+namespace Game.Gameplay
 {
     public sealed class AmmoPickUpInstaller : SceneEntityInstaller
     {
         [SerializeField]
-        private int _clips = 50;
+        private int _clips = 10;
 
         public override void Install(IEntity entity)
         {

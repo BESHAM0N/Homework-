@@ -1,8 +1,7 @@
 ﻿using Atomic.Elements;
 using Atomic.Entities;
 using Atomic.Presenters;
-using Game.Scripts.GameContext;
-using Game.UI;
+using Game.Context;
 using SampleGame;
 using UnityEngine;
 
@@ -17,7 +16,7 @@ namespace Game.Presenters
         protected override void OnInit()
         {
             var gameContext = GameContext.Instance;
-            _character = gameContext.GetPlayer().GetCharacter();
+            _character = PlayersUseCase.GetCharacter(gameContext, 1);
         }
 
         protected override void OnShow()
@@ -30,9 +29,9 @@ namespace Game.Presenters
             _character.GetKill().Unsubscribe(OnKillChanged);
         }
 
-        private void OnKillChanged(int health)
+        private void OnKillChanged(int kill)
         {
-            _view.SetText(health.ToString());
+            _view.SetText(kill.ToString());
         }
     }
 }

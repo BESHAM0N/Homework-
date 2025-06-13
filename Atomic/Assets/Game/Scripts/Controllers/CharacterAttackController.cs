@@ -1,13 +1,12 @@
 ﻿using Atomic.Contexts;
 using Atomic.Entities;
-using Game.Scripts.GameContext;
-using Game.Scripts.GameContext.Input;
-using Game.Scripts.PlayerContext;
+using Game.Context;
+using Game.PlayerContext;
 using Modules.Common;
 using SampleGame;
 using UnityEngine;
 
-namespace Game.Scripts.Controllers
+namespace Game.Controllers
 {
     public class CharacterAttackController : IContextInit<IPlayerContext>, IContextUpdate
     {

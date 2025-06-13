@@ -1,9 +1,10 @@
 ﻿using Atomic.Elements;
 using Atomic.Entities;
 using Modules.Gameplay;
+using SampleGame;
 using UnityEngine;
 
-namespace SampleGame.Common.Interact
+namespace Game.Gameplay
 {
     public sealed class DetectInteractibleBehaviour : IEntityInit, IEntityFixedUpdate, IEntityGizmos
     {

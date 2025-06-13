@@ -1,4 +1,4 @@
-﻿namespace Game.Scripts.Gameplay.Context
+﻿namespace Game.Gameplay
 {
     public interface ICharacterContext
     {

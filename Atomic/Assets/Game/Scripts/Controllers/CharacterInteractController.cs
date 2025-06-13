@@ -1,12 +1,11 @@
 ﻿using Atomic.Contexts;
 using Atomic.Entities;
-using DG.Tweening.Core;
-using Game.Scripts.PlayerContext;
+using Game.Gameplay;
+using Game.Context;
+using Game.PlayerContext;
 using SampleGame;
-using SampleGame.Common.Interact;
-using UnityEngine;
 
-namespace Game.Scripts.Controllers
+namespace Game.Controllers
 {
     public sealed class CharacterInteractController : IContextInit<IPlayerContext>, IContextUpdate
     {
@@ -14,14 +13,13 @@ namespace Game.Scripts.Controllers
         
         public void Init(IPlayerContext context)
         {
-            _character = context.GetCharacter();
+            _character = PlayersUseCase.GetCharacter(GameContext.Instance, 1);
         }
 
         public void OnUpdate(IContext context, float deltaTime)
-        {
+        { 
             if (_character.GetTargetInteractible().Value != null)
             {
-                Debug.Log($"таргет -- {_character.GetTargetInteractible().Value.Name}");
                 InteractUseCase.InteractAsCharacter(_character);
             }
         }

@@ -9,7 +9,7 @@ using Atomic.Contexts;
 using Atomic.Entities;
 using Atomic.Elements;
 using System.Collections.Generic;
-using Game.Scripts.PlayerContext;
+using Game.PlayerContext;
 using Modules.Common;
 
 namespace SampleGame

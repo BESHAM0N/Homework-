@@ -7,14 +7,13 @@ namespace Game.Gameplay
     [RequireComponent(typeof(Collider))]
     public sealed class EnemyTrigger : MonoBehaviour
     {
-        [SerializeField]
-        private SceneEntity[] _enemies;
+        [SerializeField] private SceneEntity[] _enemies;
 
         private void OnTriggerEnter(Collider other)
         {
-            if (!other.TryGetComponent(out SceneEntity target))
+            if (!other.TryGetComponent(out IEntity target))
                 return;
-
+           
             foreach (var enemy in _enemies)
             {
                 if (!enemy.HasTarget()) continue;
@@ -24,7 +23,7 @@ namespace Game.Gameplay
 
         private void OnTriggerExit(Collider other)
         {
-            if (!other.TryGetComponent(out SceneEntity target))
+            if (!other.TryGetComponent(out IEntity target))
                 return;
 
             foreach (var enemy in _enemies)

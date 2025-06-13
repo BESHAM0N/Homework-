@@ -1,10 +1,10 @@
-﻿using Atomic.Contexts;
-using Game.Scripts.GameContext.Bullets;
-using Game.Scripts.PlayerContext;
+﻿using System.Collections.Generic;
+using Atomic.Contexts;
+using Game.PlayerContext;
 using SampleGame;
 using UnityEngine;
 
-namespace Game.Scripts.GameContext
+namespace Game.Context
 {
     public class GameContextInstaller : SceneContextInstaller<IGameContext>
     {
@@ -12,6 +12,8 @@ namespace Game.Scripts.GameContext
         protected override void Install(IGameContext context)
         {
             _bulletSystem.Install(context);
+            context.AddPlayers(new Dictionary<int, IPlayerContext>());
+            //context.AddPlayer(new PlayerContext.PlayerContext());
         }
     }
 }

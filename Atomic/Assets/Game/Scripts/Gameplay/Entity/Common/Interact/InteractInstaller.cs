@@ -3,9 +3,10 @@ using Atomic.Elements;
 using Atomic.Entities;
 using DG.Tweening.Core;
 using Modules.Gameplay;
+using SampleGame;
 using UnityEngine;
 
-namespace SampleGame.Common.Interact
+namespace Game.Gameplay
 {
     [Serializable]
     public sealed class InteractInstaller : IEntityInstaller

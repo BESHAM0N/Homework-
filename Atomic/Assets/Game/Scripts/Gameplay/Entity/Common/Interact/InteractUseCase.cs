@@ -1,12 +1,13 @@
 ﻿using System.Buffers;
 using Atomic.Entities;
+using SampleGame;
 using UnityEngine;
 
-namespace SampleGame.Common.Interact
+namespace Game.Gameplay
 {
     public static class InteractUseCase
     {
-        private const int COLLIDER_BUFFER_SIZE = 30;
+        private const int COLLIDER_BUFFER_SIZE = 32;
 
         public static bool Interact(in IEntity source, in IEntity target)
         {
@@ -56,7 +57,7 @@ namespace SampleGame.Common.Interact
                 interactible = other;
                 minDistance = distance;
             }
-
+            
             arrayPool.Return(colliders);
             return interactible != null;
         }

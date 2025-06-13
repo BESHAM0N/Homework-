@@ -17,6 +17,7 @@ imports:
 tags:
 - Damageable
 - Interactible
+- Enemy
 
 values:
   
@@ -26,6 +27,7 @@ values:
   
  #Life 
 - Health: IReactiveVariable<int>
+- MaxHealth: int
 - LifeTime: Cooldown
 - DestroyAction: IAction
   
@@ -52,7 +54,6 @@ values:
 - Kill: IReactiveVariable<int>
   
 #Weapon
-- Ammo: Ammo
 - PickUpPrefab: SceneEntity
   
 #Fire  

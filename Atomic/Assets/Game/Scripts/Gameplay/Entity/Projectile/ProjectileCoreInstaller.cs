@@ -1,6 +1,4 @@
 using Atomic.Entities;
-using SampleGame;
-using UnityEngine;
 
 namespace Game.Gameplay
 {
