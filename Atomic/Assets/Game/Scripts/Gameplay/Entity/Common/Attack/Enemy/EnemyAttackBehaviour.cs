@@ -38,8 +38,7 @@ namespace Game.Gameplay
                 var cooldown = entity.GetFireCooldown();
                 if (cooldown.IsExpired())
                 {
-                    entity.GetFireEvent().Invoke();
-                    entity.GetHandWeapon().MeleeAttack();
+                    entity.GetCurrentWeapon().GetFireAction().Invoke();
                     cooldown.Reset();
                 }
             }

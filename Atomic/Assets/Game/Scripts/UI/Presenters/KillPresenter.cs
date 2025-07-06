@@ -15,8 +15,15 @@ namespace Game.Presenters
         
         protected override void OnInit()
         {
-            var gameContext = GameContext.Instance;
-            _character = PlayersUseCase.GetCharacter(gameContext, 1);
+            _character = GameContext.Instance.GetCharacter();
+
+            if (_character == null)
+            {
+                Debug.LogError("Character is not set in GameContext.");
+                return;
+            }
+
+            _character.GetKill().Observe(OnKillChanged);
         }
 
         protected override void OnShow()

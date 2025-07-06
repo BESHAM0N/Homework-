@@ -15,8 +15,8 @@ namespace Game.Presenters
         
         protected override void OnInit()
         {
-            var gameContext = GameContext.Instance;
-            _character = PlayersUseCase.GetCharacter(gameContext, 1);
+            _character = GameContext.Instance.GetCharacter();
+            _character.GetHealth().Observe(OnHealthChanged);
         }
 
         protected override void OnShow()

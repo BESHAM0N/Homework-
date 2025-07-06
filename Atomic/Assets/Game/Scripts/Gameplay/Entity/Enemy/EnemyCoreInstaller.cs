@@ -43,7 +43,7 @@ namespace Game.Gameplay
         private void InstallAttack(IEntity entity)
         {
             entity.AddBehaviour<EnemyAttackBehavior>();
-            entity.AddHandWeapon(_hand);
+            entity.AddCurrentWeapon(_hand);
             var cooldown = new Cooldown(_cooldown);
             entity.WhenFixedUpdate(cooldown.Tick);
             entity.AddFireCooldown(cooldown);

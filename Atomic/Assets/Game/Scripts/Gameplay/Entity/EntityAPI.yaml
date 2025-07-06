@@ -47,9 +47,8 @@ values:
   
 #Conbat  
 - Damage: IValue<int>
-- Target: IReactiveVariable<IEntity>  
-- PistolWeapon: IWeaponEntity
-- HandWeapon: IWeaponEntity
+- Target: IReactiveVariable<IEntity>
+- CurrentWeapon: IWeaponEntity
 - BulletPrefab: SceneEntity
 - Kill: IReactiveVariable<int>
   

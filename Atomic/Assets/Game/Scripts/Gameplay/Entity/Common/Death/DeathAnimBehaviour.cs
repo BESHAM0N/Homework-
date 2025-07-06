@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Game.Gameplay
 {
-    public class DeathAnimBehaviour : IEntityInit, IEntityDispose
+    public class DeathAnimBehaviour : IEntityInit, IEntityDispose, IEntityUpdate
     {
         private Animator _animator;
         private GameObject _gameObject;
@@ -32,10 +32,9 @@ namespace Game.Gameplay
             }
 
             _health.Subscribe(OnHealthChanged);
-            entity.WhenUpdate(Update);
         }
-
-        private void Update(float obj)
+        
+        public void OnUpdate(in IEntity entity, in float deltaTime)
         {
             if (_isDead && Time.time - _deathTime >= _deathDuration)
             {
@@ -58,5 +57,6 @@ namespace Game.Gameplay
                 _animator.SetTrigger(_animationName);
             }
         }
+      
     }
 }

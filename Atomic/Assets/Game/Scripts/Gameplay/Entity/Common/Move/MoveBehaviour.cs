@@ -7,8 +7,8 @@ namespace Game.Gameplay
     {
         public void OnUpdate(in IEntity entity, in float deltaTime)
         {
-            var direction = entity.GetMoveDirection().Value;
-            entity.GetMoveAction().Invoke(direction, deltaTime);
+            //var direction = entity.GetMoveDirection().Value;
+            //entity.GetMoveAction().Invoke(direction, deltaTime);
         }
     }
 }

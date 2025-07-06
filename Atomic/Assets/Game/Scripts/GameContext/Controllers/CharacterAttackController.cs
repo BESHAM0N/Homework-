@@ -1,19 +1,18 @@
 ﻿using Atomic.Contexts;
 using Atomic.Entities;
 using Game.Context;
-using Game.PlayerContext;
 using Modules.Common;
 using SampleGame;
 using UnityEngine;
 
 namespace Game.Controllers
 {
-    public class CharacterAttackController : IContextInit<IPlayerContext>, IContextUpdate
+    public class CharacterAttackController : IContextInit<IGameContext>, IContextUpdate
     {
         private Joystick _attackJoystick;
         private IEntity _character;
 
-        public void Init(IPlayerContext context)
+        public void Init(IGameContext context)
         {
             _character = context.GetCharacter();
             _attackJoystick = context.GetAttackJoystick();

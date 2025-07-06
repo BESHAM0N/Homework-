@@ -11,26 +11,26 @@ namespace Game.Presenters
         [SerializeField] private StatView _view;
 
         private IWeaponEntity _weapon;
+
         protected override void OnInit()
         {
-            var gameContext = GameContext.Instance;
-            _weapon = PlayersUseCase.GetCharacter(gameContext, 1).GetPistolWeapon();
+            _weapon = GameContext.Instance.GetCharacter().GetCurrentWeapon();
             OnAmmoChanged();
         }
 
         protected override void OnShow()
         {
             _weapon.GetAmmo().OnStateChanged += OnAmmoChanged;
-         }
-        
-         protected override void OnHide()
-         {
+        }
+
+        protected override void OnHide()
+        {
             _weapon.GetAmmo().OnStateChanged -= OnAmmoChanged;
-         }
-        
-         private void OnAmmoChanged()
-         {
-             _view.SetText(_weapon.GetAmmo().GetCount().ToString());
-         }
+        }
+
+        private void OnAmmoChanged()
+        {
+            _view.SetText(_weapon.GetAmmo().GetCount().ToString());
+        }
     }
 }

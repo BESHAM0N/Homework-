@@ -35,7 +35,7 @@ namespace Game.Gameplay
             return true;
         }
         
-        public static bool AddHP(in IEntity character, in int hp)
+        public static bool AddHitPoints(in IEntity character, in int hp)
         {
             if (!character.TryGetHealth(out var health))
                 return false;

@@ -2,23 +2,22 @@
 using Atomic.Entities;
 using Game.Gameplay;
 using Game.Context;
-using Game.PlayerContext;
 using SampleGame;
 
 namespace Game.Controllers
 {
-    public sealed class CharacterInteractController : IContextInit<IPlayerContext>, IContextUpdate
+    public sealed class CharacterInteractController : IContextInit<IGameContext>, IContextUpdate
     {
         private IEntity _character;
         
-        public void Init(IPlayerContext context)
+        public void Init(IGameContext context)
         {
-            _character = PlayersUseCase.GetCharacter(GameContext.Instance, 1);
+            _character = GameContext.Instance.GetCharacter();
         }
 
         public void OnUpdate(IContext context, float deltaTime)
         { 
-            if (_character.GetTargetInteractible().Value != null)
+            if (_character.GetTrigger() != null)
             {
                 InteractUseCase.InteractAsCharacter(_character);
             }

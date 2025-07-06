@@ -5,17 +5,22 @@ aggressiveInlining: true
 namespace: SampleGame
 className: GameContextAPI
 directory: Assets/Game/Scripts/GameContext/
- 
+
 imports:
-- UnityEngine
-- Atomic.Contexts
-- Atomic.Entities
-- Atomic.Elements
-- Game.Context
-- Game.PlayerContext
-- System.Collections.Generic
+  - UnityEngine
+  - Atomic.Contexts
+  - Atomic.Entities
+  - Atomic.Elements
+  - Game.Context
+  - System.Collections.Generic
+  - Modules.Common
 
 values:
-- BulletPool: IEntityPool
-- Player: IPlayerContext
-- Players: IDictionary<int, IPlayerContext>
+  - BulletPool: IEntityPool
+  - Character: IEntity
+  - Health: int
+  - Speed: float
+  - Transform: Transform
+  - MoveJoystick: Joystick
+  - AttackJoystick: Joystick
+  

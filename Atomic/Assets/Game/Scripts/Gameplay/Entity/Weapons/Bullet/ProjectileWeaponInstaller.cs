@@ -7,11 +7,13 @@ using UnityEngine;
 
 namespace Game.Gameplay
 {
-    public sealed class WeaponInstaller : SceneEntityInstaller<IWeaponEntity>
+    public sealed class ProjectileWeaponInstaller : SceneEntityInstaller<IWeaponEntity>
     {
         [SerializeField] private SceneEntity _bulletPrefab;
         [SerializeField] private Transform _firePoint;
         [SerializeField] private Ammo _ammo;
+        [SerializeField] private ParticleSystem _fireVfx;
+        [SerializeField] private AudioSource _fireAudioSource;
         
         protected override void Install(IWeaponEntity entity)
         {
@@ -34,6 +36,12 @@ namespace Game.Gameplay
                     entity.GetFireEvent().Invoke();
                 }
             }));
+            
+            entity.GetFireEvent().Subscribe(()=>
+            {
+                _fireVfx.Play();
+                _fireAudioSource.Play();
+            });
         }
     }
 }

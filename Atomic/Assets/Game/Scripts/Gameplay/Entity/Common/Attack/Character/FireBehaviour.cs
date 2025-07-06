@@ -7,8 +7,13 @@ namespace Game.Gameplay
 {
     public class FireBehaviour : IEntityUpdate
     {
-        private Cooldown _cooldown = new Cooldown(1f);
-        
+        private Cooldown _cooldown;
+
+        public FireBehaviour(Cooldown cooldown)
+        {
+            _cooldown = cooldown;
+        }
+
         public void OnUpdate(in IEntity entity, in float deltaTime)
         {
             _cooldown.Tick(deltaTime);

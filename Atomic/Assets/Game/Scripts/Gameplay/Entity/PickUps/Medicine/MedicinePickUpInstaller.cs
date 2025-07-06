@@ -19,7 +19,7 @@ namespace Game.Gameplay
             entity.AddInteractibleTag();
             entity.AddInteractAction(new BaseAction<IEntity>(character =>
             {
-                if (HealthUseCase.AddHP(character, _hp))
+                if (HealthUseCase.AddHitPoints(character, _hp))
                     gameObject.SetActive(false);
                 //gameContext.GetEntityPool().Return(entity);
             }));

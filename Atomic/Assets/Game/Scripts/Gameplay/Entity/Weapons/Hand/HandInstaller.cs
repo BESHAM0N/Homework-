@@ -1,4 +1,5 @@
-﻿using Atomic.Entities;
+﻿using Atomic.Elements;
+using Atomic.Entities;
 using SampleGame;
 using UnityEngine;
 
@@ -13,6 +14,11 @@ namespace Game.Gameplay
         {
             entity.AddHitRadius(_hitRadius);
             entity.AddFirePoint(_firePoint);
+            
+            entity.AddFireAction(new BaseAction(() =>
+            {
+                HandUseCase.MeleeAttack(entity);
+            }));
         }
     }
 }

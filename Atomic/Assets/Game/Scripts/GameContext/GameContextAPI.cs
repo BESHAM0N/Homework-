@@ -9,8 +9,8 @@ using Atomic.Contexts;
 using Atomic.Entities;
 using Atomic.Elements;
 using Game.Context;
-using Game.PlayerContext;
 using System.Collections.Generic;
+using Modules.Common;
 
 namespace SampleGame
 {
@@ -20,8 +20,12 @@ namespace SampleGame
 
 		///Values
 		public const int BulletPool = 1915726678; // IEntityPool
-		public const int Player = -1615495341; // IPlayerContext
-		public const int Players = -369919430; // IDictionary<int, IPlayerContext>
+		public const int Character = 294335127; // IEntity
+		public const int Health = -915003867; // int
+		public const int Speed = -823668238; // float
+		public const int Transform = -180157682; // Transform
+		public const int MoveJoystick = -1686028204; // Joystick
+		public const int AttackJoystick = 1168591300; // Joystick
 
 
 		///Value Extensions
@@ -45,39 +49,111 @@ namespace SampleGame
 		public static void SetBulletPool(this IGameContext obj, IEntityPool value) => obj.SetValue(BulletPool, value);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static IPlayerContext GetPlayer(this IGameContext obj) => obj.GetValue<IPlayerContext>(Player);
+		public static IEntity GetCharacter(this IGameContext obj) => obj.GetValue<IEntity>(Character);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool TryGetPlayer(this IGameContext obj, out IPlayerContext value) => obj.TryGetValue(Player, out value);
+		public static bool TryGetCharacter(this IGameContext obj, out IEntity value) => obj.TryGetValue(Character, out value);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool AddPlayer(this IGameContext obj, IPlayerContext value) => obj.AddValue(Player, value);
+		public static bool AddCharacter(this IGameContext obj, IEntity value) => obj.AddValue(Character, value);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool HasPlayer(this IGameContext obj) => obj.HasValue(Player);
+		public static bool HasCharacter(this IGameContext obj) => obj.HasValue(Character);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool DelPlayer(this IGameContext obj) => obj.DelValue(Player);
+		public static bool DelCharacter(this IGameContext obj) => obj.DelValue(Character);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static void SetPlayer(this IGameContext obj, IPlayerContext value) => obj.SetValue(Player, value);
+		public static void SetCharacter(this IGameContext obj, IEntity value) => obj.SetValue(Character, value);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static IDictionary<int, IPlayerContext> GetPlayers(this IGameContext obj) => obj.GetValue<IDictionary<int, IPlayerContext>>(Players);
+		public static int GetHealth(this IGameContext obj) => obj.GetValue<int>(Health);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool TryGetPlayers(this IGameContext obj, out IDictionary<int, IPlayerContext> value) => obj.TryGetValue(Players, out value);
+		public static bool TryGetHealth(this IGameContext obj, out int value) => obj.TryGetValue(Health, out value);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool AddPlayers(this IGameContext obj, IDictionary<int, IPlayerContext> value) => obj.AddValue(Players, value);
+		public static bool AddHealth(this IGameContext obj, int value) => obj.AddValue(Health, value);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool HasPlayers(this IGameContext obj) => obj.HasValue(Players);
+		public static bool HasHealth(this IGameContext obj) => obj.HasValue(Health);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool DelPlayers(this IGameContext obj) => obj.DelValue(Players);
+		public static bool DelHealth(this IGameContext obj) => obj.DelValue(Health);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static void SetPlayers(this IGameContext obj, IDictionary<int, IPlayerContext> value) => obj.SetValue(Players, value);
+		public static void SetHealth(this IGameContext obj, int value) => obj.SetValue(Health, value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static float GetSpeed(this IGameContext obj) => obj.GetValue<float>(Speed);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool TryGetSpeed(this IGameContext obj, out float value) => obj.TryGetValue(Speed, out value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool AddSpeed(this IGameContext obj, float value) => obj.AddValue(Speed, value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool HasSpeed(this IGameContext obj) => obj.HasValue(Speed);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool DelSpeed(this IGameContext obj) => obj.DelValue(Speed);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void SetSpeed(this IGameContext obj, float value) => obj.SetValue(Speed, value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static Transform GetTransform(this IGameContext obj) => obj.GetValue<Transform>(Transform);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool TryGetTransform(this IGameContext obj, out Transform value) => obj.TryGetValue(Transform, out value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool AddTransform(this IGameContext obj, Transform value) => obj.AddValue(Transform, value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool HasTransform(this IGameContext obj) => obj.HasValue(Transform);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool DelTransform(this IGameContext obj) => obj.DelValue(Transform);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void SetTransform(this IGameContext obj, Transform value) => obj.SetValue(Transform, value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static Joystick GetMoveJoystick(this IGameContext obj) => obj.GetValue<Joystick>(MoveJoystick);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool TryGetMoveJoystick(this IGameContext obj, out Joystick value) => obj.TryGetValue(MoveJoystick, out value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool AddMoveJoystick(this IGameContext obj, Joystick value) => obj.AddValue(MoveJoystick, value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool HasMoveJoystick(this IGameContext obj) => obj.HasValue(MoveJoystick);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool DelMoveJoystick(this IGameContext obj) => obj.DelValue(MoveJoystick);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void SetMoveJoystick(this IGameContext obj, Joystick value) => obj.SetValue(MoveJoystick, value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static Joystick GetAttackJoystick(this IGameContext obj) => obj.GetValue<Joystick>(AttackJoystick);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool TryGetAttackJoystick(this IGameContext obj, out Joystick value) => obj.TryGetValue(AttackJoystick, out value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool AddAttackJoystick(this IGameContext obj, Joystick value) => obj.AddValue(AttackJoystick, value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool HasAttackJoystick(this IGameContext obj) => obj.HasValue(AttackJoystick);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool DelAttackJoystick(this IGameContext obj) => obj.DelValue(AttackJoystick);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void SetAttackJoystick(this IGameContext obj, Joystick value) => obj.SetValue(AttackJoystick, value);
     }
 }

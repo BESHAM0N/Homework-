@@ -6,12 +6,12 @@ namespace Game.Gameplay
 {
     public static class KillUseCase
     {
-        public static void TryAddKill(IEntity victim)
+        public static void TryAddKill(IEntity victim, IGameContext gameContext)
         {
             if (!victim.HasEnemyTag())
                 return;
 
-            var player = PlayersUseCase.GetCharacter(Context.GameContext.Instance, 1);
+            var player = gameContext.GetCharacter();
             if (player == null || !player.HasKill())
                 return;
             

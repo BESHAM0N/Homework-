@@ -38,8 +38,7 @@ namespace SampleGame
 		public const int DamageEvent = -1472508891; // IEvent<int>
 		public const int Damage = 375673178; // IValue<int>
 		public const int Target = 1103309514; // IReactiveVariable<IEntity>
-		public const int PistolWeapon = 1183190889; // IWeaponEntity
-		public const int HandWeapon = 1077568457; // IWeaponEntity
+		public const int CurrentWeapon = -205032771; // IWeaponEntity
 		public const int BulletPrefab = -918778767; // SceneEntity
 		public const int Kill = -1491338921; // IReactiveVariable<int>
 		public const int PickUpPrefab = 1763436596; // SceneEntity
@@ -377,40 +376,22 @@ namespace SampleGame
 		public static void SetTarget(this IEntity obj, IReactiveVariable<IEntity> value) => obj.SetValue(Target, value);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static IWeaponEntity GetPistolWeapon(this IEntity obj) => obj.GetValue<IWeaponEntity>(PistolWeapon);
+		public static IWeaponEntity GetCurrentWeapon(this IEntity obj) => obj.GetValue<IWeaponEntity>(CurrentWeapon);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool TryGetPistolWeapon(this IEntity obj, out IWeaponEntity value) => obj.TryGetValue(PistolWeapon, out value);
+		public static bool TryGetCurrentWeapon(this IEntity obj, out IWeaponEntity value) => obj.TryGetValue(CurrentWeapon, out value);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool AddPistolWeapon(this IEntity obj, IWeaponEntity value) => obj.AddValue(PistolWeapon, value);
+		public static bool AddCurrentWeapon(this IEntity obj, IWeaponEntity value) => obj.AddValue(CurrentWeapon, value);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool HasPistolWeapon(this IEntity obj) => obj.HasValue(PistolWeapon);
+		public static bool HasCurrentWeapon(this IEntity obj) => obj.HasValue(CurrentWeapon);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool DelPistolWeapon(this IEntity obj) => obj.DelValue(PistolWeapon);
+		public static bool DelCurrentWeapon(this IEntity obj) => obj.DelValue(CurrentWeapon);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static void SetPistolWeapon(this IEntity obj, IWeaponEntity value) => obj.SetValue(PistolWeapon, value);
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static IWeaponEntity GetHandWeapon(this IEntity obj) => obj.GetValue<IWeaponEntity>(HandWeapon);
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool TryGetHandWeapon(this IEntity obj, out IWeaponEntity value) => obj.TryGetValue(HandWeapon, out value);
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool AddHandWeapon(this IEntity obj, IWeaponEntity value) => obj.AddValue(HandWeapon, value);
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool HasHandWeapon(this IEntity obj) => obj.HasValue(HandWeapon);
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool DelHandWeapon(this IEntity obj) => obj.DelValue(HandWeapon);
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static void SetHandWeapon(this IEntity obj, IWeaponEntity value) => obj.SetValue(HandWeapon, value);
+		public static void SetCurrentWeapon(this IEntity obj, IWeaponEntity value) => obj.SetValue(CurrentWeapon, value);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static SceneEntity GetBulletPrefab(this IEntity obj) => obj.GetValue<SceneEntity>(BulletPrefab);

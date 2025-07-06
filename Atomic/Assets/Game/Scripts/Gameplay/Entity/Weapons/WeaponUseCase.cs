@@ -9,7 +9,7 @@ namespace Game.Gameplay
     {
         public static bool AddClips(in IEntity character, in int clips)
         {
-            IWeaponEntity weapon = character.GetPistolWeapon();
+            IWeaponEntity weapon = character.GetCurrentWeapon();
             if (weapon == null)
                 return false;
         
