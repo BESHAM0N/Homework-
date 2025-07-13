@@ -21,15 +21,13 @@ namespace Game.Gameplay
             var self = entity.GetTransform();
             var targetTransform = target.GetTransform();
 
-            var toTarget = (targetTransform.position - self.position);
+            var toTarget = targetTransform.position - self.position;
             var direction = toTarget.normalized;
 
             if (toTarget.magnitude > ATTACK_DISTANCE)
             {
                 entity.GetMoveDirection().Value = direction;
-
                 entity.Rotate(direction, deltaTime);
-                entity.GetMoveAction().Invoke(direction, deltaTime);
             }
             else
             {
@@ -38,6 +36,7 @@ namespace Game.Gameplay
                 var cooldown = entity.GetFireCooldown();
                 if (cooldown.IsExpired())
                 {
+                    entity.GetFireEvent().Invoke(); 
                     entity.GetCurrentWeapon().GetFireAction().Invoke();
                     cooldown.Reset();
                 }

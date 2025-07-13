@@ -8,7 +8,6 @@ namespace Game.Gameplay
 {
     public sealed class CharacterCoreInstaller : SceneEntityInstaller
     {
-        [SerializeField] private float _moveSpeed = 1;
         [SerializeField] private int _rotateSpeed = 5;
         [SerializeField] private Transform _transform;
         [SerializeField] private int _health = 100;
@@ -35,7 +34,6 @@ namespace Game.Gameplay
 
         private void InstallMove(IEntity entity)
         {
-            entity.AddMoveSpeed(new ReactiveVariable<float>(_moveSpeed));
             entity.AddMoveDirection(new ReactiveVariable<Vector3>(Vector3.zero));
             entity.WhenFixedUpdate(_ =>
             {

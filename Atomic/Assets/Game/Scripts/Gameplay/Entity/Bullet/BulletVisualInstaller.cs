@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Game.Gameplay
 {
-    public sealed class ProjectileVisualInstaller : SceneEntityInstaller
+    public sealed class BulletVisualInstaller : SceneEntityInstaller
     {
         [SerializeField]
         private TrailView _trailView;

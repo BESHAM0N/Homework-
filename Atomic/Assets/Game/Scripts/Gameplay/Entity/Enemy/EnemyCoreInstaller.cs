@@ -8,7 +8,6 @@ namespace Game.Gameplay
 {
     public sealed class EnemyCoreInstaller : SceneEntityInstaller
     {
-        [SerializeField] private float _moveSpeed = 1;
         [SerializeField] private float _angularSpeed = 5;
         [SerializeField] private int _health = 30;
         [SerializeField] private GameObject _gameObject;
@@ -52,15 +51,8 @@ namespace Game.Gameplay
 
         private void InstallMove(IEntity entity)
         {
-            entity.AddBehaviour<MoveBehaviour>();
             entity.AddMoveDirection(new ReactiveVariable<Vector3>(Vector3.zero));
-            entity.AddMoveSpeed(new ReactiveVariable<float>(_moveSpeed));
             entity.AddMoveCondition(new AndExpression(entity.IsAlive));
-            entity.AddMoveAction(new BaseAction<Vector3, float>((direction, deltaTime) =>
-            {
-                entity.Move(direction, deltaTime);
-                entity.Rotate(direction, deltaTime);
-            }));
         }
 
         private void InstallRotate(IEntity entity)

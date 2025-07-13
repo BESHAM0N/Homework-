@@ -7,7 +7,7 @@ namespace Game.Gameplay
 {
     public class HandInstaller :  SceneEntityInstaller<IWeaponEntity>
     {
-        [SerializeField] private float _hitRadius = 0.2f;
+        [SerializeField] private float _hitRadius = 3f;
         [SerializeField] private Transform _firePoint;
         
         protected override void Install(IWeaponEntity entity)

@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Game.Gameplay
 {
-    public sealed class ProjectileCoreInstaller : SceneEntityInstaller
+    public sealed class BulletCoreInstaller : SceneEntityInstaller
     {
         [SerializeField] private float _moveSpeed = 45;
         [SerializeField] private int _damage = 3;
