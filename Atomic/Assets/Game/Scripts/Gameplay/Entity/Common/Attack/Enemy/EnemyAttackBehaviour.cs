@@ -27,19 +27,11 @@ namespace Game.Gameplay
             if (toTarget.magnitude > ATTACK_DISTANCE)
             {
                 entity.GetMoveDirection().Value = direction;
-                entity.Rotate(direction, deltaTime);
             }
             else
             {
                 entity.GetMoveDirection().Value = Vector3.zero;
-
-                var cooldown = entity.GetFireCooldown();
-                if (cooldown.IsExpired())
-                {
-                    entity.GetFireEvent().Invoke(); 
-                    entity.GetCurrentWeapon().GetFireAction().Invoke();
-                    cooldown.Reset();
-                }
+                entity.GetFireAction().Invoke();
             }
         }
     }

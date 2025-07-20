@@ -883,16 +883,16 @@ AnimatorStateMachine:
     m_Position: {x: 30, y: 250, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 8910521715535871279}
-    m_Position: {x: 260, y: 400, z: 0}
+    m_Position: {x: 250, y: 390, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -7745112502016869310}
     m_Position: {x: -180, y: 380, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 3570955015284417050}
-    m_Position: {x: 220, y: 540, z: 0}
+    m_Position: {x: 190, y: 540, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -565041402288494203}
-    m_Position: {x: -140, y: 530, z: 0}
+    m_Position: {x: -130, y: 540, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []

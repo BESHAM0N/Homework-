@@ -74,7 +74,7 @@ namespace Game.Gameplay
                        && entity.GetCurrentWeapon().GetFireCondition().Invoke()
                        && entity.GetFireRotateDirection().Value != Vector3.zero; 
             }));
-            entity.AddFireAction(new CharacterFireAction(entity));
+            entity.AddFireAction(new FireAction(entity));
             entity.AddFireRotateDirection(new ReactiveVariable<Vector3>(Vector3.zero));
             entity.AddBehaviour(new FireBehaviour(new Cooldown(1f)));;
             entity.AddKill(new ReactiveVariable<int>(0));

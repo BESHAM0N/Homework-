@@ -8,13 +8,15 @@ namespace Game.Gameplay
 {
     public sealed class EnemyCoreInstaller : SceneEntityInstaller
     {
-        [SerializeField] private float _angularSpeed = 5;
+        [SerializeField] private float _angularSpeed = 5f;
         [SerializeField] private int _health = 30;
         [SerializeField] private GameObject _gameObject;
         [SerializeField] private Transform _transform;
         [SerializeField] private WeaponEntity _hand;
         [SerializeField] private float _cooldown;
         [SerializeField] private TriggerEventReceiver _enemyTrigger;
+
+        private const float ATTACK_DISTANCE = 1f;
         
         public override void Install(IEntity entity)
         {
@@ -43,22 +45,60 @@ namespace Game.Gameplay
         {
             entity.AddBehaviour<EnemyAttackBehavior>();
             entity.AddCurrentWeapon(_hand);
+            
+            entity.AddFireCondition(new BaseFunction<bool>(() =>
+            {
+                return HealthUseCase.IsAlive(entity)
+                       && entity.GetCurrentWeapon().GetFireCondition().Invoke()
+                       && entity.GetFireRotateDirection().Value != Vector3.zero; 
+            }));
+            
             var cooldown = new Cooldown(_cooldown);
             entity.WhenFixedUpdate(cooldown.Tick);
             entity.AddFireCooldown(cooldown);
+            
             entity.AddFireEvent(new BaseEvent());
+            
+            entity.AddFireAction(new BaseAction(() =>
+            {
+                var fireCooldown = entity.GetFireCooldown();
+                if (fireCooldown.IsExpired())
+                {
+                    entity.GetFireEvent().Invoke(); 
+                    entity.GetCurrentWeapon().GetFireAction().Invoke();
+                    fireCooldown.Reset();
+                }
+            }));
         }
 
         private void InstallMove(IEntity entity)
         {
             entity.AddMoveDirection(new ReactiveVariable<Vector3>(Vector3.zero));
             entity.AddMoveCondition(new AndExpression(entity.IsAlive));
+
+            entity.WhenFixedUpdate(_ =>
+            {
+                var target = entity.GetTarget().Value;
+                if (target == null || !target.IsAlive())
+                    return;
+
+                var self = entity.GetTransform();
+                var toTarget = target.GetTransform().position - self.position;
+                var direction = toTarget.normalized;
+
+                if (toTarget.magnitude > ATTACK_DISTANCE)
+                {
+                    entity.GetRotateDirection().Value = direction;
+                }
+            });
         }
 
         private void InstallRotate(IEntity entity)
         {
             entity.AddBehaviour<RotateBehaviour>();
             entity.AddRotateSpeed(new ReactiveVariable<float>(_angularSpeed));
+            entity.AddRotateDirection(new ReactiveVariable<Vector3>(Vector3.zero));
+            entity.AddRotateCondition(new AndExpression(entity.IsAlive));
         }
     }
 }

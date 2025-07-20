@@ -4,11 +4,11 @@ using SampleGame;
 
 namespace Game.Gameplay
 {
-    public sealed class CharacterFireAction : IAction
+    public sealed class FireAction : IAction
     {
         private readonly IEntity _entity;
 
-        public CharacterFireAction(IEntity entity)
+        public FireAction(IEntity entity)
         {
             _entity = entity;
         }

@@ -19,6 +19,7 @@ namespace Game.Gameplay
             {
                 HandUseCase.MeleeAttack(entity);
             }));
+            entity.AddFireCondition(new BaseFunction<bool>(() => true));
         }
     }
 }
