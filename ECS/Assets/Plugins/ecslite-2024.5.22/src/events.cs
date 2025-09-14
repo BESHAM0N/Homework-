@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace Leopotam.EcsLite
 {
+    //Event Bus
     public sealed partial class EcsWorld
     {
         private readonly Dictionary<Type, IEcsEvent> _events = new();

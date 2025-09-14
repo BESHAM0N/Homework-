@@ -4,10 +4,6 @@ using UnityEngine;
 
 namespace Leopotam.EcsLite
 {
-    [CreateAssetMenu(
-        fileName = "EcsViewCatalog",
-        menuName = "SampleGame/Ecs/New EcsViewCatalog"
-    )]
     public class EcsViewCatalog : ScriptableObject
     {
         [SerializeField]

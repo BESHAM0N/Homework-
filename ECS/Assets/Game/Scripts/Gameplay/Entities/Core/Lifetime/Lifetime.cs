@@ -1,10 +1,10 @@
-﻿using Sirenix.OdinInspector;
+﻿using System;
 
 namespace ECSGame
 {
-    [Searchable]
+    [Serializable]
     public struct Lifetime
     {
-        
+        public float value;
     }
 }

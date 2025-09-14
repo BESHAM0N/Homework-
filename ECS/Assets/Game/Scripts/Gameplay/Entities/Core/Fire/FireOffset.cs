@@ -1,10 +1,11 @@
-﻿using Sirenix.OdinInspector;
+﻿using System;
+using Unity.Mathematics;
 
 namespace ECSGame
 {
-    [Searchable]
+    [Serializable]
     public struct FireOffset
     {
-        
+        public float3 value;
     }
 }

@@ -1,7 +1,7 @@
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 
-namespace SampleGame
+namespace ECSGame
 {
     public struct EcsEventInject<T> : IEcsDataInject where T : struct
     {

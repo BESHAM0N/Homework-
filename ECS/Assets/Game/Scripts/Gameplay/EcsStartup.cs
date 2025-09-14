@@ -6,7 +6,8 @@ using Sirenix.OdinInspector;
 using Unity.Mathematics;
 using UnityEngine;
 
-namespace Client {
+namespace ECSGame 
+{
     sealed class EcsStartup : MonoBehaviour {
         EcsWorld _world;        
         IEcsSystems _systems;

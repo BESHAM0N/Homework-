@@ -1,10 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using Leopotam.EcsLite;
+using Leopotam.EcsLite.Di;
 
 namespace ECSGame
 {
-    public class DestroySystem
+    public sealed class DestroySystem : IEcsRunSystem
     {
+        private readonly EcsEventInject<DestroyRequest> _requests;
+        private readonly EcsWorldInject _world;
+        
+        public void Run(IEcsSystems systems)
+        {
+            while (_requests.Value.Consume(out DestroyRequest request))
+            {
+                _world.Value.DelEntity(request.entity);
+            }    
+        }
     }
 }

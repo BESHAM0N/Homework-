@@ -1,18 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using ECSGame;
+using Leopotam.EcsLite;
+using Leopotam.EcsLite.Di;
 
-public class DeathSystem : MonoBehaviour
+public sealed class DeathSystem : IEcsRunSystem
 {
-    // Start is called before the first frame update
-    void Start()
+    private readonly EcsFilterInject<Inc<DeathableTag>> _deathables;
+    private readonly EcsPoolInject<Health> _healths;
+    private readonly EcsEventInject<DestroyRequest> _destroyRequest;
+    
+    public void Run(IEcsSystems systems)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        foreach (var entity in _deathables.Value)
+        {
+            var health = _healths.Value.Get(entity);
+            if(health.current == 0)
+                _destroyRequest.Value.Fire(new DestroyRequest{entity = entity});
+        }    
     }
 }

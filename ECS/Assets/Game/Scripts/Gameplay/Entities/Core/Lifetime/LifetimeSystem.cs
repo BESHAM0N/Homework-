@@ -1,7 +1,23 @@
-﻿namespace ECSGame
+﻿using Leopotam.EcsLite;
+using Leopotam.EcsLite.Di;
+using UnityEngine;
+
+namespace ECSGame
 {
-    public class LifetimeSystem
+    public sealed class LifetimeSystem : IEcsRunSystem
     {
+        private readonly EcsFilterInject<Inc<Lifetime>> _lifetimes;
+        private readonly EcsEventInject<DestroyRequest> _requests;
         
+        public void Run(IEcsSystems systems)
+        {
+            foreach (var entity in _lifetimes.Value)
+            {
+                ref Lifetime lifetime = ref _lifetimes.Pools.Inc1.Get(entity);
+                lifetime.value -= Time.deltaTime;
+                if(lifetime.value <= 0)
+                    _requests.Value.Fire(new DestroyRequest{entity = entity});
+            }
+        }
     }
 }

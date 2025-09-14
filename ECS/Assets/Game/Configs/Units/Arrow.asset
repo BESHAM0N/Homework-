@@ -9,9 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13001a3652c24a9aac1547eff2779ee4, type: 3}
-  m_Name: UbitsViewCatalog
+  m_Script: {fileID: 11500000, guid: 1b0c05dfe64542e9ab7825d08d21926a, type: 3}
+  m_Name: Arrow
   m_EditorClassIdentifier: 
-  _prefabs:
-  - {fileID: -165097274848346, guid: 2edb3dcb9e85f4750b5bc0c0cac3d77f, type: 3}
-  - {fileID: 2879929242984237707, guid: 9efe60d89fb4b4fa882e16b1af2b6b1a, type: 3}

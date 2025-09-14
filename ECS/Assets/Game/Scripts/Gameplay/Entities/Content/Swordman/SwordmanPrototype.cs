@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ECSGame
 {
-    [CreateAssetMenu(fileName = "Swordman", menuName = "ECSGame/Entites/New Swordman")]
+    [CreateAssetMenu(fileName = "Swordman", menuName = "ECSGame/Entities/New Swordman")]
     public  sealed class SwordmanPrototype : EcsPrototype
     { 
         [SerializeField] private float _moveSpeed = 3;
@@ -23,6 +23,9 @@ namespace ECSGame
             world.GetPool<RotatableTag>().Add(entity);
             world.GetPool<RotateSpeed>().Add(entity).value = _rotationSpeed;
             world.GetPool<RotateDirection>().Add(entity).value = new float3(0, 0, -1);
+            
+            //Fire
+            world.GetPool<UnitFireRequired>().Add(entity);
         }
     }
 }

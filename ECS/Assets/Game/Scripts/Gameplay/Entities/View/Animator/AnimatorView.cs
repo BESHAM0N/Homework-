@@ -1,7 +1,11 @@
-﻿namespace ECSGame
+﻿using System;
+using UnityEngine;
+
+namespace ECSGame
 {
-    public class AnimatorView
+    [Serializable]
+    public struct AnimatorView
     {
-        
+        public Animator value;
     }
 }

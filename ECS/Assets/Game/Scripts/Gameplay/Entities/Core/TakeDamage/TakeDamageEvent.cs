@@ -1,7 +1,11 @@
-﻿namespace Client.Entities.Core.TakeDamage
+﻿using Leopotam.EcsLite;
+
+namespace Client.Entities.Core.TakeDamage
 {
-    public class TakeDamageEvent
+    public struct TakeDamageEvent
     {
-        
+        public EcsPackedEntity source;
+        public EcsPackedEntity target;
+        public int damage;
     }
 }
