@@ -17,6 +17,8 @@ namespace ECSGame
         private readonly EcsPoolInject<FireOffset> _fireOffset;
 
         private readonly EcsEventInject<ArrowSpawnRequest> _arrowSpawnRequests;
+        private readonly EcsEventInject<FireEvent> _fireEvents;
+        private readonly EcsWorldInject _world;
 
         public ArcherFireSystem(EcsPrototype prefab)
         {
@@ -25,23 +27,26 @@ namespace ECSGame
 
         public void Run(IEcsSystems systems)
         {
-            foreach (var unit in _units.Value)
+            foreach (var entity in _units.Value)
             {
-                ref UnitFireRequired fireRequired = ref _fireRequired.Value.Get(unit);
+                ref UnitFireRequired fireRequired = ref _fireRequired.Value.Get(entity);
 
                 if (!fireRequired.value) continue;
 
-                var position = _positions.Value.Get(unit).value;
-                var rotation = _rotations.Value.Get(unit).value;
-                var offset = _fireOffset.Value.Get(unit).value;
+                var position = _positions.Value.Get(entity).value;
+                var rotation = _rotations.Value.Get(entity).value;
+                var offset = _fireOffset.Value.Get(entity).value;
                 
                 _arrowSpawnRequests.Value.Fire(new ArrowSpawnRequest()
                 {
                     prefab = _arrowPrefab,
                     position = position + math.mul(rotation, offset),
                     rotation = rotation,
-                    team = _teams.Value.Get(unit)
+                    team = _teams.Value.Get(entity)
                 });
+
+                //TODO: Вынести в структуру 
+                _fireEvents.Value.Fire(new FireEvent{entity = _world.Value.PackEntity(entity)});
             }
         }
     }

@@ -41,14 +41,13 @@ namespace ECSGame
                 //Rendering:
                 .Add(new TransformViewSystem())
                 .Add(new TeamViewSystem(_teamViewConfig))
-                // .Add(new FireAnimSystem())
+                .Add(new FireAnimSystem())
                 //.Add(new TakeDamageAnimSystem())
                 // .Add(new MoveAnimSystem())
 
                 //Clear:
                 .ClearEvents<FireEvent>()
                 .ClearEvents<TakeDamageEvent>()
-                // .Add(new ClearEventSystem<FireEvent>(world))
 
                 //Debug:
 #if UNITY_EDITOR

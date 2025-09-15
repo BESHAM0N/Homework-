@@ -4,6 +4,7 @@ using Leopotam.EcsLite.Di;
 
 namespace Client.Entities.Core.TakeDamage
 {
+    //структура, чтобы мы могли вернуть результат. Является вспомогательным методом для системы. 
     public readonly struct TakeDamageUseCase
     {
         private readonly EcsWorldInject _world;
@@ -20,7 +21,7 @@ namespace Client.Entities.Core.TakeDamage
 
             ref int damage = ref _damages.Value.Get(sourceId).value;
 
-            if (_healthUseCase.Value.Reduce(targetId, damage))
+            if (!_healthUseCase.Value.Reduce(targetId, damage))
                 return false;
             
             _takeDamageEvents.Value.Fire(new TakeDamageEvent
