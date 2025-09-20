@@ -10,7 +10,7 @@ namespace Leopotam.EcsLite
         {
             int entity = world.NewEntity();
             world.GetPool<EcsName>().Add(entity).value = this.Name;
-            this.Install(in world, in entity);
+            Install(in world, in entity);
             world.GetPool<EcsActive>().Add(entity);
             return entity;
         }

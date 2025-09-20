@@ -24,26 +24,27 @@ namespace ECSGame
 
             systems
 
-                //Controllers
-                .Add(new UnitFireController())
-
                 //Game Logic
+                .Add(new SpawnSystem())
+                .Add(new TargetSystem())
+                .Add(new MoveOrderSystem())
+                .Add(new MoveToTargetSystem())
+                .Add(new ArcherFireSystem(_arrowPrefab))
+                .Add(new SwordmanMeleeSystem())
+                .Add(new FireCooldownSystem())
                 .Add(new MoveSystem())
                 .Add(new RotationSystem())
-                .Add(new ArrowSpawnSystem())
-                .Add(new ArrowCollisionSystem())
+                .Add(new ProjectileCollisionSystem())
                 .Add(new LifetimeSystem())
                 .Add(new DeathSystem())
                 .Add(new DestroySystem())
-
-                .Add(new ArcherFireSystem(_arrowPrefab))
 
                 //Rendering:
                 .Add(new TransformViewSystem())
                 .Add(new TeamViewSystem(_teamViewConfig))
                 .Add(new FireAnimSystem())
-                //.Add(new TakeDamageAnimSystem())
-                // .Add(new MoveAnimSystem())
+                .Add(new TakeDamageAnimSystem())
+                .Add(new MoveAnimSystem())
 
                 //Clear:
                 .ClearEvents<FireEvent>()

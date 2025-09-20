@@ -15,8 +15,8 @@ namespace ECSGame
         {
             foreach (int entity in _moveables.Value)
             {
-                ref AnimatorView animator = ref _moveables.Pools.Inc2.Get(entity);
-                bool isMoving = _moveUseCase.Value.IsMoving(entity);
+                ref var animator = ref _moveables.Pools.Inc2.Get(entity);
+                var isMoving = _moveUseCase.Value.IsMoving(entity);
                 animator.value.SetBool(IsMoving, isMoving);
             }
         }
