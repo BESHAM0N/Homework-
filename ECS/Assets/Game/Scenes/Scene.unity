@@ -1637,7 +1637,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _systemsFactory: {fileID: 11400000, guid: ec7b05ed593f90347bb2f955ab9e2d56, type: 2}
-  _baker: {fileID: 0}
+  _baker: {fileID: 1874257997}
   _worldView: {fileID: 203474455}
 --- !u!1001 &1738537723
 PrefabInstance:
@@ -1876,7 +1876,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3581facde5c46e58eed2261f4c13fa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _prototypes: {fileID: 11400000, guid: 67d48c5aac0536a4188147eef61af223, type: 2}
+  _prototypes: {fileID: 11400000, guid: 42f393fcf80810b45a901db4fae3042a, type: 2}
 --- !u!4 &1874257998
 Transform:
   m_ObjectHideFlags: 0

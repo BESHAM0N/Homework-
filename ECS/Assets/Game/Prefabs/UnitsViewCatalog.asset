@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: UnitsViewCatalog
   m_EditorClassIdentifier: 
   _prefabs:
-  - {fileID: -165097274848346, guid: 2edb3dcb9e85f4750b5bc0c0cac3d77f, type: 3}
-  - {fileID: 2879929242984237707, guid: 9efe60d89fb4b4fa882e16b1af2b6b1a, type: 3}
-  - {fileID: 7687630748014899121, guid: 810d15eb59be51d4e830be6a360e1743, type: 3}
+  - {fileID: -2300753219076647470, guid: 8dba26edee12f824d9ef4f530d1227ab, type: 3}
+  - {fileID: 7441590102502075437, guid: 0c3240bda2c049040a2a745442650dfc, type: 3}
+  - {fileID: 4682073083315602049, guid: 39a24af20b8ad5d48b281e21d7fcc152, type: 3}
+  - {fileID: -6257497689053328412, guid: a1d2498cac254b4419b179fc6586cce8, type: 3}
+  - {fileID: 8709684795088980371, guid: be13d19a394965848889fed89c0568be, type: 3}
+  - {fileID: 9191090362690737403, guid: 9ca0f44a82b2cda45894da8cdfef5a2a, type: 3}

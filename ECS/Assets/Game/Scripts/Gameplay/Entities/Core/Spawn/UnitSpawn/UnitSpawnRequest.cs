@@ -5,7 +5,7 @@ using Unity.Mathematics;
 namespace ECSGame
 {
     [Serializable]
-    public struct SpawnRequest
+    public struct UnitSpawnRequest
     {
         public EcsPrototype prefab;
         public float3 position;

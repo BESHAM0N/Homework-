@@ -44,7 +44,7 @@ namespace ECSGame
         {
             if (!Attack(attacker, out _)) return false;
 
-            _fireUse.Value.FireProjectile(attacker, projectilePrefab);
+            _fireUse.Value.SpawnProjectile(attacker, projectilePrefab);
             _fireUse.Value.ResetCooldown(attacker);
             _fireEvents.Value.Fire(new FireEvent { entity = _world.Value.PackEntity(attacker) });
             return true;
@@ -55,8 +55,8 @@ namespace ECSGame
             if (!Attack(attacker, out int target)) return false;
 
             var damage = _damagePool.Value.Get(attacker).value;
-            ref var hp = ref _healthPool.Value.Get(target);
-            hp.current = math.max(0, hp.current - damage);
+            ref var health = ref _healthPool.Value.Get(target);
+            health.current = math.max(0, health.current - damage);
 
             _fireUse.Value.ResetCooldown(attacker);
             _fireEvents.Value.Fire(new FireEvent { entity = _world.Value.PackEntity(attacker) });

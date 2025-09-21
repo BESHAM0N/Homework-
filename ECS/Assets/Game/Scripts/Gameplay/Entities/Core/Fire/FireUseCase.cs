@@ -12,20 +12,20 @@ namespace ECSGame
         private readonly EcsPoolInject<FireOffset> _fireOffsets;
         private readonly EcsPoolInject<FireCooldown> _fireCooldown;
 
-        private readonly EcsEventInject<SpawnRequest> _spawnRequest;
+        private readonly EcsEventInject<ProjectileSpawnRequest> _spawnRequest;
 
-        public void FireProjectile(in int entity, in EcsPrototype projectile)
+        public void SpawnProjectile(in int entity, in EcsPrototype projectile)
         {
-            _spawnRequest.Value.Fire(new SpawnRequest
+            _spawnRequest.Value.Fire(new ProjectileSpawnRequest
             {
                 prefab = projectile,
-                position = this.GetFirePoint(entity),
+                position = GetFirePoint(entity),
                 rotation = _rotations.Value.Get(entity).value,
                 team = _teams.Value.Get(entity)
             });
         }
 
-        public float3 GetFirePoint(in int entity)
+        private float3 GetFirePoint(in int entity)
         {
             var position = _positions.Value.Get(entity).value;
             var rotation = _rotations.Value.Get(entity).value;

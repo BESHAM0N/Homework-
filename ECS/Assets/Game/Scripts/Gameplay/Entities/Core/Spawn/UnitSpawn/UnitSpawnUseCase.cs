@@ -4,7 +4,7 @@ using Unity.Mathematics;
 
 namespace ECSGame
 {
-    public readonly struct SpawnUseCase
+    public readonly struct UnitSpawnUseCase
     {
         private readonly EcsWorldInject _world;
         private readonly EcsPoolInject<Position> _positions;
