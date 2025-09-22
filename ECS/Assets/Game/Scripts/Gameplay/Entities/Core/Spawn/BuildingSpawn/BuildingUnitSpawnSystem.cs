@@ -5,30 +5,34 @@ namespace ECSGame
 {
     public sealed class BuildingUnitSpawnSystem : IEcsRunSystem
     {
-        private readonly UnitsTeamConfig _config;
+        private readonly EcsPrototypeCatalog _prototypes;
+        private readonly TeamViewConfig _teamView;
 
-        private readonly EcsEventInject<BuildingSpawnEvent> _events;
-        private readonly EcsEventInject<UnitSpawnRequest> _spawnRequests;
-        private readonly EcsUseCaseInject<TeamUseCase> _teamUse;
-
-        public BuildingUnitSpawnSystem(UnitsTeamConfig config)
+        public BuildingUnitSpawnSystem(EcsPrototypeCatalog prototypes, TeamViewConfig teamView)
         {
-            _config = config;
+            _prototypes = prototypes;
+            _teamView = teamView;
         }
+
+        private readonly EcsEventInject<BuildingSpawnEvent> _clicks;
+        private readonly EcsEventInject<UnitSpawnRequest> _spawns;
+        private readonly EcsUseCaseInject<TeamUseCase> _teamUse;
 
         public void Run(IEcsSystems _)
         {
-            while (_events.Value.Consume(out BuildingSpawnEvent e))
+            while (_clicks.Value.Consume(out BuildingSpawnEvent buildingSpawnEvent))
             {
-                TeamType team = _teamUse.Value.GetTeam(e.buildingEntity);
-                var prototype = _config.GetPrototype(team, e.unitType);
-
-                _spawnRequests.Value.Fire(new UnitSpawnRequest
+                TeamType team = _teamUse.Value.GetTeam(buildingSpawnEvent.buildingEntity);
+                var prototype = _prototypes.GetPrototype(buildingSpawnEvent.unitType.ToString());
+                var viewKey = TeamViewUseCase.GetViewKey(_teamView, team, buildingSpawnEvent.unitType);
+                
+                _spawns.Value.Fire(new UnitSpawnRequest
                 {
                     prefab = prototype,
-                    position = e.position,
-                    rotation = e.rotation,
-                    team = team
+                    position = buildingSpawnEvent.position,
+                    rotation = buildingSpawnEvent.rotation,
+                    team = team,
+                    viewKey  = viewKey
                 });
             }
         }

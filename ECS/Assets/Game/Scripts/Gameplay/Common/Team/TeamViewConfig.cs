@@ -35,6 +35,10 @@ namespace ECSGame
             [SerializeField] private GameObject prefabArcher; 
             [SerializeField] private GameObject prefabSwordman; 
             [SerializeField] private GameObject prefabArrow;
+            
+            public GameObject GetPrefabArcher   => prefabArcher;
+            public GameObject GetPrefabSwordman   => prefabSwordman;
+            public GameObject getPrefabArrow   => prefabArrow;
 
             public TeamType Type
             {

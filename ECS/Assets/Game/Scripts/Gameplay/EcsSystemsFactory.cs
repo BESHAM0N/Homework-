@@ -2,7 +2,6 @@
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.ExtendedSystems;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace ECSGame
 {
@@ -12,7 +11,8 @@ namespace ECSGame
     )]
     public class EcsSystemsFactory : ScriptableObject
     {
-        [SerializeField] private UnitsTeamConfig _unitsTeamConfig;
+        [SerializeField] private EcsPrototypeCatalog _prototypeCatalog;
+        [SerializeField] private TeamViewConfig _teamViewConfig;
         [SerializeField] private EcsPrototype _arrowPrefab;
 
         public IEcsSystems Create()
@@ -22,9 +22,10 @@ namespace ECSGame
             EcsSystems systems = new EcsSystems(world);
 
             systems
-
-                //Game Logic
+                .Add(new BuildingUnitSpawnSystem(_prototypeCatalog, _teamViewConfig))
                 .Add(new UnitSpawnSystem())
+                
+                //Game Logic
                 .Add(new TargetSystem())
                 .Add(new MoveOrderSystem())
                 .Add(new MoveToTargetSystem())
@@ -43,7 +44,6 @@ namespace ECSGame
                 .Add(new FireAnimSystem())
                 .Add(new TakeDamageAnimSystem())
                 .Add(new MoveAnimSystem())
-                .Add(new BuildingUnitSpawnSystem(_unitsTeamConfig))
 
                 //Clear:
                 .ClearEvents<FireEvent>()

@@ -11,5 +11,6 @@ namespace ECSGame
         public float3 position;
         public quaternion rotation;
         public TeamType team;
+        public string viewKey;
     }
 }

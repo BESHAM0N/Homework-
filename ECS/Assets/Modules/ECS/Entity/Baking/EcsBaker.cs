@@ -1,10 +1,12 @@
-﻿using UnityEngine;
+﻿using ECSGame;
+using UnityEngine;
 
 namespace Leopotam.EcsLite
 {
     public class EcsBaker: MonoBehaviour
     {
         [SerializeField] private EcsPrototypeCatalog _prototypes;
+        [SerializeField] private TeamViewConfig _teamViewConfig;
 
         public void BakeScene(EcsWorld world, bool includeInactive = false)
         {
@@ -19,7 +21,7 @@ namespace Leopotam.EcsLite
 
         public void BakeEntity(in EcsWorld world, in EcsView view)
         {
-            var prototypeName = view.Name;
+            var prototypeName = TeamViewUseCase.ResolvePrototypeNameByViewName(_teamViewConfig, view.Name);;
             var prefab = _prototypes.GetPrototype(prototypeName);
 
             var entity = prefab.Create(world);
