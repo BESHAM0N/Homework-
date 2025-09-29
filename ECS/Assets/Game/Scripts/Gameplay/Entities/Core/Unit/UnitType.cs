@@ -4,6 +4,7 @@
     {
         Archer,
         Swordman,
-        Arrow
+        Arrow,
+        Building
     }
 }

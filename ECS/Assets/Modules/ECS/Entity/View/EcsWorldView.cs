@@ -91,6 +91,9 @@ namespace Leopotam.EcsLite
 
         private void SpawnView(int entity)
         {
+            if (!_entityNames.Has(entity))
+                return;
+            
             string name = this.GetEntityName(entity);
             EcsView view = _viewPool.Rent(name);
             view.transform.parent = _viewport;

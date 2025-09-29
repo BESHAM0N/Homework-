@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace ECSGame
 {
@@ -11,8 +10,7 @@ namespace ECSGame
     )]
     public sealed class TeamViewConfig : ScriptableObject
     {
-        [SerializeField]
-        private TeamInfo[] _teams;
+        [SerializeField] private TeamInfo[] _teams;
 
         public TeamInfo GetTeam(TeamType teamType)
         {
@@ -29,25 +27,26 @@ namespace ECSGame
         [Serializable]
         public sealed class TeamInfo
         {
-            [FormerlySerializedAs("_team")]
-            [SerializeField] private TeamType type;
+            [SerializeField] private TeamType _type;
 
-            [SerializeField] private GameObject prefabArcher; 
-            [SerializeField] private GameObject prefabSwordman; 
-            [SerializeField] private GameObject prefabArrow;
-            
-            public GameObject GetPrefabArcher   => prefabArcher;
-            public GameObject GetPrefabSwordman   => prefabSwordman;
-            public GameObject getPrefabArrow   => prefabArrow;
+            [SerializeField] private GameObject _prefabArcher;
+            [SerializeField] private GameObject _prefabSwordman;
+            [SerializeField] private GameObject _prefabArrow;
+            [SerializeField] private GameObject _prefabBuilding;
+
+            public GameObject GetPrefabArcher => _prefabArcher;
+            public GameObject GetPrefabSwordman => _prefabSwordman;
+            public GameObject GetPrefabArrow => _prefabArrow;
+            public GameObject GetPrefabBuilding => _prefabBuilding;
 
             public TeamType Type
             {
-                get { return type; }
+                get { return _type; }
             }
 
             public int CameraDisplay
             {
-                get { return (int) this.type - 1; }
+                get { return (int)this._type - 1; }
             }
         }
     }

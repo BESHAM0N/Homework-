@@ -8,27 +8,40 @@ namespace ECSGame
         public static string GetViewKey(TeamViewConfig config, TeamType team, UnitType type)
         {
             var info = config.GetTeam(team);
-            GameObject gameObject = type switch
-            {
-                UnitType.Archer => info.GetPrefabArcher,
+            GameObject go = type switch {
+                UnitType.Archer   => info.GetPrefabArcher,
                 UnitType.Swordman => info.GetPrefabSwordman,
-                UnitType.Arrow => info.getPrefabArrow,
+                UnitType.Arrow    => info.GetPrefabArrow,
+                UnitType.Building => info.GetPrefabBuilding,
                 _ => null
             };
-            if (!gameObject) return null;
-            var view = gameObject.GetComponent<EcsView>();
-            return view != null ? view.Name : gameObject.name;
+            if (!go) return null;
+            return go.name;
+            
+            // var info = config.GetTeam(team);
+            // GameObject gameObject = type switch
+            // {
+            //     UnitType.Archer => info.GetPrefabArcher,
+            //     UnitType.Swordman => info.GetPrefabSwordman,
+            //     UnitType.Arrow => info.GetPrefabArrow,
+            //     UnitType.Building => info.GetPrefabBuilding,
+            //     _ => null
+            // };
+            // if (!gameObject) return null;
+            // var view = gameObject.GetComponent<EcsView>();
+            // return view != null ? view.Name : gameObject.name;
         }
 
         public static string ResolvePrototypeNameByViewName(TeamViewConfig config, string viewName)
         {
-            foreach (TeamType t in System.Enum.GetValues(typeof(TeamType)))
+            foreach (TeamType teamType in System.Enum.GetValues(typeof(TeamType)))
             {
-                var info = config.GetTeam(t);
+                var info = config.GetTeam(teamType);
 
                 if (SafeName(info.GetPrefabArcher) == viewName) return "Archer";
                 if (SafeName(info.GetPrefabSwordman) == viewName) return "Swordman";
-                if (SafeName(info.getPrefabArrow) == viewName) return "Arrow";
+                if (SafeName(info.GetPrefabArrow) == viewName) return "Arrow";
+                if (SafeName(info.GetPrefabBuilding) == viewName) return "Base";
             }
 
             return viewName;

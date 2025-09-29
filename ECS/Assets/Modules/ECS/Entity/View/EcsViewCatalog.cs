@@ -34,6 +34,8 @@ namespace Leopotam.EcsLite
             throw new Exception($"Prefab with name {name} is not found!");
         }
 
-        protected virtual string GetName(EcsView prefab) => prefab.Name;
+        // protected virtual string GetName(EcsView prefab) => prefab.Name;
+        
+        protected virtual string GetName(EcsView prefab) => prefab.gameObject.name;
     }
 }

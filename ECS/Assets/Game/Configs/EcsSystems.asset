@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3bf97f237f04466bff7626e7b2ec73d, type: 3}
   m_Name: EcsSystems
   m_EditorClassIdentifier: 
-  _teamViewConfig: {fileID: 11400000, guid: 2caf89525898ebe459efadd75868ccdf, type: 2}
+  _prototypeCatalog: {fileID: 11400000, guid: 42f393fcf80810b45a901db4fae3042a, type: 2}
+  _teamViewConfig: {fileID: 11400000, guid: 763730afb5620d74c8d6614aef3361d0, type: 2}
   _arrowPrefab: {fileID: 11400000, guid: 58ca5d535b701534fbcf6403c11253ff, type: 2}
