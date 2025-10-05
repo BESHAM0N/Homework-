@@ -16,8 +16,9 @@ namespace ECSGame
                 var entity = _useCase.Value.UnitSpawn(request.prefab, request.position, request.rotation, request.team);
                 if (!string.IsNullOrEmpty(request.viewKey))
                 {
-                    ref var name = ref _names.Value.Get(entity);
-                    name.value = request.viewKey;
+                    var pool = _names.Value;
+                    if (!pool.Has(entity)) pool.Add(entity);
+                    pool.Get(entity).value = request.viewKey;
                 }
             }
         }

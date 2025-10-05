@@ -42,6 +42,7 @@ namespace ECSGame
 
             //Fire
             world.GetPool<UnitFireRequired>().Add(entity);
+            world.GetPool<FireOffset>().Add(entity).value = new float3(0f, 1.0f, 0.3f);
             world.GetPool<FireCooldown>().Add(entity) = new FireCooldown
             {
                 current = 0,

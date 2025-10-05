@@ -8,32 +8,22 @@ namespace ECSGame
         public static string GetViewKey(TeamViewConfig config, TeamType team, UnitType type)
         {
             var info = config.GetTeam(team);
-            GameObject go = type switch {
-                UnitType.Archer   => info.GetPrefabArcher,
+            GameObject go = type switch
+            {
+                UnitType.Archer => info.GetPrefabArcher,
                 UnitType.Swordman => info.GetPrefabSwordman,
-                UnitType.Arrow    => info.GetPrefabArrow,
+                UnitType.Arrow => info.GetPrefabArrow,
                 UnitType.Building => info.GetPrefabBuilding,
                 _ => null
             };
             if (!go) return null;
-            return go.name;
-            
-            // var info = config.GetTeam(team);
-            // GameObject gameObject = type switch
-            // {
-            //     UnitType.Archer => info.GetPrefabArcher,
-            //     UnitType.Swordman => info.GetPrefabSwordman,
-            //     UnitType.Arrow => info.GetPrefabArrow,
-            //     UnitType.Building => info.GetPrefabBuilding,
-            //     _ => null
-            // };
-            // if (!gameObject) return null;
-            // var view = gameObject.GetComponent<EcsView>();
-            // return view != null ? view.Name : gameObject.name;
+            var view = go.GetComponent<EcsView>();
+            return view != null ? view.Name : go.name;
         }
 
         public static string ResolvePrototypeNameByViewName(TeamViewConfig config, string viewName)
         {
+            Debug.Log($"ResolvePrototypeNameByViewName, viewName:{viewName}");
             foreach (TeamType teamType in System.Enum.GetValues(typeof(TeamType)))
             {
                 var info = config.GetTeam(teamType);
@@ -43,15 +33,14 @@ namespace ECSGame
                 if (SafeName(info.GetPrefabArrow) == viewName) return "Arrow";
                 if (SafeName(info.GetPrefabBuilding) == viewName) return "Base";
             }
-
+            
             return viewName;
         }
 
         private static string SafeName(GameObject gameObject)
         {
             if (!gameObject) return null;
-            var v = gameObject.GetComponent<EcsView>();
-            return v != null ? v.Name : gameObject.name;
+            return gameObject.name;
         }
     }
 }

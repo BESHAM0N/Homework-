@@ -10,15 +10,15 @@ namespace Leopotam.EcsLite
     )]
     public class EcsViewCatalog : ScriptableObject
     {
-        [SerializeField]
-        private List<EcsView> _prefabs;
+        [SerializeField] private List<EcsView> _prefabs;
 
-        public int Count => _prefabs.Count;
-
+       public int Count => _prefabs.Count;
+       
         public KeyValuePair<string, EcsView> GetPrefab(int index)
         {
             EcsView view = _prefabs[index];
-            return new KeyValuePair<string, EcsView>(this.GetName(view), view);
+            Debug.Log($"GetPrefab. index: {index}, view: {view.gameObject.name}");
+            return new KeyValuePair<string, EcsView>(GetName(view), view);
         }
 
         public EcsView GetPrefab(string name)
@@ -34,8 +34,10 @@ namespace Leopotam.EcsLite
             throw new Exception($"Prefab with name {name} is not found!");
         }
 
-        // protected virtual string GetName(EcsView prefab) => prefab.Name;
-        
-        protected virtual string GetName(EcsView prefab) => prefab.gameObject.name;
+        protected virtual string GetName(EcsView prefab)
+        {
+            Debug.Log($"GetName: {prefab.Name}");
+            return prefab.Name;
+        }
     }
 }

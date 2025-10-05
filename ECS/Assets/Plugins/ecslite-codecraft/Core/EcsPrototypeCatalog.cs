@@ -23,6 +23,8 @@ namespace Leopotam.EcsLite
 
         public EcsPrototype GetPrototype(string name)
         {
+            Debug.Log($"GetPrototype. name: {name}");
+            
             for (int i = 0, count = _prefabs.Count; i < count; i++)
             {
                 EcsPrototype prefab = _prefabs[i];
