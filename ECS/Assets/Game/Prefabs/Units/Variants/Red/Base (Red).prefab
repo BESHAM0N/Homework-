@@ -13,6 +13,26 @@ PrefabInstance:
       propertyPath: _teamType
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 737807016830395156, guid: 7abfb19faaf1147e9816d9c6709f4689,
+        type: 3}
+      propertyPath: _spawnPoints.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 737807016830395156, guid: 7abfb19faaf1147e9816d9c6709f4689,
+        type: 3}
+      propertyPath: _spawnPoints.Array.data[0]
+      value: 
+      objectReference: {fileID: 1775779755405667650}
+    - target: {fileID: 737807016830395156, guid: 7abfb19faaf1147e9816d9c6709f4689,
+        type: 3}
+      propertyPath: _spawnPoints.Array.data[1]
+      value: 
+      objectReference: {fileID: 3508359807729627413}
+    - target: {fileID: 737807016830395156, guid: 7abfb19faaf1147e9816d9c6709f4689,
+        type: 3}
+      propertyPath: _spawnPoints.Array.data[2]
+      value: 
+      objectReference: {fileID: 1768524207985713763}
     - target: {fileID: 981802089077454633, guid: 7abfb19faaf1147e9816d9c6709f4689,
         type: 3}
       propertyPath: m_Name

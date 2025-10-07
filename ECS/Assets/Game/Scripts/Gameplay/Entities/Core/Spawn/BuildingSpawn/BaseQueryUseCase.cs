@@ -12,12 +12,17 @@ namespace ECSGame
         {
             int[] ents = null;
             int count = _world.Value.GetAllEntities(ref ents);
+
             for (int i = 0; i < count; i++)
             {
                 int e = ents[i];
-                if (_buildings.Value.Has(e) && _teams.Value.Has(e) && _teams.Value.Get(e) == team)
+                if (!_buildings.Value.Has(e)) continue;
+                if (!_teams.Value.Has(e)) continue;
+
+                if (_teams.Value.Get(e).Equals(team))
                     return e;
             }
+
             return -1;
         }
 
