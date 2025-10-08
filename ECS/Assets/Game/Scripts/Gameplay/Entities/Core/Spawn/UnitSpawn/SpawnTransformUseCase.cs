@@ -13,21 +13,22 @@ namespace ECSGame
         {
             if (_spawnPoints.Value.Has(baseEntity))
             {
-                ref var sp = ref _spawnPoints.Value.Get(baseEntity);
-                var pts = sp.points;
-                if (pts != null && pts.Length > 0)
+                ref var spawnPoints = ref _spawnPoints.Value.Get(baseEntity);
+                var points = spawnPoints.points;
+                if (points != null && points.Length > 0)
                 {
-                    int idx = sp.nextIndex;
-                    sp.nextIndex = (idx + 1) % pts.Length;
+                    int idx = spawnPoints.nextIndex;
+                    spawnPoints.nextIndex = (idx + 1) % points.Length;
 
-                    var t = pts[idx];
-                    if (t != null) return (t.position, t.rotation);
+                    var point = points[idx];
+                    if (point != null) 
+                        return (point.position, point.rotation);
                 }
             }
-            
-            float3 pos = _positions.Value.Has(baseEntity) ? _positions.Value.Get(baseEntity).value : float3.zero;
-            quaternion rot = _rotations.Value.Has(baseEntity) ? _rotations.Value.Get(baseEntity).value : quaternion.identity;
-            return (pos, rot);
+
+            float3 position = _positions.Value.Has(baseEntity) ? _positions.Value.Get(baseEntity).value : float3.zero;
+            quaternion rotation = _rotations.Value.Has(baseEntity) ? _rotations.Value.Get(baseEntity).value : quaternion.identity;
+            return (position, rotation);
         }
     }
 }

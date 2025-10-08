@@ -1,7 +1,6 @@
 ﻿using Leopotam.EcsLite;
 using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace ECSGame
 {
@@ -11,7 +10,7 @@ namespace ECSGame
         [SerializeField] private float _moveSpeed = 3;
         [SerializeField] private float _rotationSpeed = 0.3f;
         [SerializeField] private int _health = 5;
-        [SerializeField] private float _fireCooldown = 0.4f;
+        [SerializeField] private float _fireCooldown = 4f;
 
         [SerializeField] private float _range = 5f;
         [SerializeField] private int _damage = 2;

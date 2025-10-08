@@ -21,7 +21,7 @@ namespace Leopotam.EcsLite {
     }
 
     public interface IEcsRunSystem : IEcsSystem {
-        void Run (IEcsSystems systems);
+        void Run(IEcsSystems systems);
     }
 
     public interface IEcsPostRunSystem : IEcsSystem {

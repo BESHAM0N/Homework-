@@ -17,7 +17,6 @@ namespace Leopotam.EcsLite
         public KeyValuePair<string, EcsView> GetPrefab(int index)
         {
             EcsView view = _prefabs[index];
-            Debug.Log($"GetPrefab. index: {index}, view: {view.gameObject.name}");
             return new KeyValuePair<string, EcsView>(GetName(view), view);
         }
 

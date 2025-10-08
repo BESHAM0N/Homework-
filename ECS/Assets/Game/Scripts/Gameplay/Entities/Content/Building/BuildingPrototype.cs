@@ -12,6 +12,7 @@ namespace ECSGame
         {
             world.GetPool<BuildingTag>().Add(entity);
             world.GetPool<DeathableTag>().Add(entity);
+            world.GetPool<AttackableTag>().Add(entity);
             
             //Health
             world.GetPool<Health>().Add(entity) = new Health

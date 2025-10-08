@@ -1,4 +1,5 @@
 ﻿using Leopotam.EcsLite.Di;
+using UnityEngine;
 
 namespace ECSGame
 {
@@ -15,12 +16,14 @@ namespace ECSGame
 
             for (int i = 0; i < count; i++)
             {
-                int e = ents[i];
-                if (!_buildings.Value.Has(e)) continue;
-                if (!_teams.Value.Has(e)) continue;
+                int teamType = ents[i];
+                if (!_buildings.Value.Has(teamType)) continue;
+                if (!_teams.Value.Has(teamType)) continue;
 
-                if (_teams.Value.Get(e).Equals(team))
-                    return e;
+                if (_teams.Value.Get(teamType).Equals(team))
+                {
+                    return teamType;
+                }
             }
 
             return -1;

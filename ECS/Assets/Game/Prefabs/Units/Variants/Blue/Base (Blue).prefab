@@ -244,3 +244,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _installers:
   - {fileID: 1381454941068524186}
+  - {fileID: 7323226086186673217}
+--- !u!114 &7323226086186673217 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 737807016830395156, guid: 7abfb19faaf1147e9816d9c6709f4689,
+    type: 3}
+  m_PrefabInstance: {fileID: 8042413818358302549}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7078650420259860604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fc03f4a7ae349fa9f7a8de6d52e7ad7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -18,7 +18,7 @@ MonoBehaviour:
       type: 3}
     _prefabSwordman: {fileID: 4474693899073440110, guid: 39a24af20b8ad5d48b281e21d7fcc152,
       type: 3}
-    _prefabArrow: {fileID: 5939186603549411509, guid: 0c3240bda2c049040a2a745442650dfc,
+    _prefabArrow: {fileID: 6923367333681251218, guid: 810d15eb59be51d4e830be6a360e1743,
       type: 3}
     _prefabBuilding: {fileID: 7078650420259860604, guid: a82794b5cab41ef46a2ba26c65e32fc1,
       type: 3}
@@ -27,7 +27,7 @@ MonoBehaviour:
       type: 3}
     _prefabSwordman: {fileID: 1836327710282380833, guid: 9ca0f44a82b2cda45894da8cdfef5a2a,
       type: 3}
-    _prefabArrow: {fileID: 5222266406420681866, guid: be13d19a394965848889fed89c0568be,
+    _prefabArrow: {fileID: 6923367333681251218, guid: 810d15eb59be51d4e830be6a360e1743,
       type: 3}
     _prefabBuilding: {fileID: 6480648308455456160, guid: 09a84d2719aac2546a75f1c2d3fd70ee,
       type: 3}

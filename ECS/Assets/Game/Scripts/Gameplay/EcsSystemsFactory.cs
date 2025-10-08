@@ -24,6 +24,7 @@ namespace ECSGame
             systems
                 .Add(new BuildingUnitSpawnSystem(_prototypeCatalog, _teamViewConfig))
                 .Add(new UnitSpawnSystem())
+                .Add(new ProjectileSpawnSystem())
                 
                 //Game Logic
                 .Add(new TargetSystem())
@@ -33,6 +34,7 @@ namespace ECSGame
                 .Add(new SwordmanMeleeSystem())
                 .Add(new FireCooldownSystem())
                 .Add(new MoveSystem())
+                .Add(new FaceTargetSystem())
                 .Add(new RotationSystem())
                 .Add(new ProjectileCollisionSystem())
                 .Add(new LifetimeSystem())
@@ -41,9 +43,9 @@ namespace ECSGame
 
                 //Rendering:
                 .Add(new TransformViewSystem())
+                .Add(new MoveAnimSystem())
                 .Add(new FireAnimSystem())
                 .Add(new TakeDamageAnimSystem())
-                .Add(new MoveAnimSystem())
 
                 //Clear:
                 .ClearEvents<FireEvent>()

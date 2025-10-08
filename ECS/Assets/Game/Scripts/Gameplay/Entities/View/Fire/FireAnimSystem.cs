@@ -6,7 +6,7 @@ namespace ECSGame
 {
     public sealed class FireAnimSystem : IEcsRunSystem
     {
-        private static readonly int Fire = Animator.StringToHash(nameof(Fire));
+        private static readonly int Attack = Animator.StringToHash(nameof(Attack));
 
         private readonly EcsEventInject<FireEvent> _events;
         private readonly EcsPoolInject<AnimatorView> _animators;
@@ -23,7 +23,7 @@ namespace ECSGame
                     continue;
 
                 var animator = _animators.Value.Get(entity).value;
-                animator.SetTrigger(Fire);
+                animator.SetTrigger(Attack);
             }
         }
     }
