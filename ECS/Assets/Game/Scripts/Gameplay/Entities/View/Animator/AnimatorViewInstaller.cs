@@ -1,4 +1,5 @@
-﻿using Leopotam.EcsLite;
+﻿using ECSGamek;
+using Leopotam.EcsLite;
 using UnityEngine;
 
 namespace ECSGame
@@ -11,6 +12,12 @@ namespace ECSGame
         public override void Install(in EcsWorld world, in int entity)
         {
             world.GetPool<AnimatorView>().Add(entity).value = _animator;
+            
+            var receiver = GetComponent<AttackAnimationReceiver>();
+            if (receiver != null)
+            {
+                receiver.World = world;
+            }
         }
     }
 }
