@@ -19,18 +19,13 @@ namespace ECSGame
         public void Run(IEcsSystems systems)
         {
             while (_requests.Value.Consume(out ProjectileSpawnRequest request))
-                SpawnBullet(request);
+            {
+                SpawnProjectile(request);
+            }
         }
 
-        private void SpawnBullet(ProjectileSpawnRequest spawnRequest)
+        private void SpawnProjectile(ProjectileSpawnRequest spawnRequest)
         {
-            // EcsPrototype prefab = spawnRequest.prefab;
-            // int projectile = prefab.Create(_world.Value);
-            
-            // _positions.Value.Add(projectile).value = spawnRequest.position;
-            // _rotations.Value.Add(projectile).value = spawnRequest.rotation;
-            // _teamTypes.Value.Add(projectile) = spawnRequest.team;
-            
             var projectile  = _useCase.Value.UnitSpawn(spawnRequest.prefab, spawnRequest.position, spawnRequest.rotation, spawnRequest.team);
             
             if (!_names.Value.Has(projectile)) 

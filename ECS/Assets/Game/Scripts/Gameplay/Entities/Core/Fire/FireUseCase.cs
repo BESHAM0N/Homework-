@@ -4,7 +4,7 @@ using Unity.Mathematics;
 
 namespace ECSGame
 {
-    public readonly struct FireUseCase
+    public readonly struct FireProjectileUseCase
     {
         private readonly EcsPoolInject<Position> _positions;
         private readonly EcsPoolInject<Rotation> _rotations;
@@ -14,7 +14,7 @@ namespace ECSGame
 
         private readonly EcsEventInject<ProjectileSpawnRequest> _spawnRequest;
 
-        public void SpawnProjectile(in int entity, in EcsPrototype projectile)
+        public void FireProjectile(in int entity, in EcsPrototype projectile)
         {
             _spawnRequest.Value.Fire(new ProjectileSpawnRequest
             {

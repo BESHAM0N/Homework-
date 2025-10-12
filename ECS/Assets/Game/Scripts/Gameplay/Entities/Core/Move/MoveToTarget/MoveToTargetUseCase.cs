@@ -18,7 +18,8 @@ namespace ECSGame
 
         public void ProcessChaseStep(int unitEntity)
         {
-            if (!_orderPool.Value.Has(unitEntity)) return;
+            if (!_orderPool.Value.Has(unitEntity)) 
+                return;
 
             ref MoveToTargetOrder order = ref _orderPool.Value.Get(unitEntity);
 
@@ -45,7 +46,8 @@ namespace ECSGame
             else
             {
                 _moveDirectionPool.Value.Get(unitEntity).value = float3.zero;
-                if (_fireRequiredPool.Value.Has(unitEntity)) {
+                if (_fireRequiredPool.Value.Has(unitEntity)) 
+                {
                     _fireRequiredPool.Value.Get(unitEntity).value = true;
                 }
             }

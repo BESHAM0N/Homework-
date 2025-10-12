@@ -1,5 +1,4 @@
 ﻿using Leopotam.EcsLite.Di;
-using UnityEngine;
 
 namespace ECSGame
 {
@@ -27,12 +26,6 @@ namespace ECSGame
             }
 
             return -1;
-        }
-
-        public bool TryFindBase(TeamType team, out int entity)
-        {
-            entity = FindBase(team);
-            return entity != -1;
         }
     }
 }

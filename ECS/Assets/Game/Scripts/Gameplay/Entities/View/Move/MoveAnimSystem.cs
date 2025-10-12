@@ -6,21 +6,20 @@ namespace ECSGame
 {
     public sealed class MoveAnimSystem : IEcsRunSystem
     {
-        private static readonly int Walk = Animator.StringToHash(nameof(Walk));
+        private static readonly int Speed = Animator.StringToHash(nameof(Speed));
 
-        private readonly EcsFilterInject<Inc<MoveableTag, AnimatorView>> _moveables;
+        private readonly EcsFilterInject<Inc<MoveableTag, AnimatorView>> _filter;
         private readonly EcsPoolInject<AnimatorView> _animators;
         private readonly EcsUseCaseInject<MoveUseCase> _moveUseCase;
 
         public void Run(IEcsSystems systems)
         {
-            foreach (int entity in _moveables.Value)
+            float dt = Time.deltaTime;
+            foreach (int entity in _filter.Value)
             {
-                var isMoving = _moveUseCase.Value.IsMoving(entity);
+                var speedValue = _moveUseCase.Value.GetSpeed(entity);
                 var animator = _animators.Value.Get(entity).value;
-
-                if (isMoving)
-                    animator.SetTrigger(Walk);
+                animator.SetFloat(Speed, speedValue, 0.1f, dt);
             }
         }
     }

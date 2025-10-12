@@ -15,7 +15,7 @@ namespace ECSGame
         private readonly EcsPoolInject<Damage> _damagePool;
 
         private readonly EcsUseCaseInject<HealthUseCase> _healthUse;
-        private readonly EcsUseCaseInject<FireUseCase> _fireUse;
+        private readonly EcsUseCaseInject<FireProjectileUseCase> _fireUse;
         private readonly EcsUseCaseInject<TeamUseCase> _teamUse;
         private readonly EcsUseCaseInject<TargetUseCase> _targetUse;
 
@@ -44,7 +44,7 @@ namespace ECSGame
         {
             if (!Attack(attacker, out _)) return false;
 
-            _fireUse.Value.SpawnProjectile(attacker, projectilePrefab);
+            _fireUse.Value.FireProjectile(attacker, projectilePrefab);
             _fireUse.Value.ResetCooldown(attacker);
             _fireEvents.Value.Fire(new FireEvent { entity = _world.Value.PackEntity(attacker) });
             return true;

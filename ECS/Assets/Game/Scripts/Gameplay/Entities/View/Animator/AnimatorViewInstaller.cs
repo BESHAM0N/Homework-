@@ -1,23 +1,15 @@
-﻿using ECSGamek;
-using Leopotam.EcsLite;
+﻿using Leopotam.EcsLite;
 using UnityEngine;
 
 namespace ECSGame
 {
     public sealed class AnimatorViewInstaller : EcsViewInstaller
     {
-        [SerializeField]
-        private Animator _animator;
+        [SerializeField] private Animator _animator;
         
         public override void Install(in EcsWorld world, in int entity)
         {
             world.GetPool<AnimatorView>().Add(entity).value = _animator;
-            
-            var receiver = GetComponent<AttackAnimationReceiver>();
-            if (receiver != null)
-            {
-                receiver.World = world;
-            }
         }
     }
 }
