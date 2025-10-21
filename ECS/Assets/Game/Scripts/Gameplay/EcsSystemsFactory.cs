@@ -37,6 +37,7 @@ namespace ECSGame
                 .Add(new FaceTargetSystem())
                 .Add(new RotationSystem())
                 .Add(new ProjectileCollisionSystem())
+                .Add(new MeleeCollisionSystem())
                 .Add(new LifetimeSystem())
                 .Add(new DeathSystem())
                 .Add(new DestroySystem())
@@ -51,6 +52,7 @@ namespace ECSGame
                 .ClearEvents<FireEvent>()
                 .ClearEvents<TakeDamageEvent>()
                 .ClearEvents<BuildingSpawnEvent>()
+                .ClearEvents<MeleeSwingEvent>()
 
                 //Debug:
 #if UNITY_EDITOR
