@@ -8,10 +8,10 @@ namespace ECSGame
     public sealed class ArcherPrototype : EcsPrototype
     {
         [SerializeField] private float _moveSpeed = 3;
-        [SerializeField] private float _rotationSpeed = 0.3f;
-        [SerializeField] private int _health = 5;
-        [SerializeField] private float _fireCooldown = 25f;
-        [SerializeField] private float _range = 9f;
+        [SerializeField] private float _rotationSpeed = 10f;
+        [SerializeField] private int _health = 20;
+        [SerializeField] private float _fireCooldown = 4f;
+        [SerializeField] private float _range = 11f;
         
         protected override void Install(in EcsWorld world, in int entity)
         {

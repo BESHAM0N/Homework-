@@ -22,6 +22,8 @@ namespace ECSGame
 
                 if (!_animators.Value.Has(target)) 
                     continue;
+                
+                //Debug.Log($"TakeDamage Animation Target: {target}");
 
                 var animator = _animators.Value.Get(target).value;
                 animator.SetTrigger(TakeDamage);

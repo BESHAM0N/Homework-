@@ -15,12 +15,12 @@ namespace ECSGame
         public bool TryUnpack(in EcsPackedEntity packedEntity, out int entity) =>
             packedEntity.Unpack(_world.Value, out entity);
         
-        public bool IsEnemy(int a, int b) => _teamUseCase.Value.IsEnemies(a, b);
+        private bool IsEnemy(int a, int b) => _teamUseCase.Value.IsEnemies(a, b);
 
         public bool IsAlive(int entity) =>
             _healthPool.Value.Has(entity) && _healthPool.Value.Get(entity).current > 0;
 
-        public float GetSquaredDistance(int fromEntity, int toEntity)
+        private float GetSquaredDistance(int fromEntity, int toEntity)
         {
             var from = _positionPool.Value.Get(fromEntity).value;
             var to = _positionPool.Value.Get(toEntity).value;

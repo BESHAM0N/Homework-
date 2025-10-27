@@ -41,6 +41,7 @@ namespace ECSGame
                 .Add(new LifetimeSystem())
                 .Add(new DeathSystem())
                 .Add(new DestroySystem())
+                .Add(new DamageFxSystem())
 
                 //Rendering:
                 .Add(new TransformViewSystem())
@@ -49,10 +50,12 @@ namespace ECSGame
                 .Add(new TakeDamageAnimSystem())
 
                 //Clear:
+                .ClearEvents<MeleeHitRequest>()
+                .ClearEvents<ProjectileCollisionRequest>()
                 .ClearEvents<FireEvent>()
                 .ClearEvents<TakeDamageEvent>()
                 .ClearEvents<BuildingSpawnEvent>()
-                .ClearEvents<MeleeSwingEvent>()
+                .ClearEvents<DamageFxEvent>()
 
                 //Debug:
 #if UNITY_EDITOR

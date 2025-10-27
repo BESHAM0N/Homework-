@@ -6,32 +6,27 @@ namespace ECSGame
     [RequireComponent(typeof(Collider))]
     public sealed class MeleeHitView : MonoBehaviour
     {
-        [SerializeField] private EcsView _owner;
-        [SerializeField] private Collider _hitbox;
+        private EcsView _owner;
+        private bool _active;
 
-        private void Reset()
+        private void Awake()
         {
-            _hitbox = GetComponent<Collider>();
-            _hitbox.isTrigger = true;
+            if (_owner == null)
+                _owner = GetComponentInParent<EcsView>();
         }
-
-        public void EnableHitbox()  => _hitbox.enabled = true;
-        public void DisableHitbox() => _hitbox.enabled = false;
 
         private void OnTriggerEnter(Collider other)
         {
-            if (!other.TryGetComponent(out EcsView targetView))
+            if (!other.TryGetComponent(out EcsView target))
                 return;
 
             var systems = EcsAdmin.Systems;
-            var world   = systems.GetWorld();
-
-            var attacker = _owner.GetPackedEntity();
-            var target   = targetView.GetPackedEntity();
+            
+            Debug.Log($"attacker: {_owner.GetPackedEntity().Id}, target: {target.GetPackedEntity().Id}");
           
-            world.GetEvent<MeleeHitRequest>().Fire(new MeleeHitRequest {
-                attacker = attacker,
-                target   = target
+            systems.GetWorld().GetEvent<MeleeHitRequest>().Fire(new MeleeHitRequest {
+                attacker = _owner.GetPackedEntity(),
+                target   = target.GetPackedEntity()
             });
         }
     }

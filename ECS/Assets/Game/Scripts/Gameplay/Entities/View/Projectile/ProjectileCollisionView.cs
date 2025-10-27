@@ -13,8 +13,6 @@ namespace ECSGame
                 return;
 
             var systems = EcsAdmin.Systems;
-            Debug.Log($"OnTriggerEnter, {other.name}, {target.Name}");
-            
             
             systems.GetWorld().GetEvent<ProjectileCollisionRequest>().Fire(new ProjectileCollisionRequest
             {

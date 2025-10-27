@@ -1,6 +1,7 @@
 ﻿using ECSGame;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
+using UnityEngine;
 
 namespace Client.Entities.Core.TakeDamage
 {
@@ -21,8 +22,14 @@ namespace Client.Entities.Core.TakeDamage
 
             ref int damage = ref _damages.Value.Get(sourceId).value;
 
-            if (!_healthUseCase.Value.Reduce(targetId, damage))
-                return false;
+            if (_healthUseCase.Value.Reduce(targetId, damage))
+            {
+                _world.Value.GetEvent<DamageFxEvent>().Fire(new DamageFxEvent
+                {
+                    entity = target,
+                    isDestroyed = !_healthUseCase.Value.Exists(targetId)
+                });
+            }
             
             _takeDamageEvents.Value.Fire(new TakeDamageEvent
             {

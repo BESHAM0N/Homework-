@@ -8,12 +8,12 @@ namespace ECSGame
     public sealed class SwordmanPrototype : EcsPrototype
     {
         [SerializeField] private float _moveSpeed = 3;
-        [SerializeField] private float _rotationSpeed = 0.3f;
-        [SerializeField] private int _health = 5;
-        [SerializeField] private float _fireCooldown = 4f;
+        [SerializeField] private float _rotationSpeed = 10f;
+        [SerializeField] private int _health = 20;
+        [SerializeField] private float _fireCooldown = 2f;
 
-        [SerializeField] private float _range = 5f;
-        [SerializeField] private int _damage = 2;
+        [SerializeField] private float _range = 3f;
+        [SerializeField] private int _damage = 5;
 
         protected override void Install(in EcsWorld world, in int entity)
         {
