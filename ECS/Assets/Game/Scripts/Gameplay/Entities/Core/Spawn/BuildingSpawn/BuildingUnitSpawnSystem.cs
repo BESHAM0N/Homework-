@@ -1,23 +1,24 @@
 ﻿using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
-using UnityEngine;
 
 namespace ECSGame
 {
     public sealed class BuildingUnitSpawnSystem : IEcsRunSystem
     {
-        private readonly EcsPrototypeCatalog _prototypes;
-        private readonly TeamViewConfig _teamView;
-
-        public BuildingUnitSpawnSystem(EcsPrototypeCatalog prototypes, TeamViewConfig teamView)
-        {
-            _prototypes = prototypes;
-            _teamView = teamView;
-        }
-
+        // private readonly EcsPrototypeCatalog _prototypes;
+        // private readonly TeamViewConfig _teamView;
+        //
+        // public BuildingUnitSpawnSystem(EcsPrototypeCatalog prototypes, TeamViewConfig teamView)
+        // {
+        //     _prototypes = prototypes;
+        //     _teamView = teamView;
+        // }
+        
+        private readonly EcsCustomInject<EcsPrototypeCatalog> _prototypes;
+        private readonly EcsCustomInject<TeamViewConfig> _teamView;
         private readonly EcsEventInject<BuildingSpawnEvent> _events;
         private readonly EcsEventInject<UnitSpawnRequest> _spawns;
-        private readonly EcsUseCaseInject<BaseQueryUseCase> _baseQuery;
+        private readonly EcsUseCaseInject<BuildingQueryUseCase> _baseQuery;
         private readonly EcsUseCaseInject<SpawnTransformUseCase> _spawnTrs;
         private readonly EcsUseCaseInject<TeamUseCase> _teamUse;
 
@@ -30,18 +31,14 @@ namespace ECSGame
                 {
                     baseEntity = _baseQuery.Value.FindBase(buildingSpawnEvent.team);
                     if (baseEntity == -1)
-                    {
-                        Debug.LogWarning(
-                            $"[BuildingUnitSpawnSystem] Base not found for team {buildingSpawnEvent.team}");
                         continue;
-                    }
                 }
 
                 var team = _teamUse.Value.GetTeam(baseEntity);
                 var (position, rotation) = _spawnTrs.Value.GetNext(baseEntity);
 
-                var prototype = _prototypes.GetPrototype(buildingSpawnEvent.unitType.ToString());
-                var viewKey = TeamViewUseCase.GetViewKey(_teamView, team, buildingSpawnEvent.unitType);
+                var prototype = _prototypes.Value.GetPrototype(buildingSpawnEvent.unitType.ToString());
+                var viewKey = TeamViewUseCase.GetViewKey(_teamView.Value, team, buildingSpawnEvent.unitType);
 
                 _spawns.Value.Fire(new UnitSpawnRequest
                 {

@@ -1,5 +1,6 @@
 ﻿using Client.Entities.Core.TakeDamage;
 using Leopotam.EcsLite;
+using Leopotam.EcsLite.Di;
 using Leopotam.EcsLite.ExtendedSystems;
 using UnityEngine;
 
@@ -22,7 +23,8 @@ namespace ECSGame
             EcsSystems systems = new EcsSystems(world);
 
             systems
-                .Add(new BuildingUnitSpawnSystem(_prototypeCatalog, _teamViewConfig))
+                .Add(new BootstrapSystem())
+                .Add(new BuildingUnitSpawnSystem())
                 .Add(new UnitSpawnSystem())
                 .Add(new ProjectileSpawnSystem())
                 

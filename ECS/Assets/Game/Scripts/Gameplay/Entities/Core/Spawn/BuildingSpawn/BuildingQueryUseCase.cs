@@ -2,7 +2,7 @@
 
 namespace ECSGame
 {
-    public readonly struct BaseQueryUseCase
+    public readonly struct BuildingQueryUseCase
     {
         private readonly EcsWorldInject _world;
         private readonly EcsPoolInject<BuildingTag> _buildings;
